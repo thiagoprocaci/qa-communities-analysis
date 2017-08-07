@@ -1,6 +1,8 @@
 package com.tbp.extractor.support
 
+import org.springframework.stereotype.Component
 
+@Component
 class NumberUtil {
 
     Long toLong(String s) {

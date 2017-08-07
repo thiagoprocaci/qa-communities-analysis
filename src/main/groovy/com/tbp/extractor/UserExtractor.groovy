@@ -19,10 +19,12 @@ class UserExtractor {
     CommunityRepository communityRepository
     @Autowired
     UserRepository userRepository
-
-    LineSupport lineSupport = new LineSupport()
-    DateUtil dateUtil = new DateUtil()
-    NumberUtil numberUtil = new NumberUtil()
+    @Autowired
+    LineSupport lineSupport
+    @Autowired
+    DateUtil dateUtil
+    @Autowired
+    NumberUtil numberUtil
 
     void execute(String community) {
        Community c = communityRepository.findByName(community)

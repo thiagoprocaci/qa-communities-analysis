@@ -1,6 +1,8 @@
 package com.tbp.extractor.support
 
+import org.springframework.stereotype.Component
 
+@Component
 class LineSupport {
 
     String prepareLine(String line) {
