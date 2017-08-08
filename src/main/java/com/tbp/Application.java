@@ -2,7 +2,7 @@ package com.tbp;
 
 
 import com.tbp.extractor.CommunityExtractor;
-import com.tbp.extractor.QuestionExtractor;
+import com.tbp.extractor.PostExtractor;
 import com.tbp.extractor.UserExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,7 +18,7 @@ public class Application implements CommandLineRunner {
     UserExtractor userExtractor;
 
     @Autowired
-    QuestionExtractor questionExtractor;
+    PostExtractor postExtractor;
 
 
     public static void main(String[] args) {
@@ -27,9 +27,9 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        String community = "biology.stackexchange.com";
-        //communityExtractor.execute(community);
-        //userExtractor.execute(community);
-        questionExtractor.execute(community);
+        String community = "ai.stackexchange.com";
+        communityExtractor.execute(community);
+        userExtractor.execute(community);
+        postExtractor.execute(community);
     }
 }

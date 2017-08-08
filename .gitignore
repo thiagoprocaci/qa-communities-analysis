@@ -16,11 +16,11 @@ target/
 .idea/
 
 *.7z
-Badges.xml
-Comments.xml
-PostHistory.xml
-PostLinks.xml
+#Badges.xml
+#Comments.xml
+#PostHistory.xml
+#PostLinks.xml
 #Posts.xml
-Tags.xml
+#Tags.xml
 #Users.xml
-Votes.xml
+#Votes.xml
