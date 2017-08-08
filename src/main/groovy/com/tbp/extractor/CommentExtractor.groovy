@@ -3,21 +3,22 @@ package com.tbp.extractor
 import com.tbp.extractor.support.DateUtil
 import com.tbp.extractor.support.LineSupport
 import com.tbp.extractor.support.NumberUtil
+import com.tbp.model.Comment
 import com.tbp.model.Community
-
+import com.tbp.model.Post
+import com.tbp.model.User
 import com.tbp.model.Vote
+import com.tbp.repository.CommentRepository
 import com.tbp.repository.CommunityRepository
 import com.tbp.repository.PostRepository
 import com.tbp.repository.UserRepository
-import com.tbp.repository.VoteRepository
 import groovy.xml.DOMBuilder
 import groovy.xml.dom.DOMCategory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
-
 @Component
-class VoteExtractor {
+class CommentExtractor {
 
     @Autowired
     CommunityRepository communityRepository
@@ -30,13 +31,13 @@ class VoteExtractor {
     @Autowired
     NumberUtil numberUtil
     @Autowired
-    VoteRepository voteRepository
-    @Autowired
     PostRepository postRepository
+    @Autowired
+    CommentRepository commentRepository
 
     void execute(String community) {
         Community c = communityRepository.findByName(community)
-        File inputFile = new File('src/main/resources/' + community + File.separator + 'Votes.xml');
+        File inputFile = new File('src/main/resources/' + community + File.separator + 'Comments.xml');
 
         inputFile.eachLine{ it, i ->
             def line = lineSupport.prepareLine(it)
@@ -46,23 +47,20 @@ class VoteExtractor {
                 def doc = DOMBuilder.parse(reader)
                 def row = doc.documentElement
                 use(DOMCategory) {
-                    Vote vote = new Vote()
-                    vote.idVoteCommunity = numberUtil.toLong(row['@Id'])
-                    if(voteRepository.findByCommunityAndIdVoteCommunity(c, vote.idVoteCommunity) == null){
-                        vote.idPostCommunity = numberUtil.toLong(row['@PostId'])
-                        vote.creationDate = dateUtil.toDate(row['@CreationDate'])
-                        vote.voteType = numberUtil.toInteger(row['@VoteTypeId'])
-                        vote.idUserCommunity = numberUtil.toLong(row['@UserId'])
-                        vote.bountyAmount = numberUtil.toInteger(row['@BountyAmount'])
-                        vote.community = c
-                        Integer userCommId = numberUtil.toLong(row['@UserId'])
-                        if( userCommId != null) {
-                            vote.user = userRepository.findByCommunityAndIdUserCommunity(c, userCommId)
+                    Comment u = new Comment()
+                    u.idCommentCommunity = numberUtil.toLong(row['@Id'])
+                    if(commentRepository.findByCommunityAndIdCommentCommunity(c, u.idCommentCommunity) == null){
+                        u.idPostCommunity = numberUtil.toLong(row['@PostId'])
+                        u.creationDate = dateUtil.toDate(row['@CreationDate'])
+                        u.score = numberUtil.toInteger(row['@Score'])
+                        u.text = row['@Text']
+                        u.idUserCommunity = numberUtil.toLong(row['@UserId'])
+                        u.community = c
+                        if( u.idUserCommunity != null) {
+                            u.user = userRepository.findByCommunityAndIdUserCommunity(c, u.idUserCommunity)
                         }
-                        vote.post = postRepository.findByCommunityAndIdPostCommunity(c, vote.idPostCommunity)
-
-                        voteRepository.save(vote)
-
+                        u.post = postRepository.findByCommunityAndIdPostCommunity(c, u.idPostCommunity)
+                        commentRepository.save(u)
                     }
 
                 }

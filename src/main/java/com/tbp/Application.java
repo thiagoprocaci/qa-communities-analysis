@@ -1,10 +1,7 @@
 package com.tbp;
 
 
-import com.tbp.extractor.CommunityExtractor;
-import com.tbp.extractor.PostExtractor;
-import com.tbp.extractor.UserExtractor;
-import com.tbp.extractor.VoteExtractor;
+import com.tbp.extractor.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,6 +20,8 @@ public class Application implements CommandLineRunner {
     @Autowired
     VoteExtractor voteExtractor;
 
+    @Autowired
+    CommentExtractor commentExtractor;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -35,5 +34,6 @@ public class Application implements CommandLineRunner {
         userExtractor.execute(community);
         postExtractor.execute(community);
         voteExtractor.execute(community);
+        commentExtractor.execute(community);
     }
 }
