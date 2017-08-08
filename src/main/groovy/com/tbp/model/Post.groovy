@@ -14,7 +14,7 @@ import javax.persistence.Table
 class Post {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id
     @Column(name = "id_post_comm")
     Long idPostCommunity

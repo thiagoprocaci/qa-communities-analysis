@@ -40,23 +40,21 @@ class UserExtractor {
                use(DOMCategory) {
                    User u = new User()
                    u.idUserCommunity = numberUtil.toLong(row['@Id'])
-                   u.reputation = numberUtil.toInteger(row['@Reputation'])
-                   u.creationDate = dateUtil.toDate(row['@CreationDate'])
-                   u.displayName = row['@DisplayName']
-                   u.lastAccessDate = dateUtil.toDate(row['@LastAccessDate'])
-                   u.websiteUrl = row['@WebsiteUrl']
-                   u.location = row['@Location']
-                   u.age = numberUtil.toInteger(row['@Age'])
-                   u.aboutMe = row['@AboutMe']
-                   u.views = numberUtil.toInteger(row['@Views'])
-                   u.upVotes = numberUtil.toInteger(row['@UpVotes'])
-                   u.downVotes = numberUtil.toInteger(row['@DownVotes'])
-                   u.community = c
-
                    if(userRepository.findByCommunityAndIdUserCommunity(c, u.idUserCommunity) == null){
+                       u.reputation = numberUtil.toInteger(row['@Reputation'])
+                       u.creationDate = dateUtil.toDate(row['@CreationDate'])
+                       u.displayName = row['@DisplayName']
+                       u.lastAccessDate = dateUtil.toDate(row['@LastAccessDate'])
+                       u.websiteUrl = row['@WebsiteUrl']
+                       u.location = row['@Location']
+                       u.age = numberUtil.toInteger(row['@Age'])
+                       u.aboutMe = row['@AboutMe']
+                       u.views = numberUtil.toInteger(row['@Views'])
+                       u.upVotes = numberUtil.toInteger(row['@UpVotes'])
+                       u.downVotes = numberUtil.toInteger(row['@DownVotes'])
+                       u.community = c
                        userRepository.save(u)
                    }
-
                }
            }
        }

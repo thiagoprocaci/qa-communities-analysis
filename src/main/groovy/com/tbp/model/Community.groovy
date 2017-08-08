@@ -15,7 +15,7 @@ import javax.persistence.Table
 class Community {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     @Column(name = "name", nullable = false, unique = true)
     String name;

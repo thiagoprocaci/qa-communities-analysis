@@ -49,29 +49,29 @@ class PostExtractor {
     def handlePost(def row, Community c) {
         Post post = new Post()
         post.idPostCommunity = numberUtil.toLong(row['@Id'])
-        post.creationDate = dateUtil.toDate(row['@CreationDate'])
-        post.acceptedAnswerId = numberUtil.toLong(row['@AcceptedAnswerId'])
-        post.score = numberUtil.toInteger(row['@Score'])
-        post.viewCount = numberUtil.toInteger(row['@ViewCount'])
-        post.body = row['@Body']
-        post.idUserCommunity = numberUtil.toLong(row['@OwnerUserId'])
-        post.lastEditorUserCommunityId = numberUtil.toLong(row['@LastEditorUserId'])
-        post.lastEditorDisplayName = row['@LastEditorDisplayName']
-        post.lastEditDate = dateUtil.toDate(row['@LastEditDate'])
-        post.lastActivityDate = dateUtil.toDate(row['@LastActivityDate'])
-        post.communityOwnedDate = dateUtil.toDate(row['@CommunityOwnedDate'])
-        post.closedDate = dateUtil.toDate(row['@ClosedDate'])
-        post.title = row['@Title']
-        post.tags = row['@Tags']
-        post.answerCount = numberUtil.toInteger(row['@AnswerCount'])
-        post.commentCount = numberUtil.toInteger(row['@CommentCount'])
-        post.favoriteCount = numberUtil.toInteger(row['@FavoriteCount'])
-        post.community = c
-        post.user = userRepository.findByCommunityAndIdUserCommunity(c, post.idUserCommunity)
-        post.ari = null
-        post.postType = numberUtil.toInteger(row['@PostTypeId'])
-        post.parentPostCommunityId = numberUtil.toLong(row['@ParentId'])
         if(postRepository.findByCommunityAndIdPostCommunity(c, post.idPostCommunity) == null) {
+            post.creationDate = dateUtil.toDate(row['@CreationDate'])
+            post.acceptedAnswerId = numberUtil.toLong(row['@AcceptedAnswerId'])
+            post.score = numberUtil.toInteger(row['@Score'])
+            post.viewCount = numberUtil.toInteger(row['@ViewCount'])
+            post.body = row['@Body']
+            post.idUserCommunity = numberUtil.toLong(row['@OwnerUserId'])
+            post.lastEditorUserCommunityId = numberUtil.toLong(row['@LastEditorUserId'])
+            post.lastEditorDisplayName = row['@LastEditorDisplayName']
+            post.lastEditDate = dateUtil.toDate(row['@LastEditDate'])
+            post.lastActivityDate = dateUtil.toDate(row['@LastActivityDate'])
+            post.communityOwnedDate = dateUtil.toDate(row['@CommunityOwnedDate'])
+            post.closedDate = dateUtil.toDate(row['@ClosedDate'])
+            post.title = row['@Title']
+            post.tags = row['@Tags']
+            post.answerCount = numberUtil.toInteger(row['@AnswerCount'])
+            post.commentCount = numberUtil.toInteger(row['@CommentCount'])
+            post.favoriteCount = numberUtil.toInteger(row['@FavoriteCount'])
+            post.community = c
+            post.user = userRepository.findByCommunityAndIdUserCommunity(c, post.idUserCommunity)
+            post.ari = null
+            post.postType = numberUtil.toInteger(row['@PostTypeId'])
+            post.parentPostCommunityId = numberUtil.toLong(row['@ParentId'])
             postRepository.save(post)
         }
     }
