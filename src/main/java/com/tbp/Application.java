@@ -14,14 +14,14 @@ public class Application implements CommandLineRunner {
     CommunityExtractor communityExtractor;
     @Autowired
     UserExtractor userExtractor;
-
     @Autowired
     PostExtractor postExtractor;
     @Autowired
     VoteExtractor voteExtractor;
-
     @Autowired
     CommentExtractor commentExtractor;
+    @Autowired
+    PostLinkExtractor postLinkExtractor;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -30,10 +30,11 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         String community = "ai.stackexchange.com";
-        communityExtractor.execute(community);
-        userExtractor.execute(community);
-        postExtractor.execute(community);
-        voteExtractor.execute(community);
-        commentExtractor.execute(community);
+        //communityExtractor.execute(community);
+        //userExtractor.execute(community);
+        //postExtractor.execute(community);
+        //voteExtractor.execute(community);
+        //commentExtractor.execute(community);
+        postLinkExtractor.execute(community);
     }
 }

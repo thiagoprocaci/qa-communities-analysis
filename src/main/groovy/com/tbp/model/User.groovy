@@ -1,6 +1,6 @@
 package com.tbp.model
 
-import groovy.transform.EqualsAndHashCode
+
 import groovy.transform.ToString
 
 import javax.persistence.Column
@@ -11,10 +11,13 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
+import javax.persistence.UniqueConstraint
 
 @ToString
 @Entity
-@Table(name = "user")
+@Table(name = "user",
+        uniqueConstraints = @UniqueConstraint(columnNames=["id_user_comm", "id_community"])
+)
 class User {
 
     @Id

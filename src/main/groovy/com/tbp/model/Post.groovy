@@ -8,9 +8,12 @@ import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 import javax.persistence.Table
+import javax.persistence.UniqueConstraint
 
 @Entity
-@Table(name = "post")
+@Table(name = "post",
+        uniqueConstraints = @UniqueConstraint(columnNames=["id_post_comm", "id_community"])
+)
 class Post {
 
     @Id

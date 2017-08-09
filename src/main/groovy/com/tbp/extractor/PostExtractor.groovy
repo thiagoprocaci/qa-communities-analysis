@@ -14,42 +14,30 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class PostExtractor {
+class PostExtractor extends AbstractExtractor {
 
-    @Autowired
-    LineSupport lineSupport
+
     @Autowired
     DateUtil dateUtil
     @Autowired
     NumberUtil numberUtil
     @Autowired
-    CommunityRepository communityRepository
-    @Autowired
     UserRepository userRepository
     @Autowired
     PostRepository postRepository
 
-    void execute(String community) {
-        Community c = communityRepository.findByName(community)
-        File inputFile = new File('src/main/resources/' + community + File.separator + 'Posts.xml');
 
-        inputFile.eachLine { it, i ->
-            def line = lineSupport.prepareLine(it)
-            if (line != null) {
-                def reader = new StringReader(line)
-                def doc = DOMBuilder.parse(reader)
-                def row = doc.documentElement
-                use(DOMCategory) {
-                    handlePost(row, c)
-                }
-            }
-        }
+    @Override
+    String getFileName() {
+        return 'Posts.xml'
     }
 
-    def handlePost(def row, Community c) {
-        Post post = new Post()
-        post.idPostCommunity = numberUtil.toLong(row['@Id'])
-        if(postRepository.findByCommunityAndIdPostCommunity(c, post.idPostCommunity) == null) {
+    @Override
+    void onExecute(Object row, Community c) {
+        Long idPostCommunity = numberUtil.toLong(row['@Id'])
+        if(postRepository.findByCommunityAndIdPostCommunity(c, idPostCommunity) == null) {
+            Post post = new Post()
+            post.idPostCommunity = numberUtil.toLong(row['@Id'])
             post.creationDate = dateUtil.toDate(row['@CreationDate'])
             post.acceptedAnswerId = numberUtil.toLong(row['@AcceptedAnswerId'])
             post.score = numberUtil.toInteger(row['@Score'])

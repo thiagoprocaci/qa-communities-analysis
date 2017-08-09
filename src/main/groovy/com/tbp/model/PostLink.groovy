@@ -10,38 +10,38 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 import javax.persistence.UniqueConstraint
 
-
 @Entity
-@Table(name = "comment",
-        uniqueConstraints = @UniqueConstraint(columnNames=["id_comment_comm", "id_community"])
+@Table(name = "post_link",
+        uniqueConstraints = @UniqueConstraint(columnNames=["id_post_link_comm", "id_community"])
 )
-class Comment {
+class PostLink {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id
-    @Column(name = "id_comment_comm")
-    Long idCommentCommunity
-    @Column(name = "id_post_comm")
-    Long idPostCommunity
-    @Column(name = "score")
-    Integer score
-    @Column(name = "text")
-    String text
+    @Column(name = "id_post_link_comm")
+    Long idPostLinkCommunity
     @Column(name = "creation_date")
     Date creationDate
-    @Column(name = "id_user_comm")
-    Long idUserCommunity
+    @Column(name = "id_post_comm")
+    Long idPostCommunity
+    @Column(name = "id_related_post_comm")
+    Long idRelatedPostCommunity
+    @Column(name = "post_link_type")
+    Integer postLinkType
 
     @ManyToOne
     @JoinColumn(name = "id_community")
     Community community
-    @ManyToOne
-    @JoinColumn(name = "id_user")
-    User user
+
     @ManyToOne
     @JoinColumn(name = "id_post")
     Post post
+
+    @ManyToOne
+    @JoinColumn(name = "id_related_post")
+    Post relatedPost
+
 
 
 }
