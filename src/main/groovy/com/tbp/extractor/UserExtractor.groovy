@@ -2,6 +2,7 @@ package com.tbp.extractor
 
 import com.tbp.extractor.support.DateUtil
 import com.tbp.extractor.support.NumberUtil
+import com.tbp.extractor.support.StringSupport
 import com.tbp.model.Community
 import com.tbp.model.User
 import com.tbp.repository.UserRepository
@@ -18,6 +19,8 @@ class UserExtractor extends AbstractExtractor {
     DateUtil dateUtil
     @Autowired
     NumberUtil numberUtil
+    @Autowired
+    StringSupport stringSupport
 
     @Override
     String getFileName() {
@@ -32,12 +35,12 @@ class UserExtractor extends AbstractExtractor {
             u.idUserCommunity = idUserCommunity
             u.reputation = numberUtil.toInteger(row['@Reputation'])
             u.creationDate = dateUtil.toDate(row['@CreationDate'])
-            u.displayName = row['@DisplayName']
+            u.displayName = stringSupport.prepare(row['@DisplayName'])
             u.lastAccessDate = dateUtil.toDate(row['@LastAccessDate'])
-            u.websiteUrl = row['@WebsiteUrl']
-            u.location = row['@Location']
+            u.websiteUrl = stringSupport.prepare(row['@WebsiteUrl'])
+            u.location = stringSupport.prepare(row['@Location'])
             u.age = numberUtil.toInteger(row['@Age'])
-            u.aboutMe = row['@AboutMe']
+            u.aboutMe = stringSupport.prepare(row['@AboutMe'])
             u.views = numberUtil.toInteger(row['@Views'])
             u.upVotes = numberUtil.toInteger(row['@UpVotes'])
             u.downVotes = numberUtil.toInteger(row['@DownVotes'])

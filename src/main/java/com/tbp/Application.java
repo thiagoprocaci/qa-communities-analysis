@@ -30,11 +30,11 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         String community = "ai.stackexchange.com";
-        //communityExtractor.execute(community);
-        //userExtractor.execute(community);
-        //postExtractor.execute(community);
-        //voteExtractor.execute(community);
-        //commentExtractor.execute(community);
+        communityExtractor.execute(community);
+        userExtractor.execute(community);
+        postExtractor.execute(community);
+        voteExtractor.execute(community);
+        commentExtractor.execute(community);
         postLinkExtractor.execute(community);
     }
 }

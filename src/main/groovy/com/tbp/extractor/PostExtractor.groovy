@@ -1,15 +1,14 @@
 package com.tbp.extractor
 
 import com.tbp.extractor.support.DateUtil
-import com.tbp.extractor.support.LineSupport
 import com.tbp.extractor.support.NumberUtil
+import com.tbp.extractor.support.StringSupport
 import com.tbp.model.Community
 import com.tbp.model.Post
-import com.tbp.repository.CommunityRepository
+
 import com.tbp.repository.PostRepository
 import com.tbp.repository.UserRepository
-import groovy.xml.DOMBuilder
-import groovy.xml.dom.DOMCategory
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
@@ -25,7 +24,8 @@ class PostExtractor extends AbstractExtractor {
     UserRepository userRepository
     @Autowired
     PostRepository postRepository
-
+    @Autowired
+    StringSupport stringSupport
 
     @Override
     String getFileName() {
@@ -42,7 +42,7 @@ class PostExtractor extends AbstractExtractor {
             post.acceptedAnswerId = numberUtil.toLong(row['@AcceptedAnswerId'])
             post.score = numberUtil.toInteger(row['@Score'])
             post.viewCount = numberUtil.toInteger(row['@ViewCount'])
-            post.body = row['@Body']
+            post.body = stringSupport.prepare(row['@Body'])
             post.idUserCommunity = numberUtil.toLong(row['@OwnerUserId'])
             post.lastEditorUserCommunityId = numberUtil.toLong(row['@LastEditorUserId'])
             post.lastEditorDisplayName = row['@LastEditorDisplayName']
@@ -50,8 +50,8 @@ class PostExtractor extends AbstractExtractor {
             post.lastActivityDate = dateUtil.toDate(row['@LastActivityDate'])
             post.communityOwnedDate = dateUtil.toDate(row['@CommunityOwnedDate'])
             post.closedDate = dateUtil.toDate(row['@ClosedDate'])
-            post.title = row['@Title']
-            post.tags = row['@Tags']
+            post.title = stringSupport.prepare(row['@Title'])
+            post.tags = stringSupport.prepare(row['@Tags'])
             post.answerCount = numberUtil.toInteger(row['@AnswerCount'])
             post.commentCount = numberUtil.toInteger(row['@CommentCount'])
             post.favoriteCount = numberUtil.toInteger(row['@FavoriteCount'])

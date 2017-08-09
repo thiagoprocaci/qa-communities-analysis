@@ -3,7 +3,6 @@ package com.tbp.extractor
 import com.tbp.extractor.support.DateUtil
 import com.tbp.extractor.support.NumberUtil
 import com.tbp.model.Community
-import com.tbp.model.Post
 import com.tbp.model.PostLink
 import com.tbp.repository.PostLinkRepository
 import com.tbp.repository.PostRepository
@@ -21,6 +20,7 @@ class PostLinkExtractor extends AbstractExtractor {
     PostRepository postRepository
     @Autowired
     PostLinkRepository postLinkRepository
+
 
     @Override
     String getFileName() {

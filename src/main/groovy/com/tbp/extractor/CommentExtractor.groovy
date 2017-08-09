@@ -3,6 +3,7 @@ package com.tbp.extractor
 import com.tbp.extractor.support.DateUtil
 import com.tbp.extractor.support.LineSupport
 import com.tbp.extractor.support.NumberUtil
+import com.tbp.extractor.support.StringSupport
 import com.tbp.model.Comment
 import com.tbp.model.Community
 
@@ -32,7 +33,8 @@ class CommentExtractor extends AbstractExtractor {
     PostRepository postRepository
     @Autowired
     CommentRepository commentRepository
-
+    @Autowired
+    StringSupport stringSupport
 
     @Override
     String getFileName() {
@@ -48,7 +50,7 @@ class CommentExtractor extends AbstractExtractor {
             comment.idPostCommunity = numberUtil.toLong(row['@PostId'])
             comment.creationDate = dateUtil.toDate(row['@CreationDate'])
             comment.score = numberUtil.toInteger(row['@Score'])
-            comment.text = row['@Text']
+            comment.text = stringSupport.prepare(row['@Text'])
             comment.idUserCommunity = numberUtil.toLong(row['@UserId'])
             comment.community = c
             if( comment.idUserCommunity != null) {
