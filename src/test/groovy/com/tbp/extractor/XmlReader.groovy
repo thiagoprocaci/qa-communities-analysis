@@ -8,6 +8,7 @@ import com.tbp.model.Comment
 import com.tbp.model.Post
 import com.tbp.model.PostLink
 import com.tbp.model.User
+import com.tbp.model.Vote
 import groovy.xml.DOMBuilder
 import groovy.xml.dom.DOMCategory
 
@@ -22,6 +23,35 @@ class XmlReader {
 
     File getInputFile(String community, String fileName) {
         return new File('src/main/resources/' + community + File.separator + fileName);
+    }
+
+
+    Vote getVoteFromXml(String community, String fileName, long lineNumber) {
+        File inputFile = getInputFile(community, fileName)
+        long count = 0;
+        Vote vote = null
+        inputFile.eachLine{ it, i ->
+            def line = lineSupport.prepareLine(it)
+            if(line != null) {
+                count++;
+                if (count == lineNumber) {
+                    def reader = new StringReader(line)
+                    def doc = DOMBuilder.parse(reader)
+                    def row = doc.documentElement
+
+                    use(DOMCategory) {
+                        vote = new Vote()
+                        vote.idVoteCommunity = numberUtil.toLong(row['@Id'])
+                        vote.idPostCommunity = numberUtil.toLong(row['@PostId'])
+                        vote.creationDate = dateUtil.toDate(row['@CreationDate'])
+                        vote.voteType = numberUtil.toInteger(row['@VoteTypeId'])
+                        vote.idUserCommunity = numberUtil.toLong(row['@UserId'])
+                        vote.bountyAmount = numberUtil.toInteger(row['@BountyAmount'])
+                    }
+                }
+            }
+        }
+        return vote
     }
 
     PostLink getPostLinkFromXml(String community, String fileName, long lineNumber) {

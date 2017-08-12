@@ -32,7 +32,10 @@ public class BaseExtractorTest {
     PostLinkRepository postLinkRepository;
     @Autowired
     PostLinkExtractor postLinkExtractor;
-
+    @Autowired
+    VoteRepository voteRepository;
+    @Autowired
+    VoteExtractor voteExtractor;
 
     Random random = new Random();
     XmlReader xmlReader = new XmlReader();
