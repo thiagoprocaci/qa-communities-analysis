@@ -33,7 +33,7 @@ class Post {
     Integer score
     @Column(name = "view_count")
     Integer viewCount
-    @Column(name = "body")
+    @Column(name = "body", columnDefinition = "TEXT")
     String body
     @Column(name = "id_user_community")
     Long idUserCommunity

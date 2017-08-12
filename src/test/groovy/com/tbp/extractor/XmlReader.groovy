@@ -4,6 +4,7 @@ import com.tbp.extractor.support.DateUtil
 import com.tbp.extractor.support.LineSupport
 import com.tbp.extractor.support.NumberUtil
 import com.tbp.extractor.support.StringSupport
+import com.tbp.model.Post
 import com.tbp.model.User
 import groovy.xml.DOMBuilder
 import groovy.xml.dom.DOMCategory
@@ -22,7 +23,49 @@ class XmlReader {
     }
 
 
-    User getFromXml(String community, String fileName, long lineNumber) {
+    Post getPostFromXml(String community, String fileName, long lineNumber) {
+        File inputFile = getInputFile(community, fileName)
+        long count = 0;
+        Post post = null
+        inputFile.eachLine{ it, i ->
+            def line = lineSupport.prepareLine(it)
+            if(line != null) {
+                count++;
+                if (count == lineNumber) {
+                    def reader = new StringReader(line)
+                    def doc = DOMBuilder.parse(reader)
+                    def row = doc.documentElement
+                    use(DOMCategory) {
+                        post = new Post()
+                        post.idPostCommunity = numberUtil.toLong(row['@Id'])
+                        post.creationDate = dateUtil.toDate(row['@CreationDate'])
+                        post.acceptedAnswerId = numberUtil.toLong(row['@AcceptedAnswerId'])
+                        post.score = numberUtil.toInteger(row['@Score'])
+                        post.viewCount = numberUtil.toInteger(row['@ViewCount'])
+                        post.body = stringSupport.prepare(row['@Body'])
+                        post.idUserCommunity = numberUtil.toLong(row['@OwnerUserId'])
+                        post.lastEditorUserCommunityId = numberUtil.toLong(row['@LastEditorUserId'])
+                        post.lastEditorDisplayName = row['@LastEditorDisplayName']
+                        post.lastEditDate = dateUtil.toDate(row['@LastEditDate'])
+                        post.lastActivityDate = dateUtil.toDate(row['@LastActivityDate'])
+                        post.communityOwnedDate = dateUtil.toDate(row['@CommunityOwnedDate'])
+                        post.closedDate = dateUtil.toDate(row['@ClosedDate'])
+                        post.title = stringSupport.prepare(row['@Title'])
+                        post.tags = stringSupport.prepare(row['@Tags'])
+                        post.answerCount = numberUtil.toInteger(row['@AnswerCount'])
+                        post.commentCount = numberUtil.toInteger(row['@CommentCount'])
+                        post.favoriteCount = numberUtil.toInteger(row['@FavoriteCount'])
+                        post.postType = numberUtil.toInteger(row['@PostTypeId'])
+                        post.parentPostCommunityId = numberUtil.toLong(row['@ParentId'])
+                    }
+                }
+            }
+        }
+        return post
+    }
+
+
+    User getUserFromXml(String community, String fileName, long lineNumber) {
         File inputFile = getInputFile(community, fileName)
         long count = 0;
         User u = null
