@@ -26,7 +26,7 @@ class Comment {
     Long idPostCommunity
     @Column(name = "score")
     Integer score
-    @Column(name = "text")
+    @Column(name = "text", columnDefinition = "TEXT")
     String text
     @Column(name = "creation_date")
     Date creationDate

@@ -4,6 +4,7 @@ import com.tbp.extractor.support.DateUtil
 import com.tbp.extractor.support.LineSupport
 import com.tbp.extractor.support.NumberUtil
 import com.tbp.extractor.support.StringSupport
+import com.tbp.model.Comment
 import com.tbp.model.Post
 import com.tbp.model.User
 import groovy.xml.DOMBuilder
@@ -20,6 +21,33 @@ class XmlReader {
 
     File getInputFile(String community, String fileName) {
         return new File('src/main/resources/' + community + File.separator + fileName);
+    }
+
+    Comment getCommentFromXml(String community, String fileName, long lineNumber) {
+        File inputFile = getInputFile(community, fileName)
+        long count = 0;
+        Comment comment = null
+        inputFile.eachLine{ it, i ->
+            def line = lineSupport.prepareLine(it)
+            if(line != null) {
+                count++;
+                if (count == lineNumber) {
+                    def reader = new StringReader(line)
+                    def doc = DOMBuilder.parse(reader)
+                    def row = doc.documentElement
+                    use(DOMCategory) {
+                        comment = new Comment()
+                        comment.idCommentCommunity = numberUtil.toLong(row['@Id'])
+                        comment.idPostCommunity = numberUtil.toLong(row['@PostId'])
+                        comment.creationDate = dateUtil.toDate(row['@CreationDate'])
+                        comment.score = numberUtil.toInteger(row['@Score'])
+                        comment.text = stringSupport.prepare(row['@Text'])
+                        comment.idUserCommunity = numberUtil.toLong(row['@UserId'])
+                    }
+                }
+            }
+        }
+        return comment
     }
 
 

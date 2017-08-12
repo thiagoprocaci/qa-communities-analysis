@@ -1,6 +1,7 @@
 package com.tbp.extractor;
 
 
+import com.tbp.repository.CommentRepository;
 import com.tbp.repository.CommunityRepository;
 import com.tbp.repository.PostRepository;
 import com.tbp.repository.UserRepository;
@@ -26,6 +27,10 @@ public class BaseExtractorTest {
     PostExtractor postExtractor;
     @Autowired
     PostRepository postRepository;
+    @Autowired
+    CommentRepository commentRepository;
+    @Autowired
+    CommentExtractor commentExtractor;
 
     Random random = new Random();
     XmlReader xmlReader = new XmlReader();
