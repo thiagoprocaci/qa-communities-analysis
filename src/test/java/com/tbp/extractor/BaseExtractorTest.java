@@ -1,10 +1,7 @@
 package com.tbp.extractor;
 
 
-import com.tbp.repository.CommentRepository;
-import com.tbp.repository.CommunityRepository;
-import com.tbp.repository.PostRepository;
-import com.tbp.repository.UserRepository;
+import com.tbp.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedReader;
@@ -31,6 +28,11 @@ public class BaseExtractorTest {
     CommentRepository commentRepository;
     @Autowired
     CommentExtractor commentExtractor;
+    @Autowired
+    PostLinkRepository postLinkRepository;
+    @Autowired
+    PostLinkExtractor postLinkExtractor;
+
 
     Random random = new Random();
     XmlReader xmlReader = new XmlReader();
