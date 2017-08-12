@@ -2,6 +2,7 @@ package com.tbp.extractor.support
 
 import org.springframework.stereotype.Component
 
+import java.text.ParseException
 import java.text.SimpleDateFormat
 
 @Component
@@ -14,7 +15,11 @@ class DateUtil {
             return null
         }
         String date = s.replace('T',' ');
-        return dt.parse(date)
+        try {
+            return dt.parse(date)
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
 }

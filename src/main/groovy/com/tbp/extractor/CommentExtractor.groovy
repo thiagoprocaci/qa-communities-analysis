@@ -11,8 +11,6 @@ import com.tbp.repository.CommentRepository
 import com.tbp.repository.CommunityRepository
 import com.tbp.repository.PostRepository
 import com.tbp.repository.UserRepository
-import groovy.xml.DOMBuilder
-import groovy.xml.dom.DOMCategory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
