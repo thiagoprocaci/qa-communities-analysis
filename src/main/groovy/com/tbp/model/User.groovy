@@ -39,7 +39,7 @@ class User {
     String location
     @Column(name = "age")
     Integer age;
-    @Column(name = "about_me")
+    @Column(name = "about_me", columnDefinition = "TEXT")
     String aboutMe;
     @Column(name = "views", nullable = false)
     Integer views;
