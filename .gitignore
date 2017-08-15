@@ -16,11 +16,9 @@ target/
 .idea/
 
 *.7z
-#Badges.xml
-#Comments.xml
-#PostHistory.xml
-#PostLinks.xml
-#Posts.xml
-#Tags.xml
-#Users.xml
-#Votes.xml
+android.stackexchange.com/
+askubuntu.com/
+biology.stackexchange.com/
+chemistry.stackexchange.com/
+dba.stackexchange.com/
+english.stackexchange.com/
