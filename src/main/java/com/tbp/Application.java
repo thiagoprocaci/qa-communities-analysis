@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import java.util.Date;
+
 import java.util.List;
 
 
@@ -39,23 +39,26 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        String[] communities = new String[]{}; //new String[]{"android.stackexchange.com" "chemistry.stackexchange.com"};
+        String[] communities = new String[]{"android.stackexchange.com"};
+              //  new String[]{};
         for (String community: communities) {
-            System.out.println("communityExtractor" + " " + community);
+
+            dateService.updateCommunityPeriods(community);
+           // System.out.println("communityExtractor" + " " + community);
         //    communityExtractor.execute(community);
-            System.out.println("userExtractor" + " " + community);
+           // System.out.println("userExtractor" + " " + community);
         //    userExtractor.execute(community);
-            System.out.println("postExtractor" + " " + community);
+           // System.out.println("postExtractor" + " " + community);
        //     postExtractor.execute(community);
-            System.out.println("voteExtractor" + " " + community);
+           // System.out.println("voteExtractor" + " " + community);
         //    voteExtractor.execute(community);
-            System.out.println("commentExtractor" + " " + community);
+           // System.out.println("commentExtractor" + " " + community);
         //    commentExtractor.execute(community);
-            System.out.println("postLinkExtractor" + " " + community);
+           // System.out.println("postLinkExtractor" + " " + community);
         //    postLinkExtractor.execute(community);
         }
-        String community = "meta.3dprinting.stackexchange.com";
-        List<Interval> intervalList = dateService.generateInterval(community);
-        System.out.println(intervalList);
+       // String community = "meta.3dprinting.stackexchange.com";
+
+
     }
 }

@@ -8,6 +8,8 @@ import org.joda.time.Interval
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
+import java.text.SimpleDateFormat
+
 @Component
 class DateService {
 
@@ -15,6 +17,11 @@ class DateService {
     DateRepository dateRepository
     @Autowired
     CommunityRepository communityRepository
+
+    void updateCommunityPeriods(String communityName) {
+        List<Interval> intervalList = generateInterval(communityName)
+        dateRepository.updatePeriod(communityName, intervalList)
+    }
 
     List<Interval> generateInterval(String communityName) {
         Community c = communityRepository.findByName(communityName)

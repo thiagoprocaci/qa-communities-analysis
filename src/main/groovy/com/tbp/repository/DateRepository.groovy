@@ -1,11 +1,17 @@
 package com.tbp.repository
 
+import org.joda.time.Interval
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Component
 
+import java.text.SimpleDateFormat
+
 @Component
 class DateRepository {
+
+
 
     @Autowired
     JdbcTemplate jdbcTemplate
@@ -50,6 +56,24 @@ class DateRepository {
             return d
         }
         return null
+    }
+
+    void updatePeriod(String communityName,  List<Interval> intervalList) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        for(int i = 0; i < intervalList.size(); i++) {
+            Interval interval = intervalList.get(i);
+            Date start = interval.getStart().toDate();
+            Date end = interval.getEnd().toDate();
+            String s = "update post p  " +
+                    " inner join community c on c.id = p.id_community " +
+                    " set p.period = %s " +
+                    " where (creation_date BETWEEN '%s' AND '%s') and " +
+                    " c.name = '%s'";
+            String sql = String.format(s, i, format.format(start), format.format(end), communityName)
+            println sql
+            jdbcTemplate.execute(sql)
+
+        }
     }
 
 }
