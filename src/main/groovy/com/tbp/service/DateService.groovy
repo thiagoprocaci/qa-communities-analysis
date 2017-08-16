@@ -25,16 +25,18 @@ class DateService {
 
     List<Interval> generateInterval(Date min, Date max) {
         List<Interval> dateList = new ArrayList<Interval>();
-        DateTime minDate = new DateTime(min);
-        DateTime maxDate = new DateTime(max);
-        DateTime aux = new DateTime(minDate);
-        while(aux.isBefore(maxDate)) {
-            Date start = aux.toDate()
-            aux = aux.plusMonths(1);
-            Date end = aux.toDate()
-            Interval interval = new Interval(start.getTime(), end.getTime());
-            dateList.add(interval);
-            aux = aux.plusSeconds(1);
+        if(min != null && max != null) {
+            DateTime minDate = new DateTime(min);
+            DateTime maxDate = new DateTime(max);
+            DateTime aux = new DateTime(minDate);
+            while(aux.isBefore(maxDate)) {
+                Date start = aux.toDate()
+                aux = aux.plusMonths(1);
+                Date end = aux.toDate()
+                Interval interval = new Interval(start.getTime(), end.getTime());
+                dateList.add(interval);
+                aux = aux.plusSeconds(1);
+            }
         }
         return dateList;
     }
