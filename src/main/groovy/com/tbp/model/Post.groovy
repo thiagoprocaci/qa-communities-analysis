@@ -67,6 +67,8 @@ class Post {
     User user
     @Column(name = "ari")
     Integer ari
+    @Column(name = "period")
+    Integer period;
 
 
 }

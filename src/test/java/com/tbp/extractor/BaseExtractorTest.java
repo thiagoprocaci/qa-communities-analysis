@@ -13,33 +13,33 @@ import java.util.Random;
 public class BaseExtractorTest {
 
     @Autowired
-    UserExtractor userExtractor;
+    protected UserExtractor userExtractor;
     @Autowired
-    CommunityExtractor communityExtractor;
+    protected CommunityExtractor communityExtractor;
     @Autowired
-    CommunityRepository communityRepository;
+    protected CommunityRepository communityRepository;
     @Autowired
-    UserRepository userRepository;
+    protected UserRepository userRepository;
     @Autowired
-    PostExtractor postExtractor;
+    protected PostExtractor postExtractor;
     @Autowired
-    PostRepository postRepository;
+    protected PostRepository postRepository;
     @Autowired
-    CommentRepository commentRepository;
+    protected CommentRepository commentRepository;
     @Autowired
-    CommentExtractor commentExtractor;
+    protected CommentExtractor commentExtractor;
     @Autowired
-    PostLinkRepository postLinkRepository;
+    protected PostLinkRepository postLinkRepository;
     @Autowired
-    PostLinkExtractor postLinkExtractor;
+    protected PostLinkExtractor postLinkExtractor;
     @Autowired
-    VoteRepository voteRepository;
+    protected VoteRepository voteRepository;
     @Autowired
-    VoteExtractor voteExtractor;
+    protected VoteExtractor voteExtractor;
 
-    Random random = new Random();
-    XmlReader xmlReader = new XmlReader();
-    String communityName = "meta.3dprinting.stackexchange.com";
+    protected Random random = new Random();
+    protected XmlReader xmlReader = new XmlReader();
+    protected String communityName = "meta.3dprinting.stackexchange.com";
 
     Long getNumberOfRows(String fileName, String community) throws IOException {
         File inputFile = new File("src/main/resources/" + community + File.separator + fileName);

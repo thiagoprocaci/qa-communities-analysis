@@ -42,6 +42,8 @@ class Vote {
     @JoinColumn(name = "id_post")
     Post post
 
+    @Column(name = "period")
+    Integer period;
 
 
 }

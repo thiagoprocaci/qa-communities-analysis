@@ -42,6 +42,8 @@ class PostLink {
     @JoinColumn(name = "id_related_post")
     Post relatedPost
 
+    @Column(name = "period")
+    Integer period;
 
 
 }

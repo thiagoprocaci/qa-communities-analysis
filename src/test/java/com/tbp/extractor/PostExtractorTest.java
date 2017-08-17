@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.*;
@@ -17,6 +18,7 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TestApplicationConfiguration.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PostExtractorTest extends BaseExtractorTest  {
 
 
@@ -24,7 +26,7 @@ public class PostExtractorTest extends BaseExtractorTest  {
     public void execute() throws IOException {
         assertEquals("Posts.xml", postExtractor.getFileName());
 
-        assertTrue(postRepository.count() == 0L);
+        assertEquals(0, postRepository.count());
 
         communityExtractor.execute(communityName);
         assertTrue(communityRepository.findByName(communityName).getName() == communityName);
@@ -64,7 +66,7 @@ public class PostExtractorTest extends BaseExtractorTest  {
             assertEquals(postFromXml.getFavoriteCount(), postFromDataBase.getFavoriteCount());
             assertEquals(postFromXml.getPostType(), postFromDataBase.getPostType());
             assertEquals(postFromXml.getParentPostCommunityId(), postFromDataBase.getParentPostCommunityId());
-
+            assertNull(postFromDataBase.getPeriod());
             loop++;
 
         }

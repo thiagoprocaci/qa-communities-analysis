@@ -7,6 +7,7 @@ import com.tbp.model.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.*;
@@ -16,13 +17,14 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TestApplicationConfiguration.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class UserExtractorTest extends BaseExtractorTest {
 
     @Test
     public void execute() throws IOException {
         assertEquals("Users.xml", userExtractor.getFileName());
 
-        assertTrue(userRepository.count() == 0L);
+        assertEquals(0, userRepository.count());
 
         communityExtractor.execute(communityName);
         assertTrue(communityRepository.findByName(communityName).getName() == communityName);
@@ -54,6 +56,7 @@ public class UserExtractorTest extends BaseExtractorTest {
 
             assertEquals(userFromXml.getUpVotes(), userFromDataBase.getUpVotes());
             assertEquals(userFromXml.getDownVotes(), userFromDataBase.getDownVotes());
+            assertNull(userFromDataBase.getPeriod());
             loop++;
         }
     }

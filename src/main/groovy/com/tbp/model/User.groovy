@@ -52,4 +52,7 @@ class User {
     @JoinColumn(name = "id_community", nullable = false)
     Community community;
 
+    @Column(name = "period")
+    Integer period;
+
 }

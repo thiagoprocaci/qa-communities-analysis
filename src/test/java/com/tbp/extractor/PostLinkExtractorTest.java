@@ -7,6 +7,7 @@ import com.tbp.model.PostLink;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
@@ -22,13 +23,14 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TestApplicationConfiguration.class)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class PostLinkExtractorTest extends BaseExtractorTest {
 
     @Test
     public void execute() throws IOException {
         assertEquals("PostLinks.xml", postLinkExtractor.getFileName());
 
-        assertTrue(postLinkRepository.count() == 0L);
+        assertEquals(0, postLinkRepository.count());
 
         communityExtractor.execute(communityName);
         assertTrue(communityRepository.findByName(communityName).getName() == communityName);
@@ -55,6 +57,7 @@ public class PostLinkExtractorTest extends BaseExtractorTest {
             assertEquals(postLinkFromXml.getIdPostLinkCommunity(), postLink.getIdPostLinkCommunity());
             assertEquals(postLinkFromXml.getIdRelatedPostCommunity(), postLink.getIdRelatedPostCommunity());
             assertEquals(postLinkFromXml.getPostLinkType(), postLink.getPostLinkType());
+            assertNull(postLink.getPeriod());
 
             loop++;
         }
