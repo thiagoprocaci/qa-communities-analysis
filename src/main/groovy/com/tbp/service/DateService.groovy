@@ -8,7 +8,7 @@ import org.joda.time.Interval
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
-import java.text.SimpleDateFormat
+
 
 @Component
 class DateService {
@@ -24,10 +24,15 @@ class DateService {
     }
 
     List<Interval> generateInterval(String communityName) {
-        Community c = communityRepository.findByName(communityName)
-        Date max = dateRepository.getMaxCreationDateByCommunity(c.id)
-        Date min = dateRepository.getMinCreationDateByCommunity(c.id)
-        return generateInterval(min, max)
+        if(communityName != null) {
+            Community c = communityRepository.findByName(communityName)
+            if(c != null) {
+                Date max = dateRepository.getMaxCreationDateByCommunity(c.id)
+                Date min = dateRepository.getMinCreationDateByCommunity(c.id)
+                return generateInterval(min, max)
+            }
+        }
+        return new ArrayList<Interval>();
     }
 
     List<Interval> generateInterval(Date min, Date max) {

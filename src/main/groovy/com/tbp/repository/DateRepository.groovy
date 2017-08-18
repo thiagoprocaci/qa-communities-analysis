@@ -1,7 +1,8 @@
 package com.tbp.repository
 
 import org.joda.time.Interval
-
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Component
@@ -11,7 +12,7 @@ import java.text.SimpleDateFormat
 @Component
 class DateRepository {
 
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(DateRepository.class);
 
     @Autowired
     JdbcTemplate jdbcTemplate
@@ -41,7 +42,6 @@ class DateRepository {
             ")A"
 
     private static String UPDATE_PERIOD = "update %s p  " +
-            // " inner join community c on c.id = p.id_community " +
             " set p.period = %s " +
             " where (creation_date BETWEEN '%s' AND '%s') and " +
             " p.id_community in (select c.id from community c where c.name = '%s')" ;
@@ -65,6 +65,8 @@ class DateRepository {
     }
 
     void updatePeriod(String communityName,  List<Interval> intervalList) {
+        LOGGER.info("updating period of " + communityName)
+        LOGGER.info("Interval size " + intervalList.size())
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String[] tables = ["comment", "post", "post_link", "user", "vote"]
         for(int i = 0; i < intervalList.size(); i++) {
@@ -73,7 +75,7 @@ class DateRepository {
             Date end = interval.getEnd().toDate();
             for(String table : tables) {
                 String sql = String.format(UPDATE_PERIOD, table, i, format.format(start), format.format(end), communityName)
-                println sql
+                LOGGER.debug(sql)
                 jdbcTemplate.execute(sql)
             }
         }
