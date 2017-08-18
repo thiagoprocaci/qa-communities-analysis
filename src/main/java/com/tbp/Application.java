@@ -49,21 +49,22 @@ public class Application implements CommandLineRunner {
               //  new String[]{};
         for (String community: communities) {
             LOGGER.info("Execution: " + community);
-            dateService.updateCommunityPeriods(community);
-           // System.out.println("communityExtractor" + " " + community);
+
+            LOGGER.info("communityExtractor" + " " + community);
         //    communityExtractor.execute(community);
-           // System.out.println("userExtractor" + " " + community);
+            LOGGER.info("userExtractor" + " " + community);
         //    userExtractor.execute(community);
-           // System.out.println("postExtractor" + " " + community);
+            LOGGER.info("postExtractor" + " " + community);
        //     postExtractor.execute(community);
-           // System.out.println("voteExtractor" + " " + community);
+            LOGGER.info("voteExtractor" + " " + community);
         //    voteExtractor.execute(community);
-           // System.out.println("commentExtractor" + " " + community);
+            LOGGER.info("commentExtractor" + " " + community);
         //    commentExtractor.execute(community);
-           // System.out.println("postLinkExtractor" + " " + community);
+            LOGGER.info("postLinkExtractor" + " " + community);
         //    postLinkExtractor.execute(community);
+            dateService.updateCommunityPeriods(community);
         }
-       // String community = "meta.3dprinting.stackexchange.com";
+
 
 
     }
