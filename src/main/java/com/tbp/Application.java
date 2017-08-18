@@ -2,7 +2,9 @@ package com.tbp;
 
 
 import com.tbp.extractor.*;
+import com.tbp.facade.GraphAnalysisFacade;
 import com.tbp.model.Community;
+import com.tbp.model.graph.GraphDto;
 import com.tbp.repository.CommunityRepository;
 import com.tbp.repository.DateRepository;
 import com.tbp.service.DateService;
@@ -36,6 +38,8 @@ public class Application implements CommandLineRunner {
     PostLinkExtractor postLinkExtractor;
     @Autowired
     DateService dateService;
+    @Autowired
+    GraphAnalysisFacade graphAnalysisFacade;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -43,10 +47,10 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        String[] communities = new String[]{"meta.3dprinting.stackexchange.com",
-                "android.stackexchange.com", "ai.stackexchange.com",
-        "biology.stackexchange.com", "chemistry.stackexchange.com"};
-              //  new String[]{};
+        String[] communities = new String[]{"meta.3dprinting.stackexchange.com"};
+
+                //= new String[]{"meta.3dprinting.stackexchange.com", "android.stackexchange.com", "ai.stackexchange.com", "biology.stackexchange.com", "chemistry.stackexchange.com"};
+
         for (String community: communities) {
             LOGGER.info("Execution: " + community);
 
@@ -62,7 +66,9 @@ public class Application implements CommandLineRunner {
         //    commentExtractor.execute(community);
             LOGGER.info("postLinkExtractor" + " " + community);
         //    postLinkExtractor.execute(community);
-            dateService.updateCommunityPeriods(community);
+           // dateService.updateCommunityPeriods(community);
+            GraphDto g = graphAnalysisFacade.makeAnalysis(community);
+            System.out.println(g);
         }
 
 

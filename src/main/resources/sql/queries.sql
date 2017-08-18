@@ -32,3 +32,19 @@ select * from  post p where p.post_type = 2
 			(SELECT @rownum:=0) r order by reputation desc
 
 	)A ;
+
+	-- checking the graph nodes
+
+	select count(distinct id) from (
+    	select  u.id from user u where u.id_community = 6
+    	and u.id in (
+    		select p.id_user from post p where p.id_community = 6 and p.id not in (
+    			select p.id from post p where p.id_community = 6 and p.answer_count = 0
+    		)
+    	)
+    	union all
+    	select  u.id from user u where u.id_community = 6
+    	and u.id in (
+    		select p.id_user from comment p where p.id_community = 6 and p.id_post is not null
+    	) and 1 = 1
+    )A

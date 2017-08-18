@@ -9,4 +9,6 @@ interface PostRepository extends CrudRepository<Post, Long> {
 
     Post findByCommunityAndIdPostCommunity(Community community, Long idPostCommunity)
 
+    List<Post> findByCommunity(Community community)
+
 }
