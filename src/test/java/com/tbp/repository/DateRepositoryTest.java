@@ -3,6 +3,7 @@ package com.tbp.repository;
 import com.tbp.TestApplicationConfiguration;
 import com.tbp.extractor.*;
 import com.tbp.model.Community;
+import com.tbp.service.DateService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,6 +36,8 @@ public class DateRepositoryTest {
     DateRepository dateRepository;
     @Autowired
     CommunityRepository communityRepository;
+    @Autowired
+    DateService dateService;
 
     String community = "meta.3dprinting.stackexchange.com";
 
@@ -46,10 +49,11 @@ public class DateRepositoryTest {
         voteExtractor.execute(community);
         commentExtractor.execute(community);
         postLinkExtractor.execute(community);
+        dateService.updateCommunityPeriods(community);
     }
 
     @Test
-    public void testDate() {
+    public void testDateAndPeriod() {
         Community c = communityRepository.findByName(community);
         Date min = dateRepository.getMinCreationDateByCommunity(c.getId());
         Date max = dateRepository.getMaxCreationDateByCommunity(c.getId());
@@ -57,6 +61,12 @@ public class DateRepositoryTest {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         assertEquals("2017-06-11 00:22:49", simpleDateFormat.format(max));
         assertEquals("2016-01-11 22:16:50", simpleDateFormat.format(min));
+
+        Integer minPeriod = dateRepository.getMinPeriodByCommunity(c.getId());
+        assertEquals(0, minPeriod.intValue());
+
+        Integer maxPeriod = dateRepository.getMaxPeriodByCommunity(c.getId());
+        assertEquals(16, maxPeriod.intValue());
 
     }
 }

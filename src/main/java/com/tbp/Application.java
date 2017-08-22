@@ -70,7 +70,7 @@ public class Application implements CommandLineRunner {
             LOGGER.info("postLinkExtractor" + " " + community);
         //    postLinkExtractor.execute(community);
            // dateService.updateCommunityPeriods(community);
-            GraphDto g = graphAnalysisFacade.makeAnalysis(community);
+            GraphDto g = graphAnalysisFacade.makeAnalysis(community, 16);
             System.out.println(g);
         }
 

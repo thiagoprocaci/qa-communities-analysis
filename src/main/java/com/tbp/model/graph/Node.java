@@ -32,7 +32,12 @@ public class Node extends Identifiable<Long> {
     Integer degree;
     Double eigenvector;
     Integer modularity;
+    Double clusteringCoefficient;
+    Integer stronglyComponent;
+    Integer weaklyComponent;
 
+
+    // TODO remove...
     String betweennessDesc = Q1;
     String closenessDesc = Q1;
     String pageRankDesc = Q1;
@@ -62,6 +67,22 @@ public class Node extends Identifiable<Long> {
 
     public String getLabel() {
         return label;
+    }
+
+    public Integer getStronglyComponent() {
+        return stronglyComponent;
+    }
+
+    public void setStronglyComponent(Integer stronglyComponent) {
+        this.stronglyComponent = stronglyComponent;
+    }
+
+    public Integer getWeaklyComponent() {
+        return weaklyComponent;
+    }
+
+    public void setWeaklyComponent(Integer weaklyComponent) {
+        this.weaklyComponent = weaklyComponent;
     }
 
     public String getInteractionsDesc() {
@@ -107,6 +128,14 @@ public class Node extends Identifiable<Long> {
     @Override
     public Long getId() {
         return id;
+    }
+
+    public Double getClusteringCoefficient() {
+        return clusteringCoefficient;
+    }
+
+    public void setClusteringCoefficient(Double clusteringCoefficient) {
+        this.clusteringCoefficient = clusteringCoefficient;
     }
 
     public Double getBetweenness() {

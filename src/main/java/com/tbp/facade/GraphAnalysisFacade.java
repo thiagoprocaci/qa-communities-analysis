@@ -26,22 +26,24 @@ public class GraphAnalysisFacade {
     @Autowired
     CommentRepository commentRepository;
 
-    public GraphDto makeAnalysis(String communityName) {
+    public GraphDto makeAnalysis(String communityName, Integer period) {
         Community community = communityRepository.findByName(communityName);
-        List<Post> postList = postRepository.findByCommunity(community);
+        List<Post> postList = postRepository.findByCommunityAndPeriodLessThan(community, (period + 1));
         if(postList != null && !postList.isEmpty()) {
             Graph graph = new Graph();
             for(Post post : postList) {
                 if(post.getParentPostCommunityId() != null) {
                     Post parent = postRepository.findByCommunityAndIdPostCommunity(community, post.getParentPostCommunityId());
-                    graph.addEdge(post.getUser().getId(), post.getUser().getDisplayName(), parent.getUser().getId(), parent.getUser().getDisplayName());
+                    if(parent.getPeriod() < (period + 1)) {
+                        graph.addEdge(post.getUser().getId(), post.getUser().getDisplayName(), parent.getUser().getId(), parent.getUser().getDisplayName());
+                    }
                 }
             }
             postList.clear();
-            List<Comment> commentList = commentRepository.findByCommunity(community);
+            List<Comment> commentList = commentRepository.findByCommunityAndPeriodLessThan(community, (period + 1));
             if(commentList != null && !commentList.isEmpty()) {
                 for(Comment comment: commentList) {
-                    if(comment.getPost() != null) {
+                    if(comment.getPost() != null && comment.getPost().getPeriod() < (period + 1)) {
                         Post parent = comment.getPost();
                         graph.addEdge(comment.getUser().getId(), comment.getUser().getDisplayName(), parent.getUser().getId(), parent.getUser().getDisplayName());
                     }

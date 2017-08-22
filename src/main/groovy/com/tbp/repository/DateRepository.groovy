@@ -17,6 +17,32 @@ class DateRepository {
     @Autowired
     JdbcTemplate jdbcTemplate
 
+    private static String MIN_PERIOD_QUERY = "select min(A.period) as period from (" +
+            " select min(t.period) as period FROM comment t where t.id_community = %1\$s " +
+            " union all " +
+            " select min(t.period) as period FROM post t where t.id_community = %1\$s  " +
+            " union all " +
+            " select min(t.period) as period FROM post_link t where t.id_community = %1\$s " +
+            " union all " +
+            " select min(t.period) as period FROM user t where t.id_community = %1\$s " +
+            " union all " +
+            " select min(t.period) as period FROM vote t where t.id_community = %1\$s " +
+            ")A"
+
+    private static String MAX_PERIOD_QUERY = "select max(A.period) as period from (" +
+            " select max(t.period) as period FROM comment t where t.id_community = %1\$s " +
+            " union all " +
+            " select max(t.period) as period FROM post t where t.id_community = %1\$s  " +
+            " union all " +
+            " select max(t.period) as period FROM post_link t where t.id_community = %1\$s " +
+            " union all " +
+            " select max(t.period) as period FROM user t where t.id_community = %1\$s " +
+            " union all " +
+            " select max(t.period) as period FROM vote t where t.id_community = %1\$s " +
+            ")A"
+
+
+
     private static String MIN_CREATION_DATE_QUERY = "select min(A.min_date) as min_date from (" +
             " select min(t.creation_date) as min_date FROM comment t where t.id_community = %1\$s " +
             " union all " +
@@ -63,6 +89,25 @@ class DateRepository {
         }
         return null
     }
+
+    Integer getMinPeriodByCommunity(Integer communityId) {
+        if(communityId != null) {
+            String sql = String.format(MIN_PERIOD_QUERY, communityId.toString())
+            Integer i = jdbcTemplate.queryForObject(sql, Integer.class);
+            return i
+        }
+        return null
+    }
+
+    Integer getMaxPeriodByCommunity(Integer communityId) {
+        if(communityId != null) {
+            String sql = String.format(MAX_PERIOD_QUERY, communityId.toString())
+            Integer i = jdbcTemplate.queryForObject(sql, Integer.class);
+            return i
+        }
+        return null
+    }
+
 
     void updatePeriod(String communityName,  List<Interval> intervalList) {
         LOGGER.info("updating period of " + communityName)

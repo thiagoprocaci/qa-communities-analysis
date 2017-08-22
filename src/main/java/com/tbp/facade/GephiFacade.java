@@ -1,6 +1,7 @@
 package com.tbp.facade;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.gephi.graph.api.*;
 import org.gephi.project.api.ProjectController;
 import org.gephi.statistics.plugin.*;
@@ -40,6 +41,11 @@ public class GephiFacade {
             distance.setDirected(true);
             distance.execute(graphModel);
 
+            graphApp.setAvgDist(distance.getPathLength());
+            graphApp.setDiameter(distance.getDiameter());
+            graphApp.setRadius(distance.getRadius());
+
+
             // page rank
             PageRank pageRankAlg = new PageRank();
             pageRankAlg.setDirected(true);
@@ -48,6 +54,8 @@ public class GephiFacade {
             // degree distribution
             Degree degreeCalc = new Degree();
             degreeCalc.execute(graphModel);
+
+            graphApp.setAvgDegree(degreeCalc.getAverageDegree());
 
             // eigenvector
             EigenvectorCentrality eigenvectorCentrality = new EigenvectorCentrality();
@@ -60,7 +68,30 @@ public class GephiFacade {
             modularityClass.setUseWeight(true);
             modularityClass.execute(graphModel);
 
-            //TODO add modularity class
+            String report = modularityClass.getReport();
+
+            graphApp.setNumberOfCommunity(Integer.parseInt(StringUtils.substringBetween(report, "Number of Communities: ", "<br /><br />")));
+
+            // clustering
+            ClusteringCoefficient coefficient = new ClusteringCoefficient();
+            coefficient.setDirected(true);
+            coefficient.execute(graphModel);
+            graphApp.setAvgClusteringCoef(coefficient.getAverageClusteringCoefficient());
+
+            // graph density
+            GraphDensity density = new GraphDensity();
+            density.setDirected(true);
+            density.execute(graphModel);
+            graphApp.setDensity(density.getDensity());
+
+            // components
+            ConnectedComponents connectedComponents = new ConnectedComponents();
+            connectedComponents.setDirected(true);
+            connectedComponents.execute(graphModel);
+
+            report = connectedComponents.getReport();
+            graphApp.setWeaklyComponentCount(Integer.parseInt(StringUtils.substringBetween(report, "Number of Weakly Connected Components: ", "<br>")));
+            graphApp.setStronglyComponentCount(Integer.parseInt(StringUtils.substringBetween(report, "Number of Strongly Connected Components: ", "<br>")));
 
             Column columnBetweenness = graphModel.getNodeTable().getColumn(GraphDistance.BETWEENNESS);
             Column columnCloseness = graphModel.getNodeTable().getColumn(GraphDistance.CLOSENESS);
@@ -72,6 +103,9 @@ public class GephiFacade {
             Column columnDegree = graphModel.getNodeTable().getColumn(Degree.DEGREE);
             Column columnEigenvector = graphModel.getNodeTable().getColumn(EigenvectorCentrality.EIGENVECTOR);
             Column columnModularity = graphModel.getNodeTable().getColumn(Modularity.MODULARITY_CLASS);
+            Column columnClusteringCoefficient = graphModel.getNodeTable().getColumn(ClusteringCoefficient.CLUSTERING_COEFF);
+            Column columnWeaklyConnected = graphModel.getNodeTable().getColumn(ConnectedComponents.WEAKLY);
+            Column columnStronglyConnected = graphModel.getNodeTable().getColumn(ConnectedComponents.STRONG);
 
             for(Node n: graphModel.getGraph().getNodes()) {
                 Double betweenness = (Double) n.getAttribute(columnBetweenness);
@@ -84,6 +118,9 @@ public class GephiFacade {
                 Integer degree = (Integer) n.getAttribute(columnDegree);
                 Double eigenvector = (Double) n.getAttribute(columnEigenvector);
                 Integer modularity = (Integer) n.getAttribute(columnModularity);
+                Double clusteringCoefficient = (Double) n.getAttribute(columnClusteringCoefficient);
+                Integer stronglyComp = (Integer) n.getAttribute(columnStronglyConnected);
+                Integer weaklyComp = (Integer) n.getAttribute(columnWeaklyConnected) ;
 
                 com.tbp.model.graph.Node node = graphApp.getNodeMap().get(Long.parseLong(n.getId().toString()));
                 node.setBetweenness(betweenness);
@@ -96,6 +133,9 @@ public class GephiFacade {
                 node.setDegree(degree);
                 node.setEigenvector(eigenvector);
                 node.setModularity(modularity);
+                node.setClusteringCoefficient(clusteringCoefficient);
+                node.setStronglyComponent(stronglyComp);
+                node.setWeaklyComponent(weaklyComp);
             }
         }
     }

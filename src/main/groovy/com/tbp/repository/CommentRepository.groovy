@@ -10,4 +10,6 @@ interface CommentRepository extends CrudRepository<Comment, Long> {
     Comment findByCommunityAndIdCommentCommunity(Community community, Long idCommentCommunity)
 
     List<Comment> findByCommunity(Community community)
+
+    List<Comment> findByCommunityAndPeriodLessThan(Community community, Integer period)
 }

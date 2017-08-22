@@ -11,4 +11,6 @@ interface PostRepository extends CrudRepository<Post, Long> {
 
     List<Post> findByCommunity(Community community)
 
+    List<Post> findByCommunityAndPeriodLessThan(Community community, Integer period)
+
 }
