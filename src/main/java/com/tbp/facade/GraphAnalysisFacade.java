@@ -37,7 +37,7 @@ public class GraphAnalysisFacade {
                     graph.addEdge(post.getUser().getId(), post.getUser().getDisplayName(), parent.getUser().getId(), parent.getUser().getDisplayName());
                 }
             }
-            postList = null;
+            postList.clear();
             List<Comment> commentList = commentRepository.findByCommunity(community);
             if(commentList != null && !commentList.isEmpty()) {
                 for(Comment comment: commentList) {
@@ -47,7 +47,7 @@ public class GraphAnalysisFacade {
                     }
                 }
             }
-            commentList = null;
+            commentList.clear();
             gephiFacade.executeAlgorithm(graph);
             return new GraphDto(graph, community);
         }

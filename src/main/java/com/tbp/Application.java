@@ -5,6 +5,7 @@ import com.tbp.extractor.*;
 import com.tbp.facade.GraphAnalysisFacade;
 import com.tbp.model.Community;
 import com.tbp.model.graph.GraphDto;
+import com.tbp.model.graph.Node;
 import com.tbp.repository.CommunityRepository;
 import com.tbp.repository.DateRepository;
 import com.tbp.service.DateService;
@@ -16,7 +17,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 @SpringBootApplication

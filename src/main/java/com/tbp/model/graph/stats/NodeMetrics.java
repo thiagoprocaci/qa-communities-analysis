@@ -38,6 +38,7 @@ public class NodeMetrics {
         double[] interactionsList;
         Double q1Interactions, medianInteractions, q3Interactions = 0d;
 
+
        public NodeMetrics(Collection<Node> nodes) {
             init(nodes);
             int i = 0;

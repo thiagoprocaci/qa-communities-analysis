@@ -3,10 +3,7 @@ package com.tbp.facade;
 
 import org.gephi.graph.api.*;
 import org.gephi.project.api.ProjectController;
-import org.gephi.statistics.plugin.Degree;
-import org.gephi.statistics.plugin.EigenvectorCentrality;
-import org.gephi.statistics.plugin.GraphDistance;
-import org.gephi.statistics.plugin.PageRank;
+import org.gephi.statistics.plugin.*;
 import org.openide.util.Lookup;
 import org.springframework.stereotype.Component;
 
@@ -56,6 +53,13 @@ public class GephiFacade {
             EigenvectorCentrality eigenvectorCentrality = new EigenvectorCentrality();
             eigenvectorCentrality.execute(graphModel);
 
+            // modularity
+            Modularity modularityClass = new Modularity();
+            modularityClass.setResolution(1d);
+            modularityClass.setRandom(true);
+            modularityClass.setUseWeight(true);
+            modularityClass.execute(graphModel);
+
             //TODO add modularity class
 
             Column columnBetweenness = graphModel.getNodeTable().getColumn(GraphDistance.BETWEENNESS);
@@ -67,6 +71,7 @@ public class GephiFacade {
             Column columnOutdegree = graphModel.getNodeTable().getColumn(Degree.OUTDEGREE);
             Column columnDegree = graphModel.getNodeTable().getColumn(Degree.DEGREE);
             Column columnEigenvector = graphModel.getNodeTable().getColumn(EigenvectorCentrality.EIGENVECTOR);
+            Column columnModularity = graphModel.getNodeTable().getColumn(Modularity.MODULARITY_CLASS);
 
             for(Node n: graphModel.getGraph().getNodes()) {
                 Double betweenness = (Double) n.getAttribute(columnBetweenness);
@@ -78,6 +83,7 @@ public class GephiFacade {
                 Integer outdegree = (Integer) n.getAttribute(columnOutdegree);
                 Integer degree = (Integer) n.getAttribute(columnDegree);
                 Double eigenvector = (Double) n.getAttribute(columnEigenvector);
+                Integer modularity = (Integer) n.getAttribute(columnModularity);
 
                 com.tbp.model.graph.Node node = graphApp.getNodeMap().get(Long.parseLong(n.getId().toString()));
                 node.setBetweenness(betweenness);
@@ -89,6 +95,7 @@ public class GephiFacade {
                 node.setOutdegree(outdegree);
                 node.setDegree(degree);
                 node.setEigenvector(eigenvector);
+                node.setModularity(modularity);
             }
         }
     }

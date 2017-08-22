@@ -19,6 +19,7 @@ public class Node extends Identifiable<Long> {
     static final String DEGREE = "degree";
     static final String EIGENVECTOR = "eigenvector";
     static final String INTERACTIONS = "interactions";
+    static final String MODULARITY = "modularity";
 
     Long id;
     Double betweenness;
@@ -30,6 +31,7 @@ public class Node extends Identifiable<Long> {
     Integer outdegree;
     Integer degree;
     Double eigenvector;
+    Integer modularity;
 
     String betweennessDesc = Q1;
     String closenessDesc = Q1;
@@ -179,6 +181,14 @@ public class Node extends Identifiable<Long> {
         this.eigenvector = eigenvector;
     }
 
+    public Integer getModularity() {
+        return modularity;
+    }
+
+    public void setModularity(Integer modularity) {
+        this.modularity = modularity;
+    }
+
     void setMetricDescription(String metric, Double q1, Double median, Double q3) {
         String desc = Q1;
         Double value = getMetricValue(metric);
@@ -226,7 +236,6 @@ public class Node extends Identifiable<Long> {
             case INTERACTIONS:
                 interactionsDesc = desc;
                 break;
-
         }
     }
 
