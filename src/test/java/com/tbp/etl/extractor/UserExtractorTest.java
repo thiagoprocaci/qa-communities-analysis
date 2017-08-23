@@ -38,7 +38,10 @@ public class UserExtractorTest extends BaseExtractorTest {
         int loop = 0;
 
         while(loop < 5) {
-            int lineNumber = random.nextInt((int) count);
+            int lineNumber = 0;
+            while(lineNumber <= 0) {
+                lineNumber = random.nextInt((int) count);
+            }
             User userFromXml = xmlReader.getUserFromXml(communityName, userExtractor.getFileName(), lineNumber);
             Community c =communityRepository.findByName(communityName);
             User userFromDataBase = userRepository.findByCommunityAndIdUserCommunity(c, userFromXml.getIdUserCommunity() );

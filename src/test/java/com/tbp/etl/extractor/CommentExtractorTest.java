@@ -38,7 +38,10 @@ public class CommentExtractorTest extends BaseExtractorTest {
         int loop = 0;
 
         while(loop < 5) {
-            int lineNumber = random.nextInt((int) count);
+            int lineNumber = 0;
+            while(lineNumber <= 0) {
+                lineNumber = random.nextInt((int) count);
+            }
             Comment commentFromXml = xmlReader.getCommentFromXml(communityName, commentExtractor.getFileName(), lineNumber);
             Community c = communityRepository.findByName(communityName);
             Comment commentFromDataBase = commentRepository.findByCommunityAndIdCommentCommunity(c, commentFromXml.getIdCommentCommunity() );

@@ -38,7 +38,10 @@ public class PostLinkExtractorTest extends BaseExtractorTest {
         int loop = 0;
 
         while(loop < 5) {
-            int lineNumber = random.nextInt((int) count);
+            int lineNumber = 0;
+            while(lineNumber <= 0) {
+                lineNumber = random.nextInt((int) count);
+            }
 
             PostLink postLinkFromXml = xmlReader.getPostLinkFromXml(communityName, postLinkExtractor.getFileName(), lineNumber);
 

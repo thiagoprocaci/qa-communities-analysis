@@ -35,9 +35,9 @@ public class GraphAnalysisFacade {
         if(postList != null && !postList.isEmpty()) {
             Graph graph = new Graph();
             for(Post post : postList) {
-                if(post.getParentPostCommunityId() != null) {
+                if(post.getParentPostCommunityId() != null && post.getUser() != null) {
                     Post parent = postRepository.findByCommunityAndIdPostCommunity(community, post.getParentPostCommunityId());
-                    if(parent.getPeriod() < (period + 1)) {
+                    if(parent.getPeriod() < (period + 1) && parent.getUser() != null) {
                         graph.addEdge(post.getUser().getId(), post.getUser().getDisplayName(), parent.getUser().getId(), parent.getUser().getDisplayName());
                     }
                 }
@@ -46,9 +46,11 @@ public class GraphAnalysisFacade {
             List<Comment> commentList = commentRepository.findByCommunityAndPeriodLessThan(community, (period + 1));
             if(commentList != null && !commentList.isEmpty()) {
                 for(Comment comment: commentList) {
-                    if(comment.getPost() != null && comment.getPost().getPeriod() < (period + 1)) {
+                    if(comment.getPost() != null && comment.getPost().getPeriod() < (period + 1) && comment.getUser() != null) {
                         Post parent = comment.getPost();
-                        graph.addEdge(comment.getUser().getId(), comment.getUser().getDisplayName(), parent.getUser().getId(), parent.getUser().getDisplayName());
+                        if(parent.getUser() != null) {
+                            graph.addEdge(comment.getUser().getId(), comment.getUser().getDisplayName(), parent.getUser().getId(), parent.getUser().getDisplayName());
+                        }
                     }
                 }
             }

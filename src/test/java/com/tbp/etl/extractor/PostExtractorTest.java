@@ -36,7 +36,10 @@ public class PostExtractorTest extends BaseExtractorTest  {
         int loop = 0;
 
         while(loop < 5) {
-            int lineNumber = random.nextInt((int) count);
+            int lineNumber = 0;
+            while(lineNumber <= 0) {
+                lineNumber = random.nextInt((int) count);
+            }
             Post postFromXml = xmlReader.getPostFromXml(communityName, postExtractor.getFileName(), lineNumber);
             Community c = communityRepository.findByName(communityName);
             Post postFromDataBase = postRepository.findByCommunityAndIdPostCommunity(c, postFromXml.getIdPostCommunity() );
