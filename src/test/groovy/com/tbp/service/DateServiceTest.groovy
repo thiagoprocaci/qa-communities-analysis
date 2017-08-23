@@ -1,12 +1,11 @@
 package com.tbp.service
 
-import com.tbp.model.Community
-import com.tbp.repository.CommunityRepository
-import com.tbp.repository.DateRepository
-import groovy.mock.interceptor.MockFor
+import com.tbp.etl.model.Community
+import com.tbp.etl.repository.CommunityRepository
+import com.tbp.period.repository.DateRepository
+import com.tbp.period.service.DateService
 import org.joda.time.DateTime
 import org.joda.time.Interval
-import org.mockito.Mock
 import org.mockito.Mockito
 
 

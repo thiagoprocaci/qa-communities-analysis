@@ -1,25 +1,16 @@
 package com.tbp;
 
 
-import com.tbp.extractor.*;
-import com.tbp.facade.GraphAnalysisFacade;
-import com.tbp.model.Community;
-import com.tbp.model.graph.GraphDto;
-import com.tbp.model.graph.Node;
-import com.tbp.repository.CommunityRepository;
-import com.tbp.repository.DateRepository;
-import com.tbp.service.DateService;
-import org.joda.time.Interval;
+import com.tbp.etl.extractor.*;
+import com.tbp.graph.facade.GraphAnalysisFacade;
+import com.tbp.graph.model.GraphDto;
+import com.tbp.period.service.DateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 
 @SpringBootApplication

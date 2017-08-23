@@ -1,17 +1,12 @@
 package com.tbp.extractor
 
-import com.tbp.extractor.support.DateUtil
-import com.tbp.extractor.support.LineSupport
-import com.tbp.extractor.support.NumberUtil
-import com.tbp.extractor.support.StringSupport
-import com.tbp.model.Comment
-import com.tbp.model.Post
-import com.tbp.model.PostLink
-import com.tbp.model.User
-import com.tbp.model.Vote
+import com.tbp.etl.extractor.support.DateUtil
+import com.tbp.etl.extractor.support.LineSupport
+import com.tbp.etl.extractor.support.NumberUtil
+import com.tbp.etl.extractor.support.StringSupport
+import com.tbp.etl.model.*
 import groovy.xml.DOMBuilder
 import groovy.xml.dom.DOMCategory
-
 
 class XmlReader {
 
