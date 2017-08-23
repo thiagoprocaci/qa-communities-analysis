@@ -37,4 +37,16 @@ class GraphEdge {
     @JoinColumn(name = "id_graph_node_dest")
     GraphNode graphNodeDest
 
+    GraphEdge(Edge edge, GraphAnalysisContext graphAnalysisContext,
+              GraphNode graphNodeSource,  GraphNode graphNodeDest) {
+        this.graphAnalysisContext = graphAnalysisContext
+        this.graphNodeDest = graphNodeDest
+        this.graphNodeSource = graphNodeSource
+        this.idUserDest = edge.getDest().getId()
+        this.idUserSource = edge.getSource().getId()
+        this.idCommunity = graphAnalysisContext.idCommunity
+
+
+    }
+
 }

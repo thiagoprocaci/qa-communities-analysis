@@ -27,7 +27,7 @@ public class GraphAnalysisFacade {
     @Autowired
     CommentRepository commentRepository;
 
-    // TODO create method to handle max and min period and create each graph
+
 
     public GraphDto makeAnalysis(String communityName, Integer period) {
         Community community = communityRepository.findByName(communityName);

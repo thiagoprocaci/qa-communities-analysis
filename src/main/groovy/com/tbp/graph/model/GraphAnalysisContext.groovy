@@ -41,7 +41,24 @@ class GraphAnalysisContext {
     @Column(name = "avg_degree")
     Double avgDegree;
     @Column(name = "avg_clustering_coef")
-    Double avgClusterionCoef
+    Double avgClusteringCoef
 
+    GraphAnalysisContext(Graph graph, Integer period, Long idCommunity) {
+        this.period = period
+        this.idCommunity = idCommunity
+        this.nodes = graph.nodeMap.size()
+        this.edges = graph.edgeMap.size()
+        this.density = graph.getDensity()
+        this.diameter = graph.getDiameter()
+        this.radius = graph.getRadius()
+        this.avgDist = graph.getAvgDist()
+        this.weaklyComponentCount = graph.getWeaklyComponentCount()
+        this.stronglyComponentCount = graph.getStronglyComponentCount()
+        this.numberCommunities = graph.getNumberOfCommunity()
+        this.modularityWithResolution = graph.getModularityWithResolution()
+        this.modularity = graph.getModularity()
+        this.avgDegree = graph.getAvgDegree()
+        this.avgClusteringCoef = graph.getAvgClusteringCoef()
+    }
 
 }

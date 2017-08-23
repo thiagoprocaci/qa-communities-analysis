@@ -55,4 +55,24 @@ class GraphNode {
     @Column(name = "id_community")
     Long idCommunity
 
+    GraphNode(Node node, GraphAnalysisContext graphAnalysisContext) {
+        this.graphAnalysisContext = graphAnalysisContext
+        this.idUser = node.getId()
+        this.idCommunity = graphAnalysisContext.idCommunity
+        this.betweenness = node.getBetweenness()
+        this.closeness = node.getCloseness()
+        this.eccentricity = node.getEccentricity()
+        this.harmonicCloseness = node.getHarmonicCloseness()
+        this.indegree = node.getIndegree()
+        this.outdegree = node.getOutdegree()
+        this.degree = node.getDegree()
+        this.pageRank = node.getPageRank()
+        this.eigenvector = node.getEigenvector()
+        this.modularityClass = node.getModularity()
+        this.clusteringCoefficient = node.getClusteringCoefficient()
+        this.stronglyComponent = node.getStronglyComponent()
+        this.weaklyComponent = node.getWeaklyComponent()
+        this.interactions = node.getInteractions()
+    }
+
 }
