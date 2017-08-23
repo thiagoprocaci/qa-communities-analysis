@@ -3,7 +3,7 @@ package com.tbp;
 
 import com.tbp.etl.extractor.*;
 import com.tbp.graph.facade.GraphAnalysisFacade;
-import com.tbp.graph.model.GraphDto;
+
 import com.tbp.period.service.DateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,8 +61,8 @@ public class Application implements CommandLineRunner {
             LOGGER.info("postLinkExtractor" + " " + community);
         //    postLinkExtractor.execute(community);
            // dateService.updateCommunityPeriods(community);
-            GraphDto g = graphAnalysisFacade.makeAnalysis(community, 16);
-            System.out.println(g);
+            graphAnalysisFacade.makeAnalysis(community, 16);
+
         }
 
 

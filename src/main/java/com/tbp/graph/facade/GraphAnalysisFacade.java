@@ -8,7 +8,7 @@ import com.tbp.etl.repository.CommentRepository;
 import com.tbp.etl.repository.CommunityRepository;
 import com.tbp.etl.repository.PostRepository;
 import com.tbp.graph.model.Graph;
-import com.tbp.graph.model.GraphDto;
+
 import com.tbp.graph.service.GephiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,7 +29,7 @@ public class GraphAnalysisFacade {
 
 
 
-    public GraphDto makeAnalysis(String communityName, Integer period) {
+    public Graph makeAnalysis(String communityName, Integer period) {
         Community community = communityRepository.findByName(communityName);
         List<Post> postList = postRepository.findByCommunityAndPeriodLessThan(community, (period + 1));
         if(postList != null && !postList.isEmpty()) {
@@ -54,7 +54,7 @@ public class GraphAnalysisFacade {
             }
             commentList.clear();
             gephiService.executeAlgorithm(graph);
-            return new GraphDto(graph, community);
+            return graph;
         }
         return null;
     }
