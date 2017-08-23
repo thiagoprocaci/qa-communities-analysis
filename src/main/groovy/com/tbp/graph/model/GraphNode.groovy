@@ -75,4 +75,6 @@ class GraphNode {
         this.interactions = node.getInteractions()
     }
 
+    GraphNode() {}
+
 }

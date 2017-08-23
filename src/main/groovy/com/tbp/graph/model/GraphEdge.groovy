@@ -46,8 +46,8 @@ class GraphEdge {
         this.idUserSource = edge.getSource().getId()
         this.idCommunity = graphAnalysisContext.idCommunity
         this.weight = edge.getWeight()
-
-
     }
+
+    GraphEdge() {}
 
 }

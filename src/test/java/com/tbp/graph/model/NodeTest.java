@@ -16,6 +16,11 @@ public class NodeTest {
     Integer outdegree = 7;
     Integer degree = 8;
     Double eigenvector = 9d;
+    Integer modularity = 10;
+    Double clusteringCoefficient = 10d;
+    Integer stronglyComponent = 11;
+    Integer weaklyComponent = 12;
+    String label = "label";
 
     @Test
     public void testMetrics() {
@@ -29,6 +34,11 @@ public class NodeTest {
         node.setOutdegree(outdegree);
         node.setDegree(degree);
         node.setEigenvector(eigenvector);
+        node.setModularity(modularity);
+        node.setClusteringCoefficient(clusteringCoefficient);
+        node.setStronglyComponent(stronglyComponent);
+        node.setWeaklyComponent(weaklyComponent);
+        node.setLabel(label);
 
         assertEquals(betweenness, node.getBetweenness());
         assertEquals(closeness, node.getCloseness());
@@ -39,6 +49,23 @@ public class NodeTest {
         assertEquals(outdegree, node.getOutdegree());
         assertEquals(degree, node.getDegree());
         assertEquals(eigenvector, node.getEigenvector());
+        assertEquals(modularity, node.getModularity());
+        assertEquals(clusteringCoefficient, node.getClusteringCoefficient());
+        assertEquals(stronglyComponent, node.getStronglyComponent());
+        assertEquals(weaklyComponent, node.getWeaklyComponent());
+        assertEquals(label, node.getLabel());
+        assertEquals(0, node.getInteractions().intValue());
+    }
+
+    @Test
+    public void testIncreaseInteractions() {
+        Node node = new Node(1L);
+        int i = 0;
+        while(i < 10) {
+            assertEquals(i, node.getInteractions().intValue());
+            node.increaseInteractions();
+            i++;
+        }
     }
 
     @Test
