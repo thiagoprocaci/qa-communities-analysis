@@ -89,7 +89,7 @@ public class GephiServiceTest {
 
         assertEquals(2, g.getNumberOfCommunity().intValue());
         assertEquals(0.219, g.getModularityWithResolution().doubleValue(), 0.0001);
-        assertEquals(0.219, g.getModularityWithResolution().doubleValue(), 0.0001);
+        assertEquals(0.219, g.getModularityWithResolution().doubleValue(), 0.0001); //TODO repeated ...
         assertEquals(0d, g.getAvgClusteringCoef(), 0.0001);
         assertEquals(0.2d, g.getDensity(), 0.0001);
         assertEquals(1, g.getWeaklyComponentCount().intValue());
@@ -97,6 +97,8 @@ public class GephiServiceTest {
         assertEquals(2, g.getDiameter().intValue());
         assertEquals(0, g.getRadius(), 0.0001);
         assertEquals(1.3333, g.getAvgDist(), 0.0001);
+
+        //TODO test avg degree...
 
         long i = 1;
         while(i < 6) {

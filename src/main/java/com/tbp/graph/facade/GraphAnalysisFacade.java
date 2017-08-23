@@ -38,7 +38,7 @@ public class GraphAnalysisFacade {
                 if(post.getParentPostCommunityId() != null && post.getUser() != null) {
                     Post parent = postRepository.findByCommunityAndIdPostCommunity(community, post.getParentPostCommunityId());
                     if(parent.getPeriod() < (period + 1) && parent.getUser() != null) {
-                        graph.addEdge(post.getUser().getId(), post.getUser().getDisplayName(), parent.getUser().getId(), parent.getUser().getDisplayName());
+                        graph.addEdge(parent.getUser().getId(), parent.getUser().getDisplayName(), post.getUser().getId(), post.getUser().getDisplayName());
                     }
                 }
             }
@@ -49,7 +49,7 @@ public class GraphAnalysisFacade {
                     if(comment.getPost() != null && comment.getPost().getPeriod() < (period + 1) && comment.getUser() != null) {
                         Post parent = comment.getPost();
                         if(parent.getUser() != null) {
-                            graph.addEdge(comment.getUser().getId(), comment.getUser().getDisplayName(), parent.getUser().getId(), parent.getUser().getDisplayName());
+                            graph.addEdge(parent.getUser().getId(), parent.getUser().getDisplayName(), comment.getUser().getId(), comment.getUser().getDisplayName());
                         }
                     }
                 }
