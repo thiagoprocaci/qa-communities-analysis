@@ -21,6 +21,7 @@ public class VoteExtractorTest extends BaseExtractorTest {
 
     @Test
     public void execute() throws IOException {
+        validateInjection();
         assertEquals("Votes.xml", voteExtractor.getFileName());
 
         assertEquals(0, voteRepository.count());

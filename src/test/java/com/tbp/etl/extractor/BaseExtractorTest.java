@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
+import static org.junit.Assert.*;
 
 public class BaseExtractorTest {
 
@@ -41,6 +42,21 @@ public class BaseExtractorTest {
     protected Random random = new Random();
     protected XmlReader xmlReader = new XmlReader();
     protected String communityName = "meta.3dprinting.stackexchange.com";
+
+    void validateInjection() {
+        assertNotNull(userExtractor);
+        assertNotNull(communityExtractor);
+        assertNotNull(communityRepository);
+        assertNotNull(userRepository);
+        assertNotNull(postExtractor);
+        assertNotNull(postRepository);
+        assertNotNull(commentRepository);
+        assertNotNull(commentExtractor);
+        assertNotNull(postLinkRepository);
+        assertNotNull(postLinkExtractor);
+        assertNotNull(voteRepository);
+        assertNotNull(voteExtractor);
+    }
 
     Long getNumberOfRows(String fileName, String community) throws IOException {
         File inputFile = new File("src/main/resources/" + community + File.separator + fileName);

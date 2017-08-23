@@ -18,8 +18,10 @@ import static org.junit.Assert.*;
 @SpringBootTest(classes = TestApplicationConfiguration.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class CommentExtractorTest extends BaseExtractorTest {
+
     @Test
     public void execute() throws IOException {
+        validateInjection();
         assertEquals("Comments.xml", commentExtractor.getFileName());
 
         assertEquals(0, commentRepository.count());

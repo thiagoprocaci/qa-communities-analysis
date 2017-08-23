@@ -21,6 +21,7 @@ public class UserExtractorTest extends BaseExtractorTest {
 
     @Test
     public void execute() throws IOException {
+        validateInjection();
         assertEquals("Users.xml", userExtractor.getFileName());
 
         assertEquals(0, userRepository.count());

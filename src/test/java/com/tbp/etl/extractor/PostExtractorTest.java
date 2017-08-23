@@ -21,6 +21,7 @@ public class PostExtractorTest extends BaseExtractorTest  {
 
     @Test
     public void execute() throws IOException {
+        validateInjection();
         assertEquals("Posts.xml", postExtractor.getFileName());
 
         assertEquals(0, postRepository.count());

@@ -21,6 +21,7 @@ public class PostLinkExtractorTest extends BaseExtractorTest {
 
     @Test
     public void execute() throws IOException {
+        validateInjection();
         assertEquals("PostLinks.xml", postLinkExtractor.getFileName());
 
         assertEquals(0, postLinkRepository.count());
@@ -40,7 +41,7 @@ public class PostLinkExtractorTest extends BaseExtractorTest {
             int lineNumber = random.nextInt((int) count);
 
             PostLink postLinkFromXml = xmlReader.getPostLinkFromXml(communityName, postLinkExtractor.getFileName(), lineNumber);
-            System.out.println(lineNumber);
+
             Community c = communityRepository.findByName(communityName);
             PostLink postLink = postLinkRepository.findByCommunityAndIdPostLinkCommunity(c, postLinkFromXml.getIdPostLinkCommunity() );
             assertNotNull(postLink);
