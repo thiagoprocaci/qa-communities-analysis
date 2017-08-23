@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class GephiFacadeTest {
+public class GephiServiceTest {
 
 
     @Test
@@ -19,8 +19,8 @@ public class GephiFacadeTest {
         g.addEdge(3L, 4L);
         g.addEdge(2L, 5L);
 
-        GephiFacade gephiFacade = new GephiFacade();
-        gephiFacade.executeAlgorithm(g);
+        GephiService gephiService = new GephiService();
+        gephiService.executeAlgorithm(g);
 
         assertEquals(0, g.getNodeMap().get(1L).getIndegree().intValue());
         assertEquals(2, g.getNodeMap().get(1L).getOutdegree().intValue());

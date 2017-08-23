@@ -10,7 +10,7 @@ import org.openide.util.Lookup;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GephiFacade {
+public class GephiService {
 
 
 

@@ -9,7 +9,7 @@ import com.tbp.etl.repository.CommunityRepository;
 import com.tbp.etl.repository.PostRepository;
 import com.tbp.graph.model.Graph;
 import com.tbp.graph.model.GraphDto;
-import com.tbp.graph.service.GephiFacade;
+import com.tbp.graph.service.GephiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class GraphAnalysisFacade {
 
     @Autowired
-    GephiFacade gephiFacade;
+    GephiService gephiService;
     @Autowired
     PostRepository postRepository;
     @Autowired
@@ -51,7 +51,7 @@ public class GraphAnalysisFacade {
                 }
             }
             commentList.clear();
-            gephiFacade.executeAlgorithm(graph);
+            gephiService.executeAlgorithm(graph);
             return new GraphDto(graph, community);
         }
         return null;
