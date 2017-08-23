@@ -1,3 +1,5 @@
+https://travis-ci.org/thiagoprocaci/qa-communities-analysis.svg?branch=master
+
 Stackexchange dump url: https://archive.org/download/stackexchange
 Dump date: 13-Jun-2017
 Dump readme: https://ia800500.us.archive.org/22/items/stackexchange/readme.txt
