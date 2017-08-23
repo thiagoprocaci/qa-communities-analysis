@@ -30,6 +30,9 @@ public class GephiFacadeTest {
         assertEquals(0d, g.getNodeMap().get(1L).getBetweenness(), 0.0001);
         assertEquals(0.1209d, g.getNodeMap().get(1L).getPageRank(), 0.0001);
         assertEquals(0d, g.getNodeMap().get(1L).getEigenvector(), 0.0001);
+        assertEquals(0d, g.getNodeMap().get(1L).getClusteringCoefficient(), 0.0001);
+        assertEquals(0, g.getNodeMap().get(1L).getWeaklyComponent().intValue());
+
 
         assertEquals(1, g.getNodeMap().get(2L).getIndegree().intValue());
         assertEquals(1, g.getNodeMap().get(2L).getOutdegree().intValue());
@@ -40,6 +43,9 @@ public class GephiFacadeTest {
         assertEquals(1d, g.getNodeMap().get(2L).getBetweenness(), 0.0001);
         assertEquals(0.1722d, g.getNodeMap().get(2L).getPageRank(), 0.0001);
         assertEquals(0.0703d, g.getNodeMap().get(2L).getEigenvector(), 0.0001);
+        assertEquals(0d, g.getNodeMap().get(2L).getClusteringCoefficient(), 0.0001);
+        assertEquals(0, g.getNodeMap().get(2L).getWeaklyComponent().intValue());
+
 
         assertEquals(1, g.getNodeMap().get(3L).getIndegree().intValue());
         assertEquals(1, g.getNodeMap().get(3L).getOutdegree().intValue());
@@ -50,6 +56,9 @@ public class GephiFacadeTest {
         assertEquals(1d, g.getNodeMap().get(3L).getBetweenness(), 0.0001);
         assertEquals(0.1722d, g.getNodeMap().get(3L).getPageRank(), 0.0001);
         assertEquals(0.0703d, g.getNodeMap().get(3L).getEigenvector(), 0.0001);
+        assertEquals(0d, g.getNodeMap().get(3L).getClusteringCoefficient(), 0.0001);
+        assertEquals(0, g.getNodeMap().get(3L).getWeaklyComponent().intValue());
+
 
         assertEquals(1, g.getNodeMap().get(4L).getIndegree().intValue());
         assertEquals(0, g.getNodeMap().get(4L).getOutdegree().intValue());
@@ -60,6 +69,9 @@ public class GephiFacadeTest {
         assertEquals(0d, g.getNodeMap().get(4L).getBetweenness(), 0.0001);
         assertEquals(0.2672d, g.getNodeMap().get(4L).getPageRank(), 0.0001);
         assertEquals(1d, g.getNodeMap().get(4L).getEigenvector(), 0.0001);
+        assertEquals(0d, g.getNodeMap().get(4L).getClusteringCoefficient(), 0.0001);
+        assertEquals(0, g.getNodeMap().get(4L).getWeaklyComponent().intValue());
+
 
         assertEquals(1, g.getNodeMap().get(5L).getIndegree().intValue());
         assertEquals(0, g.getNodeMap().get(5L).getOutdegree().intValue());
@@ -69,8 +81,34 @@ public class GephiFacadeTest {
         assertEquals(0d, g.getNodeMap().get(5L).getHarmonicCloseness(), 0.0001);
         assertEquals(0d, g.getNodeMap().get(5L).getBetweenness(), 0.0001);
         assertEquals(0.2672d, g.getNodeMap().get(5L).getPageRank(), 0.0001);
-        assertEquals(1d, g.getNodeMap().get(4L).getEigenvector(), 0.0001);
+        assertEquals(1d, g.getNodeMap().get(5L).getEigenvector(), 0.0001);
+        assertEquals(0d, g.getNodeMap().get(5L).getClusteringCoefficient(), 0.0001);
+        assertEquals(0, g.getNodeMap().get(5L).getWeaklyComponent().intValue());
 
+
+        assertEquals(2, g.getNumberOfCommunity().intValue());
+        assertEquals(0.219, g.getModularityWithResolution().doubleValue(), 0.0001);
+        assertEquals(0.219, g.getModularityWithResolution().doubleValue(), 0.0001);
+        assertEquals(0d, g.getAvgClusteringCoef(), 0.0001);
+        assertEquals(0.2d, g.getDensity(), 0.0001);
+        assertEquals(1, g.getWeaklyComponentCount().intValue());
+        assertEquals(5, g.getStronglyComponentCount().intValue());
+        assertEquals(2, g.getDiameter().intValue());
+        assertEquals(0, g.getRadius(), 0.0001);
+        assertEquals(1.3333, g.getAvgDist(), 0.0001);
+
+        long i = 1;
+        while(i < 6) {
+            assertTrue(g.getNodeMap().get(i).getModularity() == 0 || g.getNodeMap().get(i).getModularity() == 1);
+            long j = 1;
+            while(j < 6) {
+                if(i != j) {
+                    assertFalse(g.getNodeMap().get(i).getStronglyComponent() == g.getNodeMap().get(j).getStronglyComponent());
+                }
+                j++;
+            }
+            i++;
+        }
     }
 
 }

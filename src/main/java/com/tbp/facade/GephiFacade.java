@@ -69,8 +69,9 @@ public class GephiFacade {
             modularityClass.execute(graphModel);
 
             String report = modularityClass.getReport();
-
             graphApp.setNumberOfCommunity(Integer.parseInt(StringUtils.substringBetween(report, "Number of Communities: ", "<br /><br />")));
+            graphApp.setModularityWithResolution(Double.parseDouble(StringUtils.substringBetween(report, "Modularity with resolution: ", "<br>").replace(",", ".")));
+            graphApp.setModularity(Double.parseDouble(StringUtils.substringBetween(report, "Modularity: ", "<br>").replace(",", ".")));
 
             // clustering
             ClusteringCoefficient coefficient = new ClusteringCoefficient();

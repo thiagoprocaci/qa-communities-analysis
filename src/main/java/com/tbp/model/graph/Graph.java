@@ -17,12 +17,30 @@ public class Graph {
     Integer weaklyComponentCount;
     Integer stronglyComponentCount;
     Integer numberOfCommunity;
+    Double modularityWithResolution;
+    Double modularity;
     Double avgDegree;
 
 
     public Graph() {
         nodeMap = new HashMap();
         edgeMap = new HashMap();
+    }
+
+    public Double getModularityWithResolution() {
+        return modularityWithResolution;
+    }
+
+    public Double getModularity() {
+        return modularity;
+    }
+
+    public void setModularity(Double modularity) {
+        this.modularity = modularity;
+    }
+
+    public void setModularityWithResolution(Double modularityWithResolution) {
+        this.modularityWithResolution = modularityWithResolution;
     }
 
     public Double getAvgDegree() {
