@@ -1,4 +1,4 @@
-https://travis-ci.org/thiagoprocaci/qa-communities-analysis.svg?branch=master
+[![Build Status](https://travis-ci.org/thiagoprocaci/qa-communities-analysis.svg?branch=master)](https://travis-ci.org/thiagoprocaci/qa-communities-analysis)
 
 Stackexchange dump url: https://archive.org/download/stackexchange
 Dump date: 13-Jun-2017
