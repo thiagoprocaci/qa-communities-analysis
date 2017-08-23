@@ -51,6 +51,93 @@ CREATE TABLE IF NOT EXISTS `community` (
 -- Exportação de dados foi desmarcado.
 
 
+-- Copiando estrutura para tabela communities-dataset.graph_analysis_context
+CREATE TABLE IF NOT EXISTS `graph_analysis_context` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `period` int(11) NOT NULL,
+  `id_community` int(11) NOT NULL,
+  `nodes` int(11) NOT NULL,
+  `edges` int(11) NOT NULL,
+  `density` double NOT NULL,
+  `diameter` double NOT NULL,
+  `radius` double NOT NULL,
+  `avg_dist` double NOT NULL,
+  `weakly_component_count` int(11) NOT NULL,
+  `strongly_component_count` int(11) NOT NULL,
+  `number_communities` int(11) NOT NULL,
+  `modularity_with_resolution` double NOT NULL,
+  `modularity` double NOT NULL,
+  `avg_degree` double NOT NULL,
+  `avg_clustering_coef` double NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `period_id_community` (`period`,`id_community`),
+  KEY `FK_graph_analysis_context_community` (`id_community`),
+  CONSTRAINT `FK_graph_analysis_context_community` FOREIGN KEY (`id_community`) REFERENCES `community` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Exportação de dados foi desmarcado.
+
+
+-- Copiando estrutura para tabela communities-dataset.graph_edge
+CREATE TABLE IF NOT EXISTS `graph_edge` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user_source` int(11) NOT NULL,
+  `id_user_dest` int(11) NOT NULL,
+  `weight` int(11) NOT NULL,
+  `id_graph_analysis_context` int(11) NOT NULL,
+  `id_community` int(11) NOT NULL,
+  `id_graph_node_source` int(11) NOT NULL,
+  `id_graph_node_dest` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_user_source_id_user_dest_id_graph_analysis_context` (`id_user_source`,`id_user_dest`,`id_graph_analysis_context`),
+  KEY `FK_graph_edge_user_2` (`id_user_dest`),
+  KEY `FK_graph_edge_graph_analysis_context` (`id_graph_analysis_context`),
+  KEY `FK_graph_edge_community` (`id_community`),
+  KEY `FK_graph_edge_graph_node` (`id_graph_node_source`),
+  KEY `FK_graph_edge_graph_node_2` (`id_graph_node_dest`),
+  CONSTRAINT `FK_graph_edge_community` FOREIGN KEY (`id_community`) REFERENCES `community` (`id`),
+  CONSTRAINT `FK_graph_edge_graph_analysis_context` FOREIGN KEY (`id_graph_analysis_context`) REFERENCES `graph_analysis_context` (`id`),
+  CONSTRAINT `FK_graph_edge_graph_node` FOREIGN KEY (`id_graph_node_source`) REFERENCES `graph_node` (`id`),
+  CONSTRAINT `FK_graph_edge_graph_node_2` FOREIGN KEY (`id_graph_node_dest`) REFERENCES `graph_node` (`id`),
+  CONSTRAINT `FK_graph_edge_user` FOREIGN KEY (`id_user_source`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK_graph_edge_user_2` FOREIGN KEY (`id_user_dest`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Exportação de dados foi desmarcado.
+
+
+-- Copiando estrutura para tabela communities-dataset.graph_node
+CREATE TABLE IF NOT EXISTS `graph_node` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `betweenness` double NOT NULL,
+  `closeness` double NOT NULL,
+  `eccentricity` double NOT NULL,
+  `harmonic_closeness` double NOT NULL,
+  `page_rank` double NOT NULL,
+  `indegree` int(11) NOT NULL,
+  `outdegree` int(11) NOT NULL,
+  `degree` int(11) NOT NULL,
+  `eigenvector` double NOT NULL,
+  `modularity_class` int(11) NOT NULL,
+  `clustering_coefficient` double NOT NULL,
+  `strongly_component` int(11) NOT NULL,
+  `weakly_component` int(11) NOT NULL,
+  `interactions` int(11) NOT NULL,
+  `id_graph_analysis_context` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_community` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_graph_analysis_context_id_user` (`id_graph_analysis_context`,`id_user`),
+  KEY `FK_graph_node_user` (`id_user`),
+  KEY `FK_graph_node_community` (`id_community`),
+  CONSTRAINT `FK_graph_node_community` FOREIGN KEY (`id_community`) REFERENCES `community` (`id`),
+  CONSTRAINT `FK_graph_node_graph_analysis_context` FOREIGN KEY (`id_graph_analysis_context`) REFERENCES `graph_analysis_context` (`id`),
+  CONSTRAINT `FK_graph_node_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Exportação de dados foi desmarcado.
+
+
 -- Copiando estrutura para tabela communities-dataset.post
 CREATE TABLE IF NOT EXISTS `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
