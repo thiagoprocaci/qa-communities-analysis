@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = TestApplicationConfiguration.class)
@@ -69,5 +70,13 @@ public class DateRepositoryTest {
         Integer maxPeriod = dateRepository.getMaxPeriodByCommunity(c.getId());
         assertEquals(16, maxPeriod.intValue());
 
+    }
+
+    @Test
+    public void testDateAndPeriodNullParam() {
+        assertNull(dateRepository.getMinCreationDateByCommunity(null));
+        assertNull(dateRepository.getMaxCreationDateByCommunity(null));
+        assertNull(dateRepository.getMinPeriodByCommunity(null));
+        assertNull(dateRepository.getMaxPeriodByCommunity(null));
     }
 }

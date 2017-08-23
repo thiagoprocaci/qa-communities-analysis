@@ -32,6 +32,12 @@ class DateServiceTest extends GroovyTestCase  {
 
     }
 
+    void testgenerateIntervalNullCommunity() {
+        List<Interval> intervalList = dateService.generateInterval(null)
+        assertNotNull(intervalList)
+        assertTrue(intervalList.isEmpty())
+    }
+
     void testGenerateIntervalNullDate() {
         assertNotNull(dateService.generateInterval(null, new Date()))
         assertNotNull(dateService.generateInterval(new Date(), null))

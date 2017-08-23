@@ -84,6 +84,23 @@ public class NodeTest {
         }
     }
 
+    @Test
+    public void testIdentifiableEqualsAndHashCode() {
+        Node n1 = new Node(1L);
+        Node n2 = new Node(2L);
+        Node n3 = new Node(1L);
 
+        assertFalse(n1.equals(n2));
+        assertFalse(n1.equals(null));
+        assertFalse(n1.equals("abc"));
+        assertTrue(n1.equals(n1));
+        assertTrue(n1.equals(n3));
+        assertEquals(n1.hashCode(), n3.hashCode());
+
+        n1.id = null;
+        n2.id = null;
+        assertTrue(n1.equals(n2));
+        assertEquals(0, n1.hashCode());
+    }
 
 }

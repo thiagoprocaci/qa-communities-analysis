@@ -154,9 +154,6 @@ public class Node extends Identifiable<Long> {
         interactions++;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public void setLabel(String label) {
         this.label = label;
