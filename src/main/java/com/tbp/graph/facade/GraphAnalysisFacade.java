@@ -1,6 +1,7 @@
 package com.tbp.graph.facade;
 
 
+
 import com.tbp.etl.model.Comment;
 import com.tbp.etl.model.Community;
 import com.tbp.etl.model.Post;
@@ -10,6 +11,8 @@ import com.tbp.etl.repository.PostRepository;
 import com.tbp.graph.model.Graph;
 
 import com.tbp.graph.service.GephiService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +20,8 @@ import java.util.List;
 
 @Component
 public class GraphAnalysisFacade {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GraphAnalysisFacade.class);
 
     @Autowired
     GephiService gephiService;
@@ -30,6 +35,7 @@ public class GraphAnalysisFacade {
 
 
     public Graph makeAnalysis(String communityName, Integer period) {
+        LOGGER.info("Graph analysis of " + communityName + ", considering the period " + period);
         Community community = communityRepository.findByName(communityName);
         List<Post> postList = postRepository.findByCommunityAndPeriodLessThan(community, (period + 1));
         if(postList != null && !postList.isEmpty()) {

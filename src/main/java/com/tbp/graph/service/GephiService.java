@@ -7,12 +7,14 @@ import org.gephi.graph.api.*;
 import org.gephi.project.api.ProjectController;
 import org.gephi.statistics.plugin.*;
 import org.openide.util.Lookup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class GephiService {
 
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(GephiService.class);
 
     public void executeAlgorithm(Graph graphApp) {
         if(graphApp != null && graphApp.getEdgeMap() != null && graphApp.getNodeMap() != null
@@ -37,6 +39,7 @@ public class GephiService {
                 directedGraph.addEdge(e1);
             }
 
+            LOGGER.info("Calc. graph distance");
             //GraphDistance
             GraphDistance distance = new GraphDistance();
             distance.setDirected(true);
@@ -46,22 +49,25 @@ public class GephiService {
             graphApp.setDiameter(distance.getDiameter());
             graphApp.setRadius(distance.getRadius());
 
-
+            LOGGER.info("Calc. page rank");
             // page rank
             PageRank pageRankAlg = new PageRank();
             pageRankAlg.setDirected(true);
             pageRankAlg.execute(graphModel);
 
+            LOGGER.info("Calc. degree distribution");
             // degree distribution
             Degree degreeCalc = new Degree();
             degreeCalc.execute(graphModel);
 
             graphApp.setAvgDegree(degreeCalc.getAverageDegree());
 
+            LOGGER.info("Calc. eigenvector");
             // eigenvector
             EigenvectorCentrality eigenvectorCentrality = new EigenvectorCentrality();
             eigenvectorCentrality.execute(graphModel);
 
+            LOGGER.info("Calc. modularity");
             // modularity
             Modularity modularityClass = new Modularity();
             modularityClass.setResolution(1d);
@@ -74,18 +80,21 @@ public class GephiService {
             graphApp.setModularityWithResolution(Double.parseDouble(StringUtils.substringBetween(report, "Modularity with resolution: ", "<br>").replace(",", ".")));
             graphApp.setModularity(Double.parseDouble(StringUtils.substringBetween(report, "Modularity: ", "<br>").replace(",", ".")));
 
+            LOGGER.info("Calc. clustering coefficient");
             // clustering
             ClusteringCoefficient coefficient = new ClusteringCoefficient();
             coefficient.setDirected(true);
             coefficient.execute(graphModel);
             graphApp.setAvgClusteringCoef(coefficient.getAverageClusteringCoefficient());
 
+            LOGGER.info("Calc. graph density");
             // graph density
             GraphDensity density = new GraphDensity();
             density.setDirected(true);
             density.execute(graphModel);
             graphApp.setDensity(density.getDensity());
 
+            LOGGER.info("Calc. connected components");
             // components
             ConnectedComponents connectedComponents = new ConnectedComponents();
             connectedComponents.setDirected(true);
@@ -139,6 +148,8 @@ public class GephiService {
                 node.setStronglyComponent(stronglyComp);
                 node.setWeaklyComponent(weaklyComp);
             }
+
+            LOGGER.info("Finishing graph analysis");
         }
     }
 
