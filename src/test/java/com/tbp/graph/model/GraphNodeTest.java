@@ -4,7 +4,7 @@ package com.tbp.graph.model;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class GraphVertexTest {
+public class GraphNodeTest {
 
     @Test
     public void constructor() {
