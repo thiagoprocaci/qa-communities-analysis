@@ -13,7 +13,7 @@ public class GraphEdgeTest {
         Edge edge = new Edge(n1, n2);
 
         GraphAnalysisContext graphAnalysisContext = new GraphAnalysisContext();
-        graphAnalysisContext.setIdCommunity(3L);
+        graphAnalysisContext.setIdCommunity(3);
         graphAnalysisContext.setId(4L);
 
         GraphNode graphNodeSource = new GraphNode();

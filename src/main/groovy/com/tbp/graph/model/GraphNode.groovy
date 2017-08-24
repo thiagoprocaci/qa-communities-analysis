@@ -53,7 +53,7 @@ class GraphNode {
     @Column(name = "id_user")
     Long idUser
     @Column(name = "id_community")
-    Long idCommunity
+    Integer idCommunity
 
     GraphNode(Node node, GraphAnalysisContext graphAnalysisContext) {
         this.graphAnalysisContext = graphAnalysisContext

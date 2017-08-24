@@ -30,7 +30,7 @@ public class GraphNodeTest {
         node.increaseInteractions();
 
         GraphAnalysisContext graphAnalysisContext = new GraphAnalysisContext();
-        graphAnalysisContext.setIdCommunity(2L);
+        graphAnalysisContext.setIdCommunity(2);
         graphAnalysisContext.setId(100L);
 
         GraphNode graphNode = new GraphNode(node, graphAnalysisContext);

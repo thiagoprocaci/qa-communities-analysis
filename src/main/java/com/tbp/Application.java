@@ -61,7 +61,8 @@ public class Application implements CommandLineRunner {
             LOGGER.info("postLinkExtractor" + " " + community);
         //    postLinkExtractor.execute(community);
            // dateService.updateCommunityPeriods(community);
-            graphAnalysisFacade.makeAnalysis(community, 16);
+         //   graphAnalysisFacade.makeAnalysis(community, 16);
+            graphAnalysisFacade.makeAnalysis(community);
 
         }
 

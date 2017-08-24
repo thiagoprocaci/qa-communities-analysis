@@ -15,7 +15,7 @@ class GraphAnalysisContext {
     @Column(name = "period")
     Integer period
     @Column(name = "id_community")
-    Long idCommunity
+    Integer idCommunity
     @Column(name = "nodes")
     Integer nodes
     @Column(name = "edges")
@@ -43,7 +43,7 @@ class GraphAnalysisContext {
     @Column(name = "avg_clustering_coef")
     Double avgClusteringCoef
 
-    GraphAnalysisContext(Graph graph, Integer period, Long idCommunity) {
+    GraphAnalysisContext(Graph graph, Integer period, Integer idCommunity) {
         this.period = period
         this.idCommunity = idCommunity
         this.nodes = graph.nodeMap.size()

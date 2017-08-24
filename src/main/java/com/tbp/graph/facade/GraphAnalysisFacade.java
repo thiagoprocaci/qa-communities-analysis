@@ -8,9 +8,14 @@ import com.tbp.etl.model.Post;
 import com.tbp.etl.repository.CommentRepository;
 import com.tbp.etl.repository.CommunityRepository;
 import com.tbp.etl.repository.PostRepository;
-import com.tbp.graph.model.Graph;
+import com.tbp.graph.model.*;
 
+import com.tbp.graph.repository.GraphAnalysisContextRepository;
+import com.tbp.graph.repository.GraphEdgeRepository;
+import com.tbp.graph.repository.GraphNodeRepository;
 import com.tbp.graph.service.GephiService;
+import com.tbp.period.repository.DateRepository;
+import com.tbp.period.service.DateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +36,63 @@ public class GraphAnalysisFacade {
     CommunityRepository communityRepository;
     @Autowired
     CommentRepository commentRepository;
+    @Autowired
+    DateRepository dateRepository;
+    @Autowired
+    GraphAnalysisContextRepository graphAnalysisContextRepository;
+    @Autowired
+    GraphNodeRepository graphNodeRepository;
+    @Autowired
+    GraphEdgeRepository graphEdgeRepository;
 
+    public void makeAnalysis(String communityName) {
+        if(communityName == null) {
+            LOGGER.info("Nothing to do with null community name");
+            return;
+        }
+        Community community = communityRepository.findByName(communityName);
+        if(community == null || community.getId() == null) {
+            LOGGER.info("Nothing to do with null community");
+            return;
+        }
+        Integer minPeriod =  dateRepository.getMinPeriodByCommunity(community.getId());
+        Integer maxPeriod = dateRepository.getMaxPeriodByCommunity(community.getId());
+        LOGGER.info("Min period: " + minPeriod);
+        LOGGER.info("Max period: " + maxPeriod);
+        if(minPeriod == null || maxPeriod == null) {
+            LOGGER.info("Nothing to do with null period");
+        }
 
+        while(minPeriod <= maxPeriod) {
+            if(graphAnalysisContextRepository.findByPeriodAndIdCommunity(minPeriod, community.getId()) != null) {
+                LOGGER.info("There is a graph context analysis with period " + minPeriod + " and community " + communityName);
+                minPeriod++;
+                continue;
+            }
+            Graph graph = makeAnalysis(communityName, minPeriod);
+            // creating graph persistence
+            LOGGER.info("Creating graph persistence for " + communityName);
+            GraphAnalysisContext graphAnalysisContext = new GraphAnalysisContext(graph, minPeriod, community.getId());
+            LOGGER.info("Saving graph context of " + communityName);
+            graphAnalysisContext = graphAnalysisContextRepository.save(graphAnalysisContext);
+            LOGGER.info("Saving graph nodes of " + communityName);
+            for(Node node: graph.getNodeMap().values()) {
+                GraphNode graphNode = new GraphNode(node, graphAnalysisContext);
+                graphNodeRepository.save(graphNode);
+            }
+            LOGGER.info("Saving graph edges of " + communityName);
+            for(Edge edge: graph.getEdgeMap().values()) {
+                GraphNode graphNodeSource = graphNodeRepository.findByGraphAnalysisContextAndIdUser(graphAnalysisContext, edge.getSource().getId());
+                GraphNode graphNodeDest = graphNodeRepository.findByGraphAnalysisContextAndIdUser(graphAnalysisContext, edge.getDest().getId());
+                GraphEdge graphEdge = new GraphEdge(edge, graphAnalysisContext, graphNodeSource, graphNodeDest);
+                graphEdgeRepository.save(graphEdge);
+            }
+            minPeriod++;
+        }
 
-    public Graph makeAnalysis(String communityName, Integer period) {
+    }
+
+    Graph makeAnalysis(String communityName, Integer period) {
         LOGGER.info("Graph analysis of " + communityName + ", considering the period " + period);
         Community community = communityRepository.findByName(communityName);
         List<Post> postList = postRepository.findByCommunityAndPeriodLessThan(community, (period + 1));

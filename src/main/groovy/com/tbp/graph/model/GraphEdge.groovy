@@ -29,7 +29,7 @@ class GraphEdge {
     @JoinColumn(name = "id_graph_analysis_context")
     GraphAnalysisContext graphAnalysisContext
     @Column(name = "id_community")
-    Long idCommunity
+    Integer idCommunity
     @ManyToOne
     @JoinColumn(name = "id_graph_node_source")
     GraphNode graphNodeSource

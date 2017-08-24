@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository
 
 interface GraphAnalysisContextRepository extends CrudRepository<GraphAnalysisContext, Long> {
 
-    GraphAnalysisContext findByPeriodAndIdCommunity(Integer period, Long idCommunity)
+    GraphAnalysisContext findByPeriodAndIdCommunity(Integer period, Integer idCommunity)
 
 }

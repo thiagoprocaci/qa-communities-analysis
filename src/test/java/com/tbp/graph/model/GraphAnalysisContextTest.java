@@ -28,7 +28,7 @@ public class GraphAnalysisContextTest {
         g.setAvgDegree(11d);
 
 
-        Long idCommunity = 1L;
+        Integer idCommunity = 1;
         Integer period = 0;
 
         GraphAnalysisContext graphAnalysisContext = new GraphAnalysisContext(g, period, idCommunity);
