@@ -1,7 +1,7 @@
 package com.tbp.graph.model;
 
 
-public class Node extends Identifiable<Long> {
+public class Vertex extends Identifiable<Long> {
 
     Long id;
     Double betweenness;
@@ -20,11 +20,11 @@ public class Node extends Identifiable<Long> {
     Integer interactions = 0;
     String label;
 
-    public Node(Long id) {
+    public Vertex(Long id) {
         this(id, null);
     }
 
-    public Node(Long id, String label) {
+    public Vertex(Long id, String label) {
         if(id == null) {
             throw new IllegalArgumentException("Id should not be null.");
         }

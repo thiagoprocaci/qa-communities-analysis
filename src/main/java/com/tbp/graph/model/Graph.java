@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Graph {
 
-    Map<Long, Node> nodeMap;
+    Map<Long, Vertex> nodeMap;
     Map<String, Edge> edgeMap;
     Double avgClusteringCoef;
     Double density;
@@ -120,8 +120,8 @@ public class Graph {
     }
 
     public void addEdge(Long sourceId, String labelSource, Long destId, String labelDest) {
-        Node source = new Node(sourceId, labelSource);
-        Node dest = new Node(destId, labelDest);
+        Vertex source = new Vertex(sourceId, labelSource);
+        Vertex dest = new Vertex(destId, labelDest);
         if(!nodeMap.containsKey(source.getId())) {
             nodeMap.put(source.getId(), source);
         } else {
@@ -142,7 +142,7 @@ public class Graph {
         dest.increaseInteractions();
     }
 
-    public Map<Long, Node> getNodeMap() {
+    public Map<Long, Vertex> getNodeMap() {
         return nodeMap;
     }
 

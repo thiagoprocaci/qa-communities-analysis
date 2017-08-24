@@ -55,7 +55,7 @@ class GraphNode {
     @Column(name = "id_community")
     Integer idCommunity
 
-    GraphNode(Node node, GraphAnalysisContext graphAnalysisContext) {
+    GraphNode(Vertex node, GraphAnalysisContext graphAnalysisContext) {
         this.graphAnalysisContext = graphAnalysisContext
         this.idUser = node.getId()
         this.idCommunity = graphAnalysisContext.idCommunity

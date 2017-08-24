@@ -4,12 +4,12 @@ package com.tbp.graph.model;
 public class Edge extends Identifiable<String> {
 
     String id;
-    Node source;
-    Node dest;
+    Vertex source;
+    Vertex dest;
     Integer weight;
 
 
-    public Edge(Node s, Node d) {
+    public Edge(Vertex s, Vertex d) {
         if(s == null || d == null) {
             throw  new IllegalArgumentException("Source and dest should not be null.");
         }
@@ -23,11 +23,11 @@ public class Edge extends Identifiable<String> {
         return id;
     }
 
-    public Node getSource() {
+    public Vertex getSource() {
         return source;
     }
 
-    public Node getDest() {
+    public Vertex getDest() {
         return dest;
     }
 

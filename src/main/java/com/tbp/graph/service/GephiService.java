@@ -2,6 +2,7 @@ package com.tbp.graph.service;
 
 
 import com.tbp.graph.model.Graph;
+import com.tbp.graph.model.Vertex;
 import org.apache.commons.lang3.StringUtils;
 import org.gephi.graph.api.*;
 import org.gephi.project.api.ProjectController;
@@ -27,7 +28,7 @@ public class GephiService {
             GraphModel graphModel = Lookup.getDefault().lookup(GraphController.class).getGraphModel();
 
             DirectedGraph directedGraph = graphModel.getDirectedGraph();
-            for(com.tbp.graph.model.Node n : graphApp.getNodeMap().values()) {
+            for(Vertex n : graphApp.getNodeMap().values()) {
                 Node node = graphModel.factory().newNode(n.getId().toString());
                 directedGraph.addNode(node);
             }
@@ -133,20 +134,20 @@ public class GephiService {
                 Integer stronglyComp = (Integer) n.getAttribute(columnStronglyConnected);
                 Integer weaklyComp = (Integer) n.getAttribute(columnWeaklyConnected) ;
 
-                com.tbp.graph.model.Node node = graphApp.getNodeMap().get(Long.parseLong(n.getId().toString()));
-                node.setBetweenness(betweenness);
-                node.setCloseness(closeness);
-                node.setEccentricity(eccentricity);
-                node.setHarmonicCloseness(harmonicCloseness);
-                node.setPageRank(pageRank);
-                node.setIndegree(indegree);
-                node.setOutdegree(outdegree);
-                node.setDegree(degree);
-                node.setEigenvector(eigenvector);
-                node.setModularity(modularity);
-                node.setClusteringCoefficient(clusteringCoefficient);
-                node.setStronglyComponent(stronglyComp);
-                node.setWeaklyComponent(weaklyComp);
+                Vertex vertex = graphApp.getNodeMap().get(Long.parseLong(n.getId().toString()));
+                vertex.setBetweenness(betweenness);
+                vertex.setCloseness(closeness);
+                vertex.setEccentricity(eccentricity);
+                vertex.setHarmonicCloseness(harmonicCloseness);
+                vertex.setPageRank(pageRank);
+                vertex.setIndegree(indegree);
+                vertex.setOutdegree(outdegree);
+                vertex.setDegree(degree);
+                vertex.setEigenvector(eigenvector);
+                vertex.setModularity(modularity);
+                vertex.setClusteringCoefficient(clusteringCoefficient);
+                vertex.setStronglyComponent(stronglyComp);
+                vertex.setWeaklyComponent(weaklyComp);
             }
 
             LOGGER.info("Finishing graph analysis");

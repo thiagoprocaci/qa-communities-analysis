@@ -15,7 +15,6 @@ import com.tbp.graph.repository.GraphEdgeRepository;
 import com.tbp.graph.repository.GraphNodeRepository;
 import com.tbp.graph.service.GephiService;
 import com.tbp.period.repository.DateRepository;
-import com.tbp.period.service.DateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,8 +75,8 @@ public class GraphAnalysisFacade {
             LOGGER.info("Saving graph context of " + communityName);
             graphAnalysisContext = graphAnalysisContextRepository.save(graphAnalysisContext);
             LOGGER.info("Saving graph nodes of " + communityName);
-            for(Node node: graph.getNodeMap().values()) {
-                GraphNode graphNode = new GraphNode(node, graphAnalysisContext);
+            for(Vertex vertex : graph.getNodeMap().values()) {
+                GraphNode graphNode = new GraphNode(vertex, graphAnalysisContext);
                 graphNodeRepository.save(graphNode);
             }
             LOGGER.info("Saving graph edges of " + communityName);

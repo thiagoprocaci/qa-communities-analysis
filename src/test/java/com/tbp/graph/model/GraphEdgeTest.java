@@ -8,8 +8,8 @@ public class GraphEdgeTest {
 
     @Test
     public void constructor() {
-        Node n1 = new Node(1L);
-        Node n2 = new Node(2L);
+        Vertex n1 = new Vertex(1L);
+        Vertex n2 = new Vertex(2L);
         Edge edge = new Edge(n1, n2);
 
         GraphAnalysisContext graphAnalysisContext = new GraphAnalysisContext();

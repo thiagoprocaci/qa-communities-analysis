@@ -14,18 +14,18 @@ public class EdgeTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorIllegalArgFirstNull() {
-        new Edge(null, new Node(1L));
+        new Edge(null, new Vertex(1L));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorIllegalArgSecondNull() {
-        new Edge(new Node(1L), null);
+        new Edge(new Vertex(1L), null);
     }
 
     @Test
     public void testConstructorSuccess() {
-        Node n1 = new Node(1L);
-        Node n2 = new Node(2L);
+        Vertex n1 = new Vertex(1L);
+        Vertex n2 = new Vertex(2L);
         Edge e = new Edge(n1, n2);
         assertEquals(n1.getId() + "_" + n2.getId(), e.getId());
         assertEquals(n1, e.getSource());
@@ -35,8 +35,8 @@ public class EdgeTest {
 
     @Test
     public void testAddWeight() {
-        Node n1 = new Node(1L);
-        Node n2 = new Node(2L);
+        Vertex n1 = new Vertex(1L);
+        Vertex n2 = new Vertex(2L);
         Edge e = new Edge(n1, n2);
         assertEquals(1, e.getWeight().intValue());
         e.addWeight();
