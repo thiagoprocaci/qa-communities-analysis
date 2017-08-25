@@ -9,8 +9,12 @@ import com.tbp.etl.repository.CommentRepository;
 import com.tbp.etl.repository.CommunityRepository;
 import com.tbp.etl.repository.PostRepository;
 import com.tbp.graph.model.Graph;
+import com.tbp.graph.repository.GraphAnalysisContextRepository;
+import com.tbp.graph.repository.GraphEdgeRepository;
+import com.tbp.graph.repository.GraphNodeRepository;
 import com.tbp.graph.service.GephiService;
 
+import com.tbp.period.repository.DateRepository;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,6 +36,11 @@ public class GraphAnalysisFacadeTest {
     CommentRepository commentRepository;
     GraphAnalysisFacade graphAnalysisFacade;
 
+    DateRepository dateRepository;
+    GraphAnalysisContextRepository graphAnalysisContextRepository;
+    GraphNodeRepository graphNodeRepository;
+    GraphEdgeRepository graphEdgeRepository;
+
     String communityName = "abc";
     Community community = new Community();
 
@@ -42,13 +51,34 @@ public class GraphAnalysisFacadeTest {
         communityRepository = mock(CommunityRepository.class);
         commentRepository = mock(CommentRepository.class);
 
+        dateRepository = mock(DateRepository.class);
+        graphAnalysisContextRepository = mock(GraphAnalysisContextRepository.class);
+        graphNodeRepository = mock(GraphNodeRepository.class);
+        graphEdgeRepository =  mock(GraphEdgeRepository.class);
+
         graphAnalysisFacade = new GraphAnalysisFacade();
         graphAnalysisFacade.gephiService = gephiService;
         graphAnalysisFacade.postRepository = postRepository;
         graphAnalysisFacade.commentRepository = commentRepository;
         graphAnalysisFacade.communityRepository = communityRepository;
+        graphAnalysisFacade.dateRepository = dateRepository;
+        graphAnalysisFacade.graphAnalysisContextRepository = graphAnalysisContextRepository;
+        graphAnalysisFacade.graphNodeRepository = graphNodeRepository;
+        graphAnalysisFacade.graphEdgeRepository = graphEdgeRepository;
 
         when(communityRepository.findByName(communityName)).thenReturn(community);
+    }
+
+    @Test
+    public void makeAnalysisNullParam() {
+        graphAnalysisFacade.makeAnalysis(null);
+        verifyZeroInteractions(postRepository, communityRepository, commentRepository, dateRepository, graphAnalysisContextRepository, graphNodeRepository, graphEdgeRepository);
+    }
+
+    @Test
+    public void makeAnalysisinvalidCommunity() {
+        graphAnalysisFacade.makeAnalysis("xxx");
+        verifyZeroInteractions(postRepository, commentRepository, dateRepository, graphAnalysisContextRepository, graphNodeRepository, graphEdgeRepository);
     }
 
     @Test
