@@ -10,7 +10,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
 
-abstract class AbstractExtractor {
+abstract class AbstractExtractor<E> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractExtractor.class);
 
@@ -19,10 +19,19 @@ abstract class AbstractExtractor {
     @Autowired
     LineSupport lineSupport
 
-    abstract String getFileName()
-    abstract void onExecute(def row, Community c)
-    void save() {}
+    List<E> entityList = new ArrayList<>()
 
+    abstract String getFileName()
+
+    abstract E onExecute(def row, Community c)
+
+    abstract void save(List<E> list)
+
+    void cleanList() {
+        if(entityList != null) {
+            entityList.clear()
+        }
+    }
 
     void execute(String community) {
         LOGGER.info("Executing extractor of " + getFileName() + ". Community: " + community )
@@ -36,15 +45,20 @@ abstract class AbstractExtractor {
                 def doc = DOMBuilder.parse(reader)
                 def row = doc.documentElement
                 use(DOMCategory) {
-                    onExecute(row, c)
+                    E entity = onExecute(row, c)
+                    if(entity != null) {
+                        entityList.add(entity)
+                    }
                 }
                 count++
                 if(count == 700) {
-                    save()
+                    save(entityList)
+                    cleanList()
                     count = 0
                 }
             }
         }
-        save()
+        save(entityList)
+        cleanList()
     }
 }

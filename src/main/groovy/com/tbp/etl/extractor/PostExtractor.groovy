@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class PostExtractor extends AbstractExtractor {
+class PostExtractor extends AbstractExtractor<Post> {
 
 
     @Autowired
@@ -31,7 +31,7 @@ class PostExtractor extends AbstractExtractor {
     }
 
     @Override
-    void onExecute(Object row, Community c) {
+    Post onExecute(Object row, Community c) {
         Long idPostCommunity = numberUtil.toLong(row['@Id'])
         Post post = postRepository.findByCommunityAndIdPostCommunity(c, idPostCommunity)
         if(post == null) {
@@ -59,7 +59,12 @@ class PostExtractor extends AbstractExtractor {
         post.user = userRepository.findByCommunityAndIdUserCommunity(c, post.idUserCommunity)
         post.postType = numberUtil.toInteger(row['@PostTypeId'])
         post.parentPostCommunityId = numberUtil.toLong(row['@ParentId'])
-        postRepository.save(post)
+        return post
 
+    }
+
+    @Override
+    void save(List<Post> list) {
+        postRepository.save(list)
     }
 }

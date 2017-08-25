@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class PostLinkExtractor extends AbstractExtractor {
+class PostLinkExtractor extends AbstractExtractor<PostLink> {
 
     @Autowired
     DateUtil dateUtil
@@ -28,20 +28,25 @@ class PostLinkExtractor extends AbstractExtractor {
     }
 
     @Override
-    void onExecute(Object row, Community c) {
+    PostLink onExecute(Object row, Community c) {
         Long idPostLinkCommunity = numberUtil.toLong(row['@Id'])
-        if(postLinkRepository.findByCommunityAndIdPostLinkCommunity(c, idPostLinkCommunity) == null) {
-            PostLink postLink = new PostLink()
-            postLink.idPostLinkCommunity = idPostLinkCommunity
-            postLink.creationDate = dateUtil.toDate(row['@CreationDate'])
-            postLink.idPostCommunity = numberUtil.toLong(row['@PostId'])
-            postLink.idRelatedPostCommunity = numberUtil.toLong(row['@RelatedPostId'])
-            postLink.postLinkType = numberUtil.toInteger(row['@LinkTypeId'])
-            postLink.community = c
-            postLink.post = postRepository.findByCommunityAndIdPostCommunity(c, postLink.idPostCommunity)
-            postLink.relatedPost = postRepository.findByCommunityAndIdPostCommunity(c, postLink.idRelatedPostCommunity)
-            postLinkRepository.save(postLink)
+        PostLink postLink = postLinkRepository.findByCommunityAndIdPostLinkCommunity(c, idPostLinkCommunity)
+        if(postLink == null) {
+            postLink = new PostLink()
         }
+        postLink.idPostLinkCommunity = idPostLinkCommunity
+        postLink.creationDate = dateUtil.toDate(row['@CreationDate'])
+        postLink.idPostCommunity = numberUtil.toLong(row['@PostId'])
+        postLink.idRelatedPostCommunity = numberUtil.toLong(row['@RelatedPostId'])
+        postLink.postLinkType = numberUtil.toInteger(row['@LinkTypeId'])
+        postLink.community = c
+        postLink.post = postRepository.findByCommunityAndIdPostCommunity(c, postLink.idPostCommunity)
+        postLink.relatedPost = postRepository.findByCommunityAndIdPostCommunity(c, postLink.idRelatedPostCommunity)
+        return postLink
+    }
 
+    @Override
+    void save(List<PostLink> list) {
+        postLinkRepository.save(list)
     }
 }

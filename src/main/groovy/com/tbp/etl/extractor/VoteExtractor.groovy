@@ -6,13 +6,14 @@ import com.tbp.etl.model.Community
 import com.tbp.etl.model.Vote
 import com.tbp.etl.repository.PostRepository
 import com.tbp.etl.repository.UserRepository
+import com.tbp.etl.repository.VoteBatchRepository
 import com.tbp.etl.repository.VoteRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 
 @Component
-class VoteExtractor extends AbstractExtractor {
+class VoteExtractor extends AbstractExtractor<Vote> {
 
     @Autowired
     UserRepository userRepository
@@ -24,6 +25,8 @@ class VoteExtractor extends AbstractExtractor {
     VoteRepository voteRepository
     @Autowired
     PostRepository postRepository
+    @Autowired
+    VoteBatchRepository voteBatchRepository
 
     @Override
     String getFileName() {
@@ -31,23 +34,29 @@ class VoteExtractor extends AbstractExtractor {
     }
 
     @Override
-    void onExecute(Object row, Community c) {
+    Vote onExecute(Object row, Community c) {
         Long idVoteCommunity = numberUtil.toLong(row['@Id'])
-        if(voteRepository.findByCommunityAndIdVoteCommunity(c, idVoteCommunity) == null){
-            Vote vote = new Vote()
-            vote.idVoteCommunity = idVoteCommunity
-            vote.idPostCommunity = numberUtil.toLong(row['@PostId'])
-            vote.creationDate = dateUtil.toDate(row['@CreationDate'])
-            vote.voteType = numberUtil.toInteger(row['@VoteTypeId'])
-            vote.idUserCommunity = numberUtil.toLong(row['@UserId'])
-            vote.bountyAmount = numberUtil.toInteger(row['@BountyAmount'])
-            vote.community = c
-            Integer userCommId = numberUtil.toLong(row['@UserId'])
-            if( userCommId != null) {
-                vote.user = userRepository.findByCommunityAndIdUserCommunity(c, userCommId)
-            }
-            vote.post = postRepository.findByCommunityAndIdPostCommunity(c, vote.idPostCommunity)
-            voteRepository.save(vote)
+        Vote vote = voteRepository.findByCommunityAndIdVoteCommunity(c, idVoteCommunity)
+        if(vote== null) {
+            vote = new Vote()
         }
+        vote.idVoteCommunity = idVoteCommunity
+        vote.idPostCommunity = numberUtil.toLong(row['@PostId'])
+        vote.creationDate = dateUtil.toDate(row['@CreationDate'])
+        vote.voteType = numberUtil.toInteger(row['@VoteTypeId'])
+        vote.idUserCommunity = numberUtil.toLong(row['@UserId'])
+        vote.bountyAmount = numberUtil.toInteger(row['@BountyAmount'])
+        vote.community = c
+        Integer userCommId = numberUtil.toLong(row['@UserId'])
+        if( userCommId != null) {
+            vote.user = userRepository.findByCommunityAndIdUserCommunity(c, userCommId)
+        }
+        vote.post = postRepository.findByCommunityAndIdPostCommunity(c, vote.idPostCommunity)
+        return vote
+    }
+
+    @Override
+    void save(List<Vote> list) {
+        voteBatchRepository.saveBatch(list)
     }
 }

@@ -1,4 +1,4 @@
-package com.tbp;
+package com.tbp.etl.repository;
 
 import com.tbp.etl.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +17,7 @@ public class UserBatchRepository {
     JdbcTemplate jdbcTemplate;
 
     static final String SQL_INSERT = "insert into user (id_user_comm, reputation, creation_date, display_name, last_access_date, website_url, location, age, about_me, views, up_votes, down_votes, " +
-            "id_community)\n" +
-            "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+            "id_community) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
     public void saveBatch(final List<User> userList) {
         final int batchSize = 500;

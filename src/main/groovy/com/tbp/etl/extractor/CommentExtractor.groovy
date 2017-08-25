@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component
-class CommentExtractor extends AbstractExtractor {
+class CommentExtractor extends AbstractExtractor<Comment> {
 
     @Autowired
     CommunityRepository communityRepository
@@ -39,7 +39,7 @@ class CommentExtractor extends AbstractExtractor {
     }
 
     @Override
-    void onExecute(Object row, Community c) {
+    Comment onExecute(Object row, Community c) {
         Long idCommentCommunity = numberUtil.toLong(row['@Id'])
         Comment comment = commentRepository.findByCommunityAndIdCommentCommunity(c, idCommentCommunity)
         if(comment == null) {
@@ -56,7 +56,11 @@ class CommentExtractor extends AbstractExtractor {
             comment.user = userRepository.findByCommunityAndIdUserCommunity(c, comment.idUserCommunity)
         }
         comment.post = postRepository.findByCommunityAndIdPostCommunity(c, comment.idPostCommunity)
-        commentRepository.save(comment)
+        return comment
+    }
 
+    @Override
+    void save(List<Comment> list) {
+        commentRepository.save(list)
     }
 }
