@@ -41,20 +41,22 @@ class CommentExtractor extends AbstractExtractor {
     @Override
     void onExecute(Object row, Community c) {
         Long idCommentCommunity = numberUtil.toLong(row['@Id'])
-        if(commentRepository.findByCommunityAndIdCommentCommunity(c, idCommentCommunity) == null) {
-            Comment comment = new Comment()
-            comment.idCommentCommunity = numberUtil.toLong(row['@Id'])
-            comment.idPostCommunity = numberUtil.toLong(row['@PostId'])
-            comment.creationDate = dateUtil.toDate(row['@CreationDate'])
-            comment.score = numberUtil.toInteger(row['@Score'])
-            comment.text = stringSupport.prepare(row['@Text'])
-            comment.idUserCommunity = numberUtil.toLong(row['@UserId'])
-            comment.community = c
-            if( comment.idUserCommunity != null) {
-                comment.user = userRepository.findByCommunityAndIdUserCommunity(c, comment.idUserCommunity)
-            }
-            comment.post = postRepository.findByCommunityAndIdPostCommunity(c, comment.idPostCommunity)
-            commentRepository.save(comment)
+        Comment comment = commentRepository.findByCommunityAndIdCommentCommunity(c, idCommentCommunity)
+        if(comment == null) {
+            comment = new Comment()
         }
+        comment.idCommentCommunity = numberUtil.toLong(row['@Id'])
+        comment.idPostCommunity = numberUtil.toLong(row['@PostId'])
+        comment.creationDate = dateUtil.toDate(row['@CreationDate'])
+        comment.score = numberUtil.toInteger(row['@Score'])
+        comment.text = stringSupport.prepare(row['@Text'])
+        comment.idUserCommunity = numberUtil.toLong(row['@UserId'])
+        comment.community = c
+        if( comment.idUserCommunity != null) {
+            comment.user = userRepository.findByCommunityAndIdUserCommunity(c, comment.idUserCommunity)
+        }
+        comment.post = postRepository.findByCommunityAndIdPostCommunity(c, comment.idPostCommunity)
+        commentRepository.save(comment)
+
     }
 }

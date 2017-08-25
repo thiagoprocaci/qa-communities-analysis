@@ -37,5 +37,30 @@ class Comment {
     @Column(name = "period")
     Integer period
 
+    @Column(name = "ari")
+    Integer ari
+    @Column(name = "smog")
+    Double smog
+    @Column(name = "flesch_reading")
+    Double fleschReading
+    @Column(name = "flesch_kincaid")
+    Double fleschKincaid
+    @Column(name = "gunning_fog")
+    Double gunningFog
+    @Column(name = "coleman_liau")
+    Double colemanLiau;
+    @Column(name = "smog_index")
+    Double smogIndex
+    @Column(name = "characters")
+    Double characters
+    @Column(name = "syllables")
+    Double syllables
+    @Column(name = "words")
+    Double words
+    @Column(name = "complexwords")
+    Double complexWords
+    @Column(name = "sentences")
+    Double sentences
+
 
 }

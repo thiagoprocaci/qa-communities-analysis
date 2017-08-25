@@ -1,10 +1,12 @@
 package com.tbp.etl.extractor
 
+import com.tbp.UserBatchRepository
 import com.tbp.etl.extractor.support.DateUtil
 import com.tbp.etl.extractor.support.NumberUtil
 import com.tbp.etl.extractor.support.StringSupport
 import com.tbp.etl.model.Community
 import com.tbp.etl.model.User
+
 import com.tbp.etl.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
@@ -21,6 +23,10 @@ class UserExtractor extends AbstractExtractor {
     NumberUtil numberUtil
     @Autowired
     StringSupport stringSupport
+    @Autowired
+    UserBatchRepository userBatchRepository
+
+    List<User> userList = new ArrayList<>()
 
     @Override
     String getFileName() {
@@ -45,7 +51,16 @@ class UserExtractor extends AbstractExtractor {
             u.upVotes = numberUtil.toInteger(row['@UpVotes'])
             u.downVotes = numberUtil.toInteger(row['@DownVotes'])
             u.community = c
-            userRepository.save(u)
+
+            userList.add(u)
+
+//            userRepository.save(u)
         }
+    }
+
+    @Override
+    void save() {
+        userBatchRepository.saveBatch(userList)
+        userList.clear()
     }
 }

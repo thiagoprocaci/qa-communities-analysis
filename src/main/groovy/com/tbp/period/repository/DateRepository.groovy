@@ -114,16 +114,24 @@ class DateRepository {
         LOGGER.info("Interval size " + intervalList.size())
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String[] tables = ["comment", "post", "post_link", "user", "vote"]
+        List<String> sqlList = new ArrayList<>()
         for(int i = 0; i < intervalList.size(); i++) {
-            Interval interval = intervalList.get(i);
-            Date start = interval.getStart().toDate();
-            Date end = interval.getEnd().toDate();
+            Interval interval = intervalList.get(i)
+            Date start = interval.getStart().toDate()
+            Date end = interval.getEnd().toDate()
             for(String table : tables) {
                 String sql = String.format(UPDATE_PERIOD, table, i, format.format(start), format.format(end), communityName)
                 LOGGER.debug(sql)
-                jdbcTemplate.execute(sql)
+                sqlList.add(sql)
             }
         }
+        if(!sqlList.isEmpty()) {
+            String[] sqlArray = sqlList.toArray(new String[0])
+            LOGGER.debug("sqlArray size: " + sqlArray.length)
+            LOGGER.debug("sqlList size: " + sqlList.size())
+            jdbcTemplate.batchUpdate(sqlArray)
+        }
+
     }
 
 }

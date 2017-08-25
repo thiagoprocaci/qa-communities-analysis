@@ -21,13 +21,14 @@ abstract class AbstractExtractor {
 
     abstract String getFileName()
     abstract void onExecute(def row, Community c)
+    void save() {}
 
 
     void execute(String community) {
         LOGGER.info("Executing extractor of " + getFileName() + ". Community: " + community )
         Community c = communityRepository.findByName(community)
         File inputFile = new File('src/main/resources/' + community + File.separator + getFileName());
-
+        int count = 0
         inputFile.eachLine{ it, i ->
             def line = lineSupport.prepareLine(it)
             if(line != null) {
@@ -37,7 +38,13 @@ abstract class AbstractExtractor {
                 use(DOMCategory) {
                     onExecute(row, c)
                 }
+                count++
+                if(count == 700) {
+                    save()
+                    count = 0
+                }
             }
         }
+        save()
     }
 }

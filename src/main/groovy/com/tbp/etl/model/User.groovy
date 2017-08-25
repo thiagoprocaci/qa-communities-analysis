@@ -3,6 +3,7 @@ package com.tbp.etl.model
 import groovy.transform.ToString
 
 import javax.persistence.*
+import java.sql.Timestamp
 
 @ToString
 @Entity
@@ -17,7 +18,7 @@ class User {
     @Column(name = "id_user_comm", nullable = false)
     Long idUserCommunity
     @Column(name = "reputation", nullable = false)
-    Integer reputation;
+    Integer reputation
     @Column(name = "creation_date", nullable = false)
     Date creationDate
     @Column(name = "display_name", nullable = false)
@@ -25,25 +26,39 @@ class User {
     @Column(name = "last_access_date", nullable = false)
     Date lastAccessDate
     @Column(name = "website_url")
-    String websiteUrl;
+    String websiteUrl
     @Column(name = "location")
     String location
     @Column(name = "age")
-    Integer age;
+    Integer age
     @Column(name = "about_me", columnDefinition = "TEXT")
-    String aboutMe;
+    String aboutMe
     @Column(name = "views", nullable = false)
-    Integer views;
+    Integer views
     @Column(name = "up_votes", nullable = false)
-    Integer upVotes;
+    Integer upVotes
     @Column(name = "down_votes", nullable = false)
-    Integer downVotes;
+    Integer downVotes
 
     @ManyToOne
     @JoinColumn(name = "id_community", nullable = false)
-    Community community;
+    Community community
 
     @Column(name = "period")
-    Integer period;
+    Integer period
+
+    Timestamp getCreationDateAsSql() {
+        if(creationDate != null) {
+            return new Timestamp(creationDate.time)
+        }
+        return null
+    }
+
+    Timestamp getLastAccessDateAsSql() {
+        if(lastAccessDate != null) {
+            return new Timestamp(lastAccessDate.time)
+        }
+        return null
+    }
 
 }

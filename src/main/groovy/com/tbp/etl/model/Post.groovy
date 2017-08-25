@@ -57,10 +57,58 @@ class Post {
     @ManyToOne
     @JoinColumn(name = "id_user")
     User user
-    @Column(name = "ari")
-    Integer ari
     @Column(name = "period")
-    Integer period;
+    Integer period
+
+    @Column(name = "ari_text")
+    Integer ariText
+    @Column(name = "smog_text")
+    Double smogText
+    @Column(name = "flesch_reading_text")
+    Double fleschReadingText
+    @Column(name = "flesch_kincaid_text")
+    Double fleschKincaidText
+    @Column(name = "gunning_fog_text")
+    Double gunningFogText
+    @Column(name = "coleman_liau_text")
+    Double colemanLiauText
+    @Column(name = "smog_index_text")
+    Double smogIndexText
+    @Column(name = "characters_text")
+    Double charactersText
+    @Column(name = "syllables_text")
+    Double syllablesText
+    @Column(name = "words_text")
+    Double wordsText
+    @Column(name = "complexwords_text")
+    Double complexWordsText
+    @Column(name = "sentences_text")
+    Double sentencesText
+
+    @Column(name = "ari_title")
+    Integer ariTitle
+    @Column(name = "smog_title")
+    Double smogTitle
+    @Column(name = "flesch_reading_title")
+    Double fleschReadingTitle
+    @Column(name = "flesch_kincaid_title")
+    Double fleschKincaidTitle
+    @Column(name = "gunning_fog_title")
+    Double gunningFogTitle
+    @Column(name = "coleman_liau_title")
+    Double colemanLiauTitle
+    @Column(name = "smog_index_title")
+    Double smogIndexTitle
+    @Column(name = "characters_title")
+    Double charactersTitle
+    @Column(name = "syllables_title")
+    Double syllablesTitle
+    @Column(name = "words_title")
+    Double wordsTitle
+    @Column(name = "complexwords_title")
+    Double complexWordsTitle
+    @Column(name = "sentences_title")
+    Double sentencesTitle
 
 
 }

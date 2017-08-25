@@ -11,6 +11,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 import static org.junit.Assert.*;
 
@@ -50,7 +51,9 @@ public class UserExtractorTest extends BaseExtractorTest {
             assertEquals(userFromXml.getAboutMe(), userFromDataBase.getAboutMe());
             assertEquals(userFromXml.getAge(), userFromDataBase.getAge());
             assertEquals(userFromXml.getReputation(), userFromDataBase.getReputation());
-            assertEquals(userFromXml.getCreationDate(), userFromDataBase.getCreationDate());
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+            assertEquals(format.format(userFromXml.getCreationDate()), format.format(userFromDataBase.getCreationDate()));
             assertEquals(userFromXml.getDisplayName(), userFromDataBase.getDisplayName());
             assertEquals(userFromXml.getLastAccessDate(), userFromDataBase.getLastAccessDate());
             assertEquals(userFromXml.getWebsiteUrl(), userFromDataBase.getWebsiteUrl());
