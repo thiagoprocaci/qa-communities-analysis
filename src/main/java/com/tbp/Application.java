@@ -41,31 +41,33 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        String[] communities = new String[]{"meta.3dprinting.stackexchange.com"};
+        String[] communities = new String[]{"biology.stackexchange.com"};
 
                 //= new String[]{"meta.3dprinting.stackexchange.com", "android.stackexchange.com", "ai.stackexchange.com", "biology.stackexchange.com", "chemistry.stackexchange.com"};
 
+        long startTime = System.currentTimeMillis();
         for (String community: communities) {
             LOGGER.info("Execution: " + community);
 
             LOGGER.info("communityExtractor" + " " + community);
-        //    communityExtractor.execute(community);
+            communityExtractor.execute(community);
             LOGGER.info("userExtractor" + " " + community);
-        //    userExtractor.execute(community);
+            userExtractor.execute(community);
             LOGGER.info("postExtractor" + " " + community);
-       //     postExtractor.execute(community);
+            postExtractor.execute(community);
             LOGGER.info("voteExtractor" + " " + community);
-        //    voteExtractor.execute(community);
+            voteExtractor.execute(community);
             LOGGER.info("commentExtractor" + " " + community);
-        //    commentExtractor.execute(community);
+            commentExtractor.execute(community);
             LOGGER.info("postLinkExtractor" + " " + community);
-        //    postLinkExtractor.execute(community);
+            postLinkExtractor.execute(community);
            // dateService.updateCommunityPeriods(community);
          //   graphAnalysisFacade.makeAnalysis(community, 16);
-            graphAnalysisFacade.makeAnalysis(community);
+           // graphAnalysisFacade.makeAnalysis(community);
 
         }
-
+        long end = System.currentTimeMillis();
+        LOGGER.info("Total time (seconds): " +  ((end - startTime) * 0.001));
 
 
     }

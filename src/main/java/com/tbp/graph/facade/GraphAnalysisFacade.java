@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -75,17 +76,30 @@ public class GraphAnalysisFacade {
             LOGGER.info("Saving graph context of " + communityName);
             graphAnalysisContext = graphAnalysisContextRepository.save(graphAnalysisContext);
             LOGGER.info("Saving graph nodes of " + communityName);
+            List<GraphNode> graphNodes = new ArrayList<>();
             for(Vertex vertex : graph.getNodeMap().values()) {
                 GraphNode graphNode = new GraphNode(vertex, graphAnalysisContext);
-                graphNodeRepository.save(graphNode);
+                graphNodes.add(graphNode);
+                if(graphNodes.size() == 1000) {
+                    graphNodeRepository.save(graphNodes);
+                    graphNodes.clear();
+                }
             }
+            graphNodeRepository.save(graphNodes);
+
             LOGGER.info("Saving graph edges of " + communityName);
+            List<GraphEdge> graphEdges = new ArrayList<>();
             for(Edge edge: graph.getEdgeMap().values()) {
                 GraphNode graphNodeSource = graphNodeRepository.findByGraphAnalysisContextAndIdUser(graphAnalysisContext, edge.getSource().getId());
                 GraphNode graphNodeDest = graphNodeRepository.findByGraphAnalysisContextAndIdUser(graphAnalysisContext, edge.getDest().getId());
                 GraphEdge graphEdge = new GraphEdge(edge, graphAnalysisContext, graphNodeSource, graphNodeDest);
-                graphEdgeRepository.save(graphEdge);
+                graphEdges.add(graphEdge);
+                if(graphEdges.size() == 1000) {
+                    graphEdgeRepository.save(graphEdges);
+                    graphEdges.clear();
+                }
             }
+            graphEdgeRepository.save(graphEdges);
             minPeriod++;
         }
 

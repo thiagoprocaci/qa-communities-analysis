@@ -4,7 +4,7 @@ import com.tbp.etl.extractor.support.DateUtil
 import com.tbp.etl.extractor.support.NumberUtil
 import com.tbp.etl.model.Community
 import com.tbp.etl.model.PostLink
-import com.tbp.etl.repository.PostLinkBatchRepository
+
 import com.tbp.etl.repository.PostLinkRepository
 import com.tbp.etl.repository.PostRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,8 +21,7 @@ class PostLinkExtractor extends AbstractExtractor<PostLink> {
     PostRepository postRepository
     @Autowired
     PostLinkRepository postLinkRepository
-    @Autowired
-    PostLinkBatchRepository postLinkBatchRepository;
+
 
     @Override
     String getFileName() {
@@ -35,20 +34,22 @@ class PostLinkExtractor extends AbstractExtractor<PostLink> {
         PostLink postLink = postLinkRepository.findByCommunityAndIdPostLinkCommunity(c, idPostLinkCommunity)
         if(postLink == null) {
             postLink = new PostLink()
+            postLink.idPostLinkCommunity = idPostLinkCommunity
+            postLink.creationDate = dateUtil.toDate(row['@CreationDate'])
+            postLink.idPostCommunity = numberUtil.toLong(row['@PostId'])
+            postLink.idRelatedPostCommunity = numberUtil.toLong(row['@RelatedPostId'])
+            postLink.postLinkType = numberUtil.toInteger(row['@LinkTypeId'])
+            postLink.community = c
+            postLink.post = postRepository.findByCommunityAndIdPostCommunity(c, postLink.idPostCommunity)
+            postLink.relatedPost = postRepository.findByCommunityAndIdPostCommunity(c, postLink.idRelatedPostCommunity)
+            return postLink
         }
-        postLink.idPostLinkCommunity = idPostLinkCommunity
-        postLink.creationDate = dateUtil.toDate(row['@CreationDate'])
-        postLink.idPostCommunity = numberUtil.toLong(row['@PostId'])
-        postLink.idRelatedPostCommunity = numberUtil.toLong(row['@RelatedPostId'])
-        postLink.postLinkType = numberUtil.toInteger(row['@LinkTypeId'])
-        postLink.community = c
-        postLink.post = postRepository.findByCommunityAndIdPostCommunity(c, postLink.idPostCommunity)
-        postLink.relatedPost = postRepository.findByCommunityAndIdPostCommunity(c, postLink.idRelatedPostCommunity)
-        return postLink
+
     }
+
 
     @Override
     void save(List<PostLink> list) {
-        postLinkBatchRepository.saveBatch(list)
+        postLinkRepository.save(list)
     }
 }
