@@ -70,6 +70,10 @@ public class GraphAnalysisFacade {
                 continue;
             }
             Graph graph = makeAnalysis(communityName, minPeriod);
+            if(graph.getNodeMap().size() == 0 || graph.getEdgeMap().size() == 0) {
+                minPeriod++;
+                continue;
+            }
             // creating graph persistence
             LOGGER.info("Creating graph persistence for " + communityName);
             GraphAnalysisContext graphAnalysisContext = new GraphAnalysisContext(graph, minPeriod, community.getId());

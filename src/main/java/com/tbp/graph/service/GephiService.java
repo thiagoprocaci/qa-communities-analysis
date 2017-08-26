@@ -40,7 +40,7 @@ public class GephiService {
                 directedGraph.addEdge(e1);
             }
 
-            LOGGER.info("Calc. graph distance");
+            LOGGER.debug("Calc. graph distance");
             //GraphDistance
             GraphDistance distance = new GraphDistance();
             distance.setDirected(true);
@@ -50,25 +50,25 @@ public class GephiService {
             graphApp.setDiameter(distance.getDiameter());
             graphApp.setRadius(distance.getRadius());
 
-            LOGGER.info("Calc. page rank");
+            LOGGER.debug("Calc. page rank");
             // page rank
             PageRank pageRankAlg = new PageRank();
             pageRankAlg.setDirected(true);
             pageRankAlg.execute(graphModel);
 
-            LOGGER.info("Calc. degree distribution");
+            LOGGER.debug("Calc. degree distribution");
             // degree distribution
             Degree degreeCalc = new Degree();
             degreeCalc.execute(graphModel);
 
             graphApp.setAvgDegree(degreeCalc.getAverageDegree());
 
-            LOGGER.info("Calc. eigenvector");
+            LOGGER.debug("Calc. eigenvector");
             // eigenvector
             EigenvectorCentrality eigenvectorCentrality = new EigenvectorCentrality();
             eigenvectorCentrality.execute(graphModel);
 
-            LOGGER.info("Calc. modularity");
+            LOGGER.debug("Calc. modularity");
             // modularity
             Modularity modularityClass = new Modularity();
             modularityClass.setResolution(1d);
@@ -81,21 +81,21 @@ public class GephiService {
             graphApp.setModularityWithResolution(Double.parseDouble(StringUtils.substringBetween(report, "Modularity with resolution: ", "<br>").replace(",", ".")));
             graphApp.setModularity(Double.parseDouble(StringUtils.substringBetween(report, "Modularity: ", "<br>").replace(",", ".")));
 
-            LOGGER.info("Calc. clustering coefficient");
+            LOGGER.debug("Calc. clustering coefficient");
             // clustering
             ClusteringCoefficient coefficient = new ClusteringCoefficient();
             coefficient.setDirected(true);
             coefficient.execute(graphModel);
             graphApp.setAvgClusteringCoef(coefficient.getAverageClusteringCoefficient());
 
-            LOGGER.info("Calc. graph density");
+            LOGGER.debug("Calc. graph density");
             // graph density
             GraphDensity density = new GraphDensity();
             density.setDirected(true);
             density.execute(graphModel);
             graphApp.setDensity(density.getDensity());
 
-            LOGGER.info("Calc. connected components");
+            LOGGER.debug("Calc. connected components");
             // components
             ConnectedComponents connectedComponents = new ConnectedComponents();
             connectedComponents.setDirected(true);
@@ -150,7 +150,7 @@ public class GephiService {
                 vertex.setWeaklyComponent(weaklyComp);
             }
 
-            LOGGER.info("Finishing graph analysis");
+            LOGGER.debug("Finishing graph analysis");
         }
     }
 
