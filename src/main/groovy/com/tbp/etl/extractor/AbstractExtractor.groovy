@@ -51,7 +51,7 @@ abstract class AbstractExtractor<E> {
                     }
                 }
                 count++
-                if(count == 700) {
+                if(count == 1000) {
                     save(entityList)
                     cleanList()
                     count = 0

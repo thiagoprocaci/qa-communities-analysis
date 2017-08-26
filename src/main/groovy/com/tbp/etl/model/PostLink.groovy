@@ -1,6 +1,7 @@
 package com.tbp.etl.model
 
 import javax.persistence.*
+import java.sql.Timestamp
 
 @Entity
 @Table(name = "post_link",
@@ -36,6 +37,13 @@ class PostLink {
 
     @Column(name = "period")
     Integer period;
+
+    Timestamp getCreationDateAsSql() {
+        if(creationDate != null) {
+            return new Timestamp(creationDate.time)
+        }
+        return null
+    }
 
 
 }

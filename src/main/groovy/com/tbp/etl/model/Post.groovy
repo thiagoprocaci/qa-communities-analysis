@@ -1,6 +1,7 @@
 package com.tbp.etl.model
 
 import javax.persistence.*
+import java.sql.Timestamp
 
 @Entity
 @Table(name = "post",
@@ -109,6 +110,13 @@ class Post {
     Double complexWordsTitle
     @Column(name = "sentences_title")
     Double sentencesTitle
+
+    static Timestamp getDateAsSql(Date d) {
+        if(d != null) {
+            return new Timestamp(d.time)
+        }
+        return null
+    }
 
 
 }

@@ -5,6 +5,7 @@ import com.tbp.etl.extractor.support.NumberUtil
 import com.tbp.etl.extractor.support.StringSupport
 import com.tbp.etl.model.Community
 import com.tbp.etl.model.Post
+import com.tbp.etl.repository.PostBatchRepository
 import com.tbp.etl.repository.PostRepository
 import com.tbp.etl.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,6 +25,8 @@ class PostExtractor extends AbstractExtractor<Post> {
     PostRepository postRepository
     @Autowired
     StringSupport stringSupport
+    @Autowired
+    PostBatchRepository postBatchRepository;
 
     @Override
     String getFileName() {
@@ -65,6 +68,6 @@ class PostExtractor extends AbstractExtractor<Post> {
 
     @Override
     void save(List<Post> list) {
-        postRepository.save(list)
+        postBatchRepository.saveBatch(list)
     }
 }

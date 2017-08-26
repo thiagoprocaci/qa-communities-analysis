@@ -4,6 +4,7 @@ import com.tbp.etl.extractor.support.DateUtil
 import com.tbp.etl.extractor.support.NumberUtil
 import com.tbp.etl.model.Community
 import com.tbp.etl.model.PostLink
+import com.tbp.etl.repository.PostLinkBatchRepository
 import com.tbp.etl.repository.PostLinkRepository
 import com.tbp.etl.repository.PostRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -20,7 +21,8 @@ class PostLinkExtractor extends AbstractExtractor<PostLink> {
     PostRepository postRepository
     @Autowired
     PostLinkRepository postLinkRepository
-
+    @Autowired
+    PostLinkBatchRepository postLinkBatchRepository;
 
     @Override
     String getFileName() {
@@ -47,6 +49,6 @@ class PostLinkExtractor extends AbstractExtractor<PostLink> {
 
     @Override
     void save(List<PostLink> list) {
-        postLinkRepository.save(list)
+        postLinkBatchRepository.saveBatch(list)
     }
 }
