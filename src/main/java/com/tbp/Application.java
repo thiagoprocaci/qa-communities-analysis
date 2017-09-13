@@ -5,6 +5,7 @@ import com.tbp.etl.extractor.*;
 import com.tbp.graph.facade.GraphAnalysisFacade;
 
 import com.tbp.period.service.DateService;
+import com.tbp.readability.ReadabilityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class Application implements CommandLineRunner {
     DateService dateService;
     @Autowired
     GraphAnalysisFacade graphAnalysisFacade;
+    @Autowired
+    ReadabilityService redabilityService;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -41,7 +44,7 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        String[] communities = new String[]{"biology.stackexchange.com"};
+        String[] communities = new String[]{"ai.stackexchange.com"};
 
                 //= new String[]{"meta.3dprinting.stackexchange.com", "android.stackexchange.com", "ai.stackexchange.com", "biology.stackexchange.com", "chemistry.stackexchange.com"};
 
@@ -50,23 +53,26 @@ public class Application implements CommandLineRunner {
             LOGGER.info("Execution: " + community);
 
             LOGGER.info("communityExtractor" + " " + community);
-           // communityExtractor.execute(community);
+            //communityExtractor.execute(community);
             LOGGER.info("userExtractor" + " " + community);
-           // userExtractor.execute(community);
+            //userExtractor.execute(community);
             LOGGER.info("postExtractor" + " " + community);
-          //  postExtractor.execute(community);
+            //postExtractor.execute(community);
             LOGGER.info("voteExtractor" + " " + community);
-           // voteExtractor.execute(community);
+            //voteExtractor.execute(community);
             LOGGER.info("commentExtractor" + " " + community);
-          //  commentExtractor.execute(community);
+            //commentExtractor.execute(community);
             LOGGER.info("postLinkExtractor" + " " + community);
-          //  postLinkExtractor.execute(community);
+            //postLinkExtractor.execute(community);
 
             LOGGER.info("updateCommunityPeriods" + " " + community);
-          //  dateService.updateCommunityPeriods(community);
+            //dateService.updateCommunityPeriods(community);
 
             LOGGER.info("graphAnalysisFacade" + " " + community);
-            graphAnalysisFacade.makeAnalysis(community);
+            //graphAnalysisFacade.makeAnalysis(community);
+
+            LOGGER.info("Redability analysis" + " " + community);
+            redabilityService.execute(community);
 
         }
         long end = System.currentTimeMillis();

@@ -38,7 +38,7 @@ class Comment {
     Integer period
 
     @Column(name = "ari")
-    Integer ari
+    Double ari
     @Column(name = "smog")
     Double smog
     @Column(name = "flesch_reading")

@@ -62,7 +62,7 @@ class Post {
     Integer period
 
     @Column(name = "ari_text")
-    Integer ariText
+    Double ariText
     @Column(name = "smog_text")
     Double smogText
     @Column(name = "flesch_reading_text")
@@ -87,7 +87,7 @@ class Post {
     Double sentencesText
 
     @Column(name = "ari_title")
-    Integer ariTitle
+    Double ariTitle
     @Column(name = "smog_title")
     Double smogTitle
     @Column(name = "flesch_reading_title")
@@ -117,6 +117,5 @@ class Post {
         }
         return null
     }
-
 
 }
