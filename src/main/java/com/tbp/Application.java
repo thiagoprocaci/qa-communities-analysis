@@ -53,23 +53,23 @@ public class Application implements CommandLineRunner {
             LOGGER.info("Execution: " + community);
 
             LOGGER.info("communityExtractor" + " " + community);
-            //communityExtractor.execute(community);
+            communityExtractor.execute(community);
             LOGGER.info("userExtractor" + " " + community);
-            //userExtractor.execute(community);
+            userExtractor.execute(community);
             LOGGER.info("postExtractor" + " " + community);
-            //postExtractor.execute(community);
+            postExtractor.execute(community);
             LOGGER.info("voteExtractor" + " " + community);
-            //voteExtractor.execute(community);
+            voteExtractor.execute(community);
             LOGGER.info("commentExtractor" + " " + community);
-            //commentExtractor.execute(community);
+            commentExtractor.execute(community);
             LOGGER.info("postLinkExtractor" + " " + community);
-            //postLinkExtractor.execute(community);
+            postLinkExtractor.execute(community);
 
             LOGGER.info("updateCommunityPeriods" + " " + community);
-            //dateService.updateCommunityPeriods(community);
+            dateService.updateCommunityPeriods(community);
 
             LOGGER.info("graphAnalysisFacade" + " " + community);
-            //graphAnalysisFacade.makeAnalysis(community);
+            graphAnalysisFacade.makeAnalysis(community);
 
             LOGGER.info("Redability analysis" + " " + community);
             redabilityService.execute(community);

@@ -37,8 +37,9 @@ class ReadabilityService {
         LOGGER.info("Updating readability scores of " + communityName)
         Community community = communityRepository.findByName(communityName)
         if(community != null) {
-            handlePages(postRepository, "post", community)
             handlePages(commentRepository, "comment", community)
+            handlePages(postRepository, "post", community)
+
         }
     }
 
@@ -66,52 +67,67 @@ class ReadabilityService {
 
     def handleComment(Comment comment) {
         ISentenceExtractor sentenceExtractor = new SentenceExtractorStanfordNlp()
-        Readability readability = new Readability(comment.text, sentenceExtractor)
-        comment.ari = readability.getMetric(MetricType.ARI)
-        comment.smog = readability.getMetric(MetricType.SMOG)
-        comment.fleschReading = readability.getMetric(MetricType.FLESCH_READING)
-        comment.fleschKincaid = readability.getMetric(MetricType.FLESCH_KINCAID)
-        comment.gunningFog = readability.getMetric(MetricType.GUNNING_FOG)
-        comment.colemanLiau = readability.getMetric(MetricType.COLEMAN_LIAU)
-        comment.smogIndex = readability.getMetric(MetricType.SMOG_INDEX)
-        comment.characters = readability.getMetric(MetricType.CHARACTERS)
-        comment.syllables = readability.getMetric(MetricType.SYLLABLES)
-        comment.words = readability.getMetric(MetricType.WORDS)
-        comment.complexWords = readability.getMetric(MetricType.COMPLEXWORDS)
-        comment.sentences = readability.getMetric(MetricType.SENTENCES)
+        if(StringUtils.hasText(comment.text)) {
+            Readability readability = new Readability(comment.text, sentenceExtractor)
+            try {
+                comment.ari = readability.getMetric(MetricType.ARI)
+                comment.smog = readability.getMetric(MetricType.SMOG)
+                comment.fleschReading = readability.getMetric(MetricType.FLESCH_READING)
+                comment.fleschKincaid = readability.getMetric(MetricType.FLESCH_KINCAID)
+                comment.gunningFog = readability.getMetric(MetricType.GUNNING_FOG)
+                comment.colemanLiau = readability.getMetric(MetricType.COLEMAN_LIAU)
+                comment.smogIndex = readability.getMetric(MetricType.SMOG_INDEX)
+                comment.characters = readability.getMetric(MetricType.CHARACTERS)
+                comment.syllables = readability.getMetric(MetricType.SYLLABLES)
+                comment.words = readability.getMetric(MetricType.WORDS)
+                comment.complexWords = readability.getMetric(MetricType.COMPLEXWORDS)
+                comment.sentences = readability.getMetric(MetricType.SENTENCES)
+            } catch (Exception e) {
+                LOGGER.error("Problem parsing the comment: " + comment.text)
+            }
+
+        }
     }
 
     def handlePost(Post post) {
         ISentenceExtractor sentenceExtractor = new SentenceExtractorStanfordNlp()
         if(StringUtils.hasText(post.getBody())) {
             Readability readability = new Readability(post.getBody(), sentenceExtractor)
-            post.ariText = readability.getMetric(MetricType.ARI)
-            post.smogText = readability.getMetric(MetricType.SMOG)
-            post.fleschReadingText = readability.getMetric(MetricType.FLESCH_READING)
-            post.fleschKincaidText = readability.getMetric(MetricType.FLESCH_KINCAID)
-            post.gunningFogText = readability.getMetric(MetricType.GUNNING_FOG)
-            post.colemanLiauText = readability.getMetric(MetricType.COLEMAN_LIAU)
-            post.smogIndexText = readability.getMetric(MetricType.SMOG_INDEX)
-            post.charactersText = readability.getMetric(MetricType.CHARACTERS)
-            post.syllablesText = readability.getMetric(MetricType.SYLLABLES)
-            post.wordsText = readability.getMetric(MetricType.WORDS)
-            post.complexWordsText = readability.getMetric(MetricType.COMPLEXWORDS)
-            post.sentencesText = readability.getMetric(MetricType.SENTENCES)
+            try {
+                post.ariText = readability.getMetric(MetricType.ARI)
+                post.smogText = readability.getMetric(MetricType.SMOG)
+                post.fleschReadingText = readability.getMetric(MetricType.FLESCH_READING)
+                post.fleschKincaidText = readability.getMetric(MetricType.FLESCH_KINCAID)
+                post.gunningFogText = readability.getMetric(MetricType.GUNNING_FOG)
+                post.colemanLiauText = readability.getMetric(MetricType.COLEMAN_LIAU)
+                post.smogIndexText = readability.getMetric(MetricType.SMOG_INDEX)
+                post.charactersText = readability.getMetric(MetricType.CHARACTERS)
+                post.syllablesText = readability.getMetric(MetricType.SYLLABLES)
+                post.wordsText = readability.getMetric(MetricType.WORDS)
+                post.complexWordsText = readability.getMetric(MetricType.COMPLEXWORDS)
+                post.sentencesText = readability.getMetric(MetricType.SENTENCES)
+            } catch (Exception e) {
+                LOGGER.error("Problem parsing the post text: " + post.getBody())
+            }
         }
         if(StringUtils.hasText(post.getTitle())) {
             Readability readability = new Readability(post.getTitle(), sentenceExtractor)
-            post.ariTitle = readability.getMetric(MetricType.ARI)
-            post.smogTitle = readability.getMetric(MetricType.SMOG)
-            post.fleschReadingTitle = readability.getMetric(MetricType.FLESCH_READING)
-            post.fleschKincaidTitle = readability.getMetric(MetricType.FLESCH_KINCAID)
-            post.gunningFogTitle = readability.getMetric(MetricType.GUNNING_FOG)
-            post.colemanLiauTitle = readability.getMetric(MetricType.COLEMAN_LIAU)
-            post.smogIndexTitle = readability.getMetric(MetricType.SMOG_INDEX)
-            post.charactersTitle = readability.getMetric(MetricType.CHARACTERS)
-            post.syllablesTitle = readability.getMetric(MetricType.SYLLABLES)
-            post.wordsTitle = readability.getMetric(MetricType.WORDS)
-            post.complexWordsTitle = readability.getMetric(MetricType.COMPLEXWORDS)
-            post.sentencesTitle = readability.getMetric(MetricType.SENTENCES)
+            try {
+                post.ariTitle = readability.getMetric(MetricType.ARI)
+                post.smogTitle = readability.getMetric(MetricType.SMOG)
+                post.fleschReadingTitle = readability.getMetric(MetricType.FLESCH_READING)
+                post.fleschKincaidTitle = readability.getMetric(MetricType.FLESCH_KINCAID)
+                post.gunningFogTitle = readability.getMetric(MetricType.GUNNING_FOG)
+                post.colemanLiauTitle = readability.getMetric(MetricType.COLEMAN_LIAU)
+                post.smogIndexTitle = readability.getMetric(MetricType.SMOG_INDEX)
+                post.charactersTitle = readability.getMetric(MetricType.CHARACTERS)
+                post.syllablesTitle = readability.getMetric(MetricType.SYLLABLES)
+                post.wordsTitle = readability.getMetric(MetricType.WORDS)
+                post.complexWordsTitle = readability.getMetric(MetricType.COMPLEXWORDS)
+                post.sentencesTitle = readability.getMetric(MetricType.SENTENCES)
+            } catch (Exception e) {
+                LOGGER.error("Problem parsing the post title: " + post.getBody())
+            }
         }
     }
 }
