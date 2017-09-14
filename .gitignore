@@ -19,7 +19,7 @@ target/
 *.7z
 android.stackexchange.com/
 askubuntu.com/
-biology.stackexchange.com/
+#biology.stackexchange.com/
 chemistry.stackexchange.com/
 dba.stackexchange.com/
 english.stackexchange.com/
