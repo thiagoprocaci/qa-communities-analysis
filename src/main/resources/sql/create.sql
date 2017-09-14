@@ -10,12 +10,119 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
--- Copiando estrutura do banco de dados para communities-dataset
-CREATE DATABASE IF NOT EXISTS `communities-dataset` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `communities-dataset`;
+-- Copiando estrutura do banco de dados para communities-test
+CREATE DATABASE IF NOT EXISTS `communities-test` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `communities-test`;
 
 
--- Copiando estrutura para tabela communities-dataset.comment
+-- Copiando estrutura para view communities-test.ai_user
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `ai_user` (
+	`id` INT(11) NOT NULL,
+	`id_user_comm` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`reputation` INT(11) NOT NULL,
+	`creation_date` DATETIME NOT NULL,
+	`display_name` VARCHAR(500) NOT NULL COLLATE 'utf8_general_ci',
+	`last_access_date` DATETIME NOT NULL,
+	`website_url` VARCHAR(1000) NULL COLLATE 'utf8_general_ci',
+	`location` VARCHAR(500) NULL COLLATE 'utf8_general_ci',
+	`age` INT(11) NULL,
+	`about_me` TEXT NULL COLLATE 'utf8_general_ci',
+	`views` INT(11) NOT NULL,
+	`up_votes` INT(11) NULL,
+	`down_votes` INT(11) NULL,
+	`period` INT(11) NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para view communities-test.biology_user
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `biology_user` (
+	`id` INT(11) NOT NULL,
+	`id_user_comm` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`reputation` INT(11) NOT NULL,
+	`creation_date` DATETIME NOT NULL,
+	`display_name` VARCHAR(500) NOT NULL COLLATE 'utf8_general_ci',
+	`last_access_date` DATETIME NOT NULL,
+	`website_url` VARCHAR(1000) NULL COLLATE 'utf8_general_ci',
+	`location` VARCHAR(500) NULL COLLATE 'utf8_general_ci',
+	`age` INT(11) NULL,
+	`about_me` TEXT NULL COLLATE 'utf8_general_ci',
+	`views` INT(11) NOT NULL,
+	`up_votes` INT(11) NULL,
+	`down_votes` INT(11) NULL,
+	`period` INT(11) NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para view communities-test.biology_user_profile
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `biology_user_profile` (
+	`id` INT(11) NOT NULL,
+	`id_user_comm` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`reputation` INT(11) NOT NULL,
+	`creation_date` DATETIME NOT NULL,
+	`display_name` VARCHAR(500) NOT NULL COLLATE 'utf8_general_ci',
+	`last_access_date` DATETIME NOT NULL,
+	`website_url` VARCHAR(1000) NULL COLLATE 'utf8_general_ci',
+	`location` VARCHAR(500) NULL COLLATE 'utf8_general_ci',
+	`age` INT(11) NULL,
+	`about_me` TEXT NULL COLLATE 'utf8_general_ci',
+	`views` INT(11) NOT NULL,
+	`up_votes` INT(11) NULL,
+	`down_votes` INT(11) NULL,
+	`period` INT(11) NULL,
+	`profile` INT(0) NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para view communities-test.chemistry_user
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `chemistry_user` (
+	`id` INT(11) NOT NULL,
+	`id_user_comm` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`reputation` INT(11) NOT NULL,
+	`creation_date` DATETIME NOT NULL,
+	`display_name` VARCHAR(500) NOT NULL COLLATE 'utf8_general_ci',
+	`last_access_date` DATETIME NOT NULL,
+	`website_url` VARCHAR(1000) NULL COLLATE 'utf8_general_ci',
+	`location` VARCHAR(500) NULL COLLATE 'utf8_general_ci',
+	`age` INT(11) NULL,
+	`about_me` TEXT NULL COLLATE 'utf8_general_ci',
+	`views` INT(11) NOT NULL,
+	`up_votes` INT(11) NULL,
+	`down_votes` INT(11) NULL,
+	`period` INT(11) NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para view communities-test.chemistry_user_profile
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `chemistry_user_profile` (
+	`id` INT(11) NOT NULL,
+	`id_user_comm` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`reputation` INT(11) NOT NULL,
+	`creation_date` DATETIME NOT NULL,
+	`display_name` VARCHAR(500) NOT NULL COLLATE 'utf8_general_ci',
+	`last_access_date` DATETIME NOT NULL,
+	`website_url` VARCHAR(1000) NULL COLLATE 'utf8_general_ci',
+	`location` VARCHAR(500) NULL COLLATE 'utf8_general_ci',
+	`age` INT(11) NULL,
+	`about_me` TEXT NULL COLLATE 'utf8_general_ci',
+	`views` INT(11) NOT NULL,
+	`up_votes` INT(11) NULL,
+	`down_votes` INT(11) NULL,
+	`period` INT(11) NULL,
+	`profile` INT(0) NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para tabela communities-test.comment
 CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_community` int(11) NOT NULL,
@@ -52,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
 -- Exportação de dados foi desmarcado.
 
 
--- Copiando estrutura para tabela communities-dataset.community
+-- Copiando estrutura para tabela communities-test.community
 CREATE TABLE IF NOT EXISTS `community` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
@@ -63,7 +170,7 @@ CREATE TABLE IF NOT EXISTS `community` (
 -- Exportação de dados foi desmarcado.
 
 
--- Copiando estrutura para tabela communities-dataset.graph_analysis_context
+-- Copiando estrutura para tabela communities-test.graph_analysis_context
 CREATE TABLE IF NOT EXISTS `graph_analysis_context` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `period` int(11) NOT NULL,
@@ -90,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `graph_analysis_context` (
 -- Exportação de dados foi desmarcado.
 
 
--- Copiando estrutura para tabela communities-dataset.graph_edge
+-- Copiando estrutura para tabela communities-test.graph_edge
 CREATE TABLE IF NOT EXISTS `graph_edge` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user_source` int(11) NOT NULL,
@@ -118,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `graph_edge` (
 -- Exportação de dados foi desmarcado.
 
 
--- Copiando estrutura para tabela communities-dataset.graph_node
+-- Copiando estrutura para tabela communities-test.graph_node
 CREATE TABLE IF NOT EXISTS `graph_node` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `betweenness` double NOT NULL,
@@ -150,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `graph_node` (
 -- Exportação de dados foi desmarcado.
 
 
--- Copiando estrutura para tabela communities-dataset.post
+-- Copiando estrutura para tabela communities-test.post
 CREATE TABLE IF NOT EXISTS `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_post_comm` int(11) NOT NULL,
@@ -200,7 +307,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `syllables_title` double DEFAULT NULL,
   `words_title` double DEFAULT NULL,
   `complexwords_title` double DEFAULT NULL,
-  `sentences_title`  double DEFAULT NULL,
+  `sentences_title` double DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_post_comm_id_community` (`id_post_comm`,`id_community`),
   KEY `FK_post_community` (`id_community`),
@@ -212,7 +319,7 @@ CREATE TABLE IF NOT EXISTS `post` (
 -- Exportação de dados foi desmarcado.
 
 
--- Copiando estrutura para tabela communities-dataset.post_link
+-- Copiando estrutura para tabela communities-test.post_link
 CREATE TABLE IF NOT EXISTS `post_link` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_post_link_comm` int(11) NOT NULL,
@@ -237,7 +344,7 @@ CREATE TABLE IF NOT EXISTS `post_link` (
 -- Exportação de dados foi desmarcado.
 
 
--- Copiando estrutura para tabela communities-dataset.user
+-- Copiando estrutura para tabela communities-test.user
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_user_comm` int(11) NOT NULL,
@@ -263,7 +370,191 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Exportação de dados foi desmarcado.
 
 
--- Copiando estrutura para tabela communities-dataset.vote
+-- Copiando estrutura para função communities-test.USER_BIOLOGY_REP_MEDIAN
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `USER_BIOLOGY_REP_MEDIAN`() RETURNS double
+BEGIN
+
+  DECLARE MEDIAN DOUBLE DEFAULT null;
+
+select C.reputation  INTO MEDIAN from (
+	SELECT avg(t1.reputation) as reputation, (select 'median' from dual) as description FROM (
+SELECT @rownum:=@rownum+1 as `row_number`, d.reputation
+  FROM biology_user d,  (SELECT @rownum:=0) r
+  WHERE 1
+  ORDER BY d.reputation
+) as t1,
+(
+  SELECT count(*) as total_rows
+  FROM biology_user d
+  WHERE 1
+) as t2
+WHERE 1
+AND t1.row_number in ( floor((total_rows+1)/2), floor((total_rows+2)/2))
+	)C;
+
+  RETURN MEDIAN;
+END//
+DELIMITER ;
+
+
+-- Copiando estrutura para view communities-test.user_biology_rep_overview
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `user_biology_rep_overview` (
+	`minimum` BIGINT(11) NULL,
+	`Q1` DOUBLE NULL,
+	`median` DOUBLE NULL,
+	`Q3` DOUBLE NULL,
+	`maximum` BIGINT(11) NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para função communities-test.USER_BIOLOGY_REP_Q1
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `USER_BIOLOGY_REP_Q1`() RETURNS double
+BEGIN
+
+  DECLARE Q1 DOUBLE DEFAULT null;
+	select max(B.reputation) into Q1 from (
+    SELECT
+	  A.rank,
+	  A.id,
+	  A.reputation,
+	  (select 'Q1' from dual) as description,
+	  CASE WHEN A.rank <= (select (count(*) * 25)/100 from biology_user)  THEN 'Q1_start'
+	  END AS 'quartile'
+	FROM (
+			select @rownum:=@rownum + 1 rank, p.* from biology_user p ,
+			(SELECT @rownum:=0) r order by reputation asc
+
+	)A
+
+	)B where B.quartile = 'Q1_start' order by B.reputation;
+  RETURN Q1;
+END//
+DELIMITER ;
+
+
+-- Copiando estrutura para função communities-test.USER_BIOLOGY_REP_Q3
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `USER_BIOLOGY_REP_Q3`() RETURNS double
+BEGIN
+
+  DECLARE Q3 DOUBLE DEFAULT null;
+select min(B.reputation) into Q3 from (
+
+ SELECT
+	  A.rank,
+	  A.id,
+	  A.reputation,
+	  (select 'Q3' from dual) as description,
+	  CASE WHEN A.rank >= (select (count(*) * 75)/100 from biology_user) THEN 'Q3_start'
+	  END AS 'quartile'
+	FROM (
+			select @rownum:=@rownum + 1 rank, p.* from biology_user p ,
+			(SELECT @rownum:=0) r order by reputation asc
+
+	)A
+
+	)B where B.quartile = 'Q3_start' order by B.reputation;
+  RETURN Q3;
+END//
+DELIMITER ;
+
+
+-- Copiando estrutura para função communities-test.USER_CHEMISTRY_REP_MEDIAN
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `USER_CHEMISTRY_REP_MEDIAN`() RETURNS double
+BEGIN
+
+  DECLARE MEDIAN DOUBLE DEFAULT null;
+
+select C.reputation  INTO MEDIAN from (
+	SELECT avg(t1.reputation) as reputation, (select 'median' from dual) as description FROM (
+SELECT @rownum:=@rownum+1 as `row_number`, d.reputation
+  FROM chemistry_user d,  (SELECT @rownum:=0) r
+  WHERE 1
+  ORDER BY d.reputation
+) as t1,
+(
+  SELECT count(*) as total_rows
+  FROM chemistry_user d
+  WHERE 1
+) as t2
+WHERE 1
+AND t1.row_number in ( floor((total_rows+1)/2), floor((total_rows+2)/2))
+	)C;
+
+  RETURN MEDIAN;
+END//
+DELIMITER ;
+
+
+-- Copiando estrutura para view communities-test.user_chemistry_rep_overview
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `user_chemistry_rep_overview` (
+	`minimum` BIGINT(11) NULL,
+	`Q1` DOUBLE NULL,
+	`median` DOUBLE NULL,
+	`Q3` DOUBLE NULL,
+	`maximum` BIGINT(11) NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para função communities-test.USER_CHEMISTRY_REP_Q1
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `USER_CHEMISTRY_REP_Q1`() RETURNS double
+BEGIN
+
+  DECLARE Q1 DOUBLE DEFAULT null;
+	select max(B.reputation) into Q1 from (
+    SELECT
+	  A.rank,
+	  A.id,
+	  A.reputation,
+	  (select 'Q1' from dual) as description,
+	  CASE WHEN A.rank <= (select (count(*) * 25)/100 from chemistry_user)  THEN 'Q1_start'
+	  END AS 'quartile'
+	FROM (
+			select @rownum:=@rownum + 1 rank, p.* from chemistry_user p ,
+			(SELECT @rownum:=0) r order by reputation asc
+
+	)A
+
+	)B where B.quartile = 'Q1_start' order by B.reputation;
+  RETURN Q1;
+END//
+DELIMITER ;
+
+
+-- Copiando estrutura para função communities-test.USER_CHEMISTRY_REP_Q3
+DELIMITER //
+CREATE DEFINER=`root`@`localhost` FUNCTION `USER_CHEMISTRY_REP_Q3`() RETURNS double
+BEGIN
+
+  DECLARE Q3 DOUBLE DEFAULT null;
+select min(B.reputation) into Q3 from (
+
+ SELECT
+	  A.rank,
+	  A.id,
+	  A.reputation,
+	  (select 'Q3' from dual) as description,
+	  CASE WHEN A.rank >= (select (count(*) * 75)/100 from chemistry_user) THEN 'Q3_start'
+	  END AS 'quartile'
+	FROM (
+			select @rownum:=@rownum + 1 rank, p.* from chemistry_user p ,
+			(SELECT @rownum:=0) r order by reputation asc
+
+	)A
+
+	)B where B.quartile = 'Q3_start' order by B.reputation;
+  RETURN Q3;
+END//
+DELIMITER ;
+
+
+-- Copiando estrutura para tabela communities-test.vote
 CREATE TABLE IF NOT EXISTS `vote` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_community` int(11) NOT NULL,
@@ -286,6 +577,48 @@ CREATE TABLE IF NOT EXISTS `vote` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Exportação de dados foi desmarcado.
+
+
+-- Copiando estrutura para view communities-test.ai_user
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `ai_user`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ai_user` AS select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period` from `user` `u` where `u`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'ai.stackexchange.com'));
+
+
+-- Copiando estrutura para view communities-test.biology_user
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `biology_user`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `biology_user` AS select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period` from `user` `u` where `u`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'biology.stackexchange.com'));
+
+
+-- Copiando estrutura para view communities-test.biology_user_profile
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `biology_user_profile`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `biology_user_profile` AS (select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period`,(case when (`u`.`reputation` <= `o`.`Q1`) then 1 when ((`u`.`reputation` > `o`.`Q1`) and (`u`.`reputation` <= `o`.`median`)) then 2 when ((`u`.`reputation` > `o`.`median`) and (`u`.`reputation` <= `o`.`Q3`)) then 3 when (`u`.`reputation` > `o`.`Q3`) then 4 end) AS `profile` from (`biology_user` `u` join `user_biology_rep_overview` `o`));
+
+
+-- Copiando estrutura para view communities-test.chemistry_user
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `chemistry_user`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chemistry_user` AS select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period` from `user` `u` where `u`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'chemistry.stackexchange.com'));
+
+
+-- Copiando estrutura para view communities-test.chemistry_user_profile
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `chemistry_user_profile`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chemistry_user_profile` AS (select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period`,(case when (`u`.`reputation` <= `o`.`Q1`) then 1 when ((`u`.`reputation` > `o`.`Q1`) and (`u`.`reputation` <= `o`.`median`)) then 2 when ((`u`.`reputation` > `o`.`median`) and (`u`.`reputation` <= `o`.`Q3`)) then 3 when (`u`.`reputation` > `o`.`Q3`) then 4 end) AS `profile` from (`chemistry_user` `u` join `user_chemistry_rep_overview` `o`));
+
+
+-- Copiando estrutura para view communities-test.user_biology_rep_overview
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `user_biology_rep_overview`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_biology_rep_overview` AS (select (select min(`u`.`reputation`) from `biology_user` `u`) AS `minimum`,(select `USER_BIOLOGY_REP_Q1`()) AS `Q1`,(select `USER_BIOLOGY_REP_MEDIAN`()) AS `median`,(select `USER_BIOLOGY_REP_Q3`()) AS `Q3`,(select max(`u`.`reputation`) from `biology_user` `u`) AS `maximum`);
+
+
+-- Copiando estrutura para view communities-test.user_chemistry_rep_overview
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `user_chemistry_rep_overview`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `user_chemistry_rep_overview` AS (select (select min(`u`.`reputation`) from `chemistry_user` `u`) AS `minimum`,(select `USER_CHEMISTRY_REP_Q1`()) AS `Q1`,(select `USER_CHEMISTRY_REP_MEDIAN`()) AS `median`,(select `USER_CHEMISTRY_REP_Q3`()) AS `Q3`,(select max(`u`.`reputation`) from `chemistry_user` `u`) AS `maximum`);
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
