@@ -36,6 +36,145 @@ CREATE TABLE `ai_user` (
 ) ENGINE=MyISAM;
 
 
+-- Copiando estrutura para view communities-test.biology_answer
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `biology_answer` (
+	`id` INT(11) NOT NULL,
+	`id_post_comm` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`post_type` TINYINT(4) NOT NULL,
+	`parent_post_comm_id` INT(11) NULL,
+	`creation_date` DATETIME NOT NULL,
+	`accepted_answer_comm_id` INT(11) NULL,
+	`score` INT(11) NOT NULL,
+	`view_count` INT(11) NULL,
+	`body` TEXT NULL COLLATE 'utf8_general_ci',
+	`id_user_community` INT(11) NULL,
+	`last_editor_user_community_id` INT(11) NULL,
+	`last_editor_display_name` VARCHAR(500) NULL COLLATE 'utf8_general_ci',
+	`last_edit_date` DATETIME NULL,
+	`last_activity_date` DATETIME NULL,
+	`community_owned_date` DATETIME NULL,
+	`closed_date` DATETIME NULL,
+	`title` MEDIUMTEXT NULL COLLATE 'utf8_general_ci',
+	`tags` VARCHAR(700) NULL COLLATE 'utf8_general_ci',
+	`answer_count` INT(11) NULL,
+	`comment_count` INT(11) NOT NULL,
+	`favorite_count` INT(11) NULL,
+	`id_user` INT(11) NULL,
+	`ari` INT(11) NULL,
+	`period` INT(11) NULL,
+	`ari_text` DOUBLE NULL,
+	`smog_text` DOUBLE NULL,
+	`flesch_reading_text` DOUBLE NULL,
+	`flesch_kincaid_text` DOUBLE NULL,
+	`gunning_fog_text` DOUBLE NULL,
+	`coleman_liau_text` DOUBLE NULL,
+	`smog_index_text` DOUBLE NULL,
+	`characters_text` DOUBLE NULL,
+	`syllables_text` DOUBLE NULL,
+	`words_text` DOUBLE NULL,
+	`complexwords_text` DOUBLE NULL,
+	`sentences_text` DOUBLE NULL,
+	`ari_title` DOUBLE NULL,
+	`smog_title` DOUBLE NULL,
+	`flesch_reading_title` DOUBLE NULL,
+	`flesch_kincaid_title` DOUBLE NULL,
+	`gunning_fog_title` DOUBLE NULL,
+	`coleman_liau_title` DOUBLE NULL,
+	`smog_index_title` DOUBLE NULL,
+	`characters_title` DOUBLE NULL,
+	`syllables_title` DOUBLE NULL,
+	`words_title` DOUBLE NULL,
+	`complexwords_title` DOUBLE NULL,
+	`sentences_title` DOUBLE NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para view communities-test.biology_comment
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `biology_comment` (
+	`id` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`id_comment_comm` INT(11) NOT NULL,
+	`id_post_comm` INT(11) NOT NULL,
+	`score` INT(11) NOT NULL,
+	`text` TEXT NOT NULL COLLATE 'utf8_general_ci',
+	`creation_date` DATETIME NOT NULL,
+	`id_user_comm` INT(11) NULL,
+	`id_user` INT(11) NULL,
+	`id_post` INT(11) NOT NULL,
+	`period` INT(11) NULL,
+	`ari` DOUBLE NULL,
+	`smog` DOUBLE NULL,
+	`flesch_reading` DOUBLE NULL,
+	`flesch_kincaid` DOUBLE NULL,
+	`gunning_fog` DOUBLE NULL,
+	`coleman_liau` DOUBLE NULL,
+	`smog_index` DOUBLE NULL,
+	`characters` DOUBLE NULL,
+	`syllables` DOUBLE NULL,
+	`words` DOUBLE NULL,
+	`complexwords` DOUBLE NULL,
+	`sentences` DOUBLE NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para view communities-test.biology_question
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `biology_question` (
+	`id` INT(11) NOT NULL,
+	`id_post_comm` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`post_type` TINYINT(4) NOT NULL,
+	`parent_post_comm_id` INT(11) NULL,
+	`creation_date` DATETIME NOT NULL,
+	`accepted_answer_comm_id` INT(11) NULL,
+	`score` INT(11) NOT NULL,
+	`view_count` INT(11) NULL,
+	`body` TEXT NULL COLLATE 'utf8_general_ci',
+	`id_user_community` INT(11) NULL,
+	`last_editor_user_community_id` INT(11) NULL,
+	`last_editor_display_name` VARCHAR(500) NULL COLLATE 'utf8_general_ci',
+	`last_edit_date` DATETIME NULL,
+	`last_activity_date` DATETIME NULL,
+	`community_owned_date` DATETIME NULL,
+	`closed_date` DATETIME NULL,
+	`title` MEDIUMTEXT NULL COLLATE 'utf8_general_ci',
+	`tags` VARCHAR(700) NULL COLLATE 'utf8_general_ci',
+	`answer_count` INT(11) NULL,
+	`comment_count` INT(11) NOT NULL,
+	`favorite_count` INT(11) NULL,
+	`id_user` INT(11) NULL,
+	`ari` INT(11) NULL,
+	`period` INT(11) NULL,
+	`ari_text` DOUBLE NULL,
+	`smog_text` DOUBLE NULL,
+	`flesch_reading_text` DOUBLE NULL,
+	`flesch_kincaid_text` DOUBLE NULL,
+	`gunning_fog_text` DOUBLE NULL,
+	`coleman_liau_text` DOUBLE NULL,
+	`smog_index_text` DOUBLE NULL,
+	`characters_text` DOUBLE NULL,
+	`syllables_text` DOUBLE NULL,
+	`words_text` DOUBLE NULL,
+	`complexwords_text` DOUBLE NULL,
+	`sentences_text` DOUBLE NULL,
+	`ari_title` DOUBLE NULL,
+	`smog_title` DOUBLE NULL,
+	`flesch_reading_title` DOUBLE NULL,
+	`flesch_kincaid_title` DOUBLE NULL,
+	`gunning_fog_title` DOUBLE NULL,
+	`coleman_liau_title` DOUBLE NULL,
+	`smog_index_title` DOUBLE NULL,
+	`characters_title` DOUBLE NULL,
+	`syllables_title` DOUBLE NULL,
+	`words_title` DOUBLE NULL,
+	`complexwords_title` DOUBLE NULL,
+	`sentences_title` DOUBLE NULL
+) ENGINE=MyISAM;
+
+
 -- Copiando estrutura para view communities-test.biology_user
 -- Criando tabela temporária para evitar erros de dependência de VIEW
 CREATE TABLE `biology_user` (
@@ -79,6 +218,162 @@ CREATE TABLE `biology_user_profile` (
 ) ENGINE=MyISAM;
 
 
+-- Copiando estrutura para view communities-test.biology_vote
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `biology_vote` (
+	`id` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`id_vote_comm` INT(11) NOT NULL,
+	`id_post_comm` INT(11) NOT NULL,
+	`vote_type` TINYINT(4) NOT NULL,
+	`creation_date` DATETIME NOT NULL,
+	`id_user_comm` INT(11) NULL,
+	`bounty_amount` INT(11) NULL,
+	`id_user` INT(11) NULL,
+	`id_post` INT(11) NULL,
+	`period` INT(11) NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para view communities-test.chemistry_answer
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `chemistry_answer` (
+	`id` INT(11) NOT NULL,
+	`id_post_comm` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`post_type` TINYINT(4) NOT NULL,
+	`parent_post_comm_id` INT(11) NULL,
+	`creation_date` DATETIME NOT NULL,
+	`accepted_answer_comm_id` INT(11) NULL,
+	`score` INT(11) NOT NULL,
+	`view_count` INT(11) NULL,
+	`body` TEXT NULL COLLATE 'utf8_general_ci',
+	`id_user_community` INT(11) NULL,
+	`last_editor_user_community_id` INT(11) NULL,
+	`last_editor_display_name` VARCHAR(500) NULL COLLATE 'utf8_general_ci',
+	`last_edit_date` DATETIME NULL,
+	`last_activity_date` DATETIME NULL,
+	`community_owned_date` DATETIME NULL,
+	`closed_date` DATETIME NULL,
+	`title` MEDIUMTEXT NULL COLLATE 'utf8_general_ci',
+	`tags` VARCHAR(700) NULL COLLATE 'utf8_general_ci',
+	`answer_count` INT(11) NULL,
+	`comment_count` INT(11) NOT NULL,
+	`favorite_count` INT(11) NULL,
+	`id_user` INT(11) NULL,
+	`ari` INT(11) NULL,
+	`period` INT(11) NULL,
+	`ari_text` DOUBLE NULL,
+	`smog_text` DOUBLE NULL,
+	`flesch_reading_text` DOUBLE NULL,
+	`flesch_kincaid_text` DOUBLE NULL,
+	`gunning_fog_text` DOUBLE NULL,
+	`coleman_liau_text` DOUBLE NULL,
+	`smog_index_text` DOUBLE NULL,
+	`characters_text` DOUBLE NULL,
+	`syllables_text` DOUBLE NULL,
+	`words_text` DOUBLE NULL,
+	`complexwords_text` DOUBLE NULL,
+	`sentences_text` DOUBLE NULL,
+	`ari_title` DOUBLE NULL,
+	`smog_title` DOUBLE NULL,
+	`flesch_reading_title` DOUBLE NULL,
+	`flesch_kincaid_title` DOUBLE NULL,
+	`gunning_fog_title` DOUBLE NULL,
+	`coleman_liau_title` DOUBLE NULL,
+	`smog_index_title` DOUBLE NULL,
+	`characters_title` DOUBLE NULL,
+	`syllables_title` DOUBLE NULL,
+	`words_title` DOUBLE NULL,
+	`complexwords_title` DOUBLE NULL,
+	`sentences_title` DOUBLE NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para view communities-test.chemistry_comment
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `chemistry_comment` (
+	`id` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`id_comment_comm` INT(11) NOT NULL,
+	`id_post_comm` INT(11) NOT NULL,
+	`score` INT(11) NOT NULL,
+	`text` TEXT NOT NULL COLLATE 'utf8_general_ci',
+	`creation_date` DATETIME NOT NULL,
+	`id_user_comm` INT(11) NULL,
+	`id_user` INT(11) NULL,
+	`id_post` INT(11) NOT NULL,
+	`period` INT(11) NULL,
+	`ari` DOUBLE NULL,
+	`smog` DOUBLE NULL,
+	`flesch_reading` DOUBLE NULL,
+	`flesch_kincaid` DOUBLE NULL,
+	`gunning_fog` DOUBLE NULL,
+	`coleman_liau` DOUBLE NULL,
+	`smog_index` DOUBLE NULL,
+	`characters` DOUBLE NULL,
+	`syllables` DOUBLE NULL,
+	`words` DOUBLE NULL,
+	`complexwords` DOUBLE NULL,
+	`sentences` DOUBLE NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para view communities-test.chemistry_question
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `chemistry_question` (
+	`id` INT(11) NOT NULL,
+	`id_post_comm` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`post_type` TINYINT(4) NOT NULL,
+	`parent_post_comm_id` INT(11) NULL,
+	`creation_date` DATETIME NOT NULL,
+	`accepted_answer_comm_id` INT(11) NULL,
+	`score` INT(11) NOT NULL,
+	`view_count` INT(11) NULL,
+	`body` TEXT NULL COLLATE 'utf8_general_ci',
+	`id_user_community` INT(11) NULL,
+	`last_editor_user_community_id` INT(11) NULL,
+	`last_editor_display_name` VARCHAR(500) NULL COLLATE 'utf8_general_ci',
+	`last_edit_date` DATETIME NULL,
+	`last_activity_date` DATETIME NULL,
+	`community_owned_date` DATETIME NULL,
+	`closed_date` DATETIME NULL,
+	`title` MEDIUMTEXT NULL COLLATE 'utf8_general_ci',
+	`tags` VARCHAR(700) NULL COLLATE 'utf8_general_ci',
+	`answer_count` INT(11) NULL,
+	`comment_count` INT(11) NOT NULL,
+	`favorite_count` INT(11) NULL,
+	`id_user` INT(11) NULL,
+	`ari` INT(11) NULL,
+	`period` INT(11) NULL,
+	`ari_text` DOUBLE NULL,
+	`smog_text` DOUBLE NULL,
+	`flesch_reading_text` DOUBLE NULL,
+	`flesch_kincaid_text` DOUBLE NULL,
+	`gunning_fog_text` DOUBLE NULL,
+	`coleman_liau_text` DOUBLE NULL,
+	`smog_index_text` DOUBLE NULL,
+	`characters_text` DOUBLE NULL,
+	`syllables_text` DOUBLE NULL,
+	`words_text` DOUBLE NULL,
+	`complexwords_text` DOUBLE NULL,
+	`sentences_text` DOUBLE NULL,
+	`ari_title` DOUBLE NULL,
+	`smog_title` DOUBLE NULL,
+	`flesch_reading_title` DOUBLE NULL,
+	`flesch_kincaid_title` DOUBLE NULL,
+	`gunning_fog_title` DOUBLE NULL,
+	`coleman_liau_title` DOUBLE NULL,
+	`smog_index_title` DOUBLE NULL,
+	`characters_title` DOUBLE NULL,
+	`syllables_title` DOUBLE NULL,
+	`words_title` DOUBLE NULL,
+	`complexwords_title` DOUBLE NULL,
+	`sentences_title` DOUBLE NULL
+) ENGINE=MyISAM;
+
+
 -- Copiando estrutura para view communities-test.chemistry_user
 -- Criando tabela temporária para evitar erros de dependência de VIEW
 CREATE TABLE `chemistry_user` (
@@ -119,6 +414,23 @@ CREATE TABLE `chemistry_user_profile` (
 	`down_votes` INT(11) NULL,
 	`period` INT(11) NULL,
 	`profile` INT(0) NULL
+) ENGINE=MyISAM;
+
+
+-- Copiando estrutura para view communities-test.chemistry_vote
+-- Criando tabela temporária para evitar erros de dependência de VIEW
+CREATE TABLE `chemistry_vote` (
+	`id` INT(11) NOT NULL,
+	`id_community` INT(11) NOT NULL,
+	`id_vote_comm` INT(11) NOT NULL,
+	`id_post_comm` INT(11) NOT NULL,
+	`vote_type` TINYINT(4) NOT NULL,
+	`creation_date` DATETIME NOT NULL,
+	`id_user_comm` INT(11) NULL,
+	`bounty_amount` INT(11) NULL,
+	`id_user` INT(11) NULL,
+	`id_post` INT(11) NULL,
+	`period` INT(11) NULL
 ) ENGINE=MyISAM;
 
 
@@ -585,6 +897,24 @@ DROP TABLE IF EXISTS `ai_user`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ai_user` AS select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period` from `user` `u` where `u`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'ai.stackexchange.com'));
 
 
+-- Copiando estrutura para view communities-test.biology_answer
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `biology_answer`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `biology_answer` AS (select `p`.`id` AS `id`,`p`.`id_post_comm` AS `id_post_comm`,`p`.`id_community` AS `id_community`,`p`.`post_type` AS `post_type`,`p`.`parent_post_comm_id` AS `parent_post_comm_id`,`p`.`creation_date` AS `creation_date`,`p`.`accepted_answer_comm_id` AS `accepted_answer_comm_id`,`p`.`score` AS `score`,`p`.`view_count` AS `view_count`,`p`.`body` AS `body`,`p`.`id_user_community` AS `id_user_community`,`p`.`last_editor_user_community_id` AS `last_editor_user_community_id`,`p`.`last_editor_display_name` AS `last_editor_display_name`,`p`.`last_edit_date` AS `last_edit_date`,`p`.`last_activity_date` AS `last_activity_date`,`p`.`community_owned_date` AS `community_owned_date`,`p`.`closed_date` AS `closed_date`,`p`.`title` AS `title`,`p`.`tags` AS `tags`,`p`.`answer_count` AS `answer_count`,`p`.`comment_count` AS `comment_count`,`p`.`favorite_count` AS `favorite_count`,`p`.`id_user` AS `id_user`,`p`.`ari` AS `ari`,`p`.`period` AS `period`,`p`.`ari_text` AS `ari_text`,`p`.`smog_text` AS `smog_text`,`p`.`flesch_reading_text` AS `flesch_reading_text`,`p`.`flesch_kincaid_text` AS `flesch_kincaid_text`,`p`.`gunning_fog_text` AS `gunning_fog_text`,`p`.`coleman_liau_text` AS `coleman_liau_text`,`p`.`smog_index_text` AS `smog_index_text`,`p`.`characters_text` AS `characters_text`,`p`.`syllables_text` AS `syllables_text`,`p`.`words_text` AS `words_text`,`p`.`complexwords_text` AS `complexwords_text`,`p`.`sentences_text` AS `sentences_text`,`p`.`ari_title` AS `ari_title`,`p`.`smog_title` AS `smog_title`,`p`.`flesch_reading_title` AS `flesch_reading_title`,`p`.`flesch_kincaid_title` AS `flesch_kincaid_title`,`p`.`gunning_fog_title` AS `gunning_fog_title`,`p`.`coleman_liau_title` AS `coleman_liau_title`,`p`.`smog_index_title` AS `smog_index_title`,`p`.`characters_title` AS `characters_title`,`p`.`syllables_title` AS `syllables_title`,`p`.`words_title` AS `words_title`,`p`.`complexwords_title` AS `complexwords_title`,`p`.`sentences_title` AS `sentences_title` from `post` `p` where ((`p`.`post_type` = 2) and `p`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'biology.stackexchange.com'))));
+
+
+-- Copiando estrutura para view communities-test.biology_comment
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `biology_comment`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `biology_comment` AS (select `co`.`id` AS `id`,`co`.`id_community` AS `id_community`,`co`.`id_comment_comm` AS `id_comment_comm`,`co`.`id_post_comm` AS `id_post_comm`,`co`.`score` AS `score`,`co`.`text` AS `text`,`co`.`creation_date` AS `creation_date`,`co`.`id_user_comm` AS `id_user_comm`,`co`.`id_user` AS `id_user`,`co`.`id_post` AS `id_post`,`co`.`period` AS `period`,`co`.`ari` AS `ari`,`co`.`smog` AS `smog`,`co`.`flesch_reading` AS `flesch_reading`,`co`.`flesch_kincaid` AS `flesch_kincaid`,`co`.`gunning_fog` AS `gunning_fog`,`co`.`coleman_liau` AS `coleman_liau`,`co`.`smog_index` AS `smog_index`,`co`.`characters` AS `characters`,`co`.`syllables` AS `syllables`,`co`.`words` AS `words`,`co`.`complexwords` AS `complexwords`,`co`.`sentences` AS `sentences` from `comment` `co` where `co`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'biology.stackexchange.com')));
+
+
+-- Copiando estrutura para view communities-test.biology_question
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `biology_question`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `biology_question` AS (select `p`.`id` AS `id`,`p`.`id_post_comm` AS `id_post_comm`,`p`.`id_community` AS `id_community`,`p`.`post_type` AS `post_type`,`p`.`parent_post_comm_id` AS `parent_post_comm_id`,`p`.`creation_date` AS `creation_date`,`p`.`accepted_answer_comm_id` AS `accepted_answer_comm_id`,`p`.`score` AS `score`,`p`.`view_count` AS `view_count`,`p`.`body` AS `body`,`p`.`id_user_community` AS `id_user_community`,`p`.`last_editor_user_community_id` AS `last_editor_user_community_id`,`p`.`last_editor_display_name` AS `last_editor_display_name`,`p`.`last_edit_date` AS `last_edit_date`,`p`.`last_activity_date` AS `last_activity_date`,`p`.`community_owned_date` AS `community_owned_date`,`p`.`closed_date` AS `closed_date`,`p`.`title` AS `title`,`p`.`tags` AS `tags`,`p`.`answer_count` AS `answer_count`,`p`.`comment_count` AS `comment_count`,`p`.`favorite_count` AS `favorite_count`,`p`.`id_user` AS `id_user`,`p`.`ari` AS `ari`,`p`.`period` AS `period`,`p`.`ari_text` AS `ari_text`,`p`.`smog_text` AS `smog_text`,`p`.`flesch_reading_text` AS `flesch_reading_text`,`p`.`flesch_kincaid_text` AS `flesch_kincaid_text`,`p`.`gunning_fog_text` AS `gunning_fog_text`,`p`.`coleman_liau_text` AS `coleman_liau_text`,`p`.`smog_index_text` AS `smog_index_text`,`p`.`characters_text` AS `characters_text`,`p`.`syllables_text` AS `syllables_text`,`p`.`words_text` AS `words_text`,`p`.`complexwords_text` AS `complexwords_text`,`p`.`sentences_text` AS `sentences_text`,`p`.`ari_title` AS `ari_title`,`p`.`smog_title` AS `smog_title`,`p`.`flesch_reading_title` AS `flesch_reading_title`,`p`.`flesch_kincaid_title` AS `flesch_kincaid_title`,`p`.`gunning_fog_title` AS `gunning_fog_title`,`p`.`coleman_liau_title` AS `coleman_liau_title`,`p`.`smog_index_title` AS `smog_index_title`,`p`.`characters_title` AS `characters_title`,`p`.`syllables_title` AS `syllables_title`,`p`.`words_title` AS `words_title`,`p`.`complexwords_title` AS `complexwords_title`,`p`.`sentences_title` AS `sentences_title` from `post` `p` where ((`p`.`post_type` = 1) and `p`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'biology.stackexchange.com'))));
+
+
 -- Copiando estrutura para view communities-test.biology_user
 -- Removendo tabela temporária e criando a estrutura VIEW final
 DROP TABLE IF EXISTS `biology_user`;
@@ -597,6 +927,30 @@ DROP TABLE IF EXISTS `biology_user_profile`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `biology_user_profile` AS (select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period`,(case when (`u`.`reputation` <= `o`.`Q1`) then 1 when ((`u`.`reputation` > `o`.`Q1`) and (`u`.`reputation` <= `o`.`median`)) then 2 when ((`u`.`reputation` > `o`.`median`) and (`u`.`reputation` <= `o`.`Q3`)) then 3 when (`u`.`reputation` > `o`.`Q3`) then 4 end) AS `profile` from (`biology_user` `u` join `user_biology_rep_overview` `o`));
 
 
+-- Copiando estrutura para view communities-test.biology_vote
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `biology_vote`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `biology_vote` AS (select `v`.`id` AS `id`,`v`.`id_community` AS `id_community`,`v`.`id_vote_comm` AS `id_vote_comm`,`v`.`id_post_comm` AS `id_post_comm`,`v`.`vote_type` AS `vote_type`,`v`.`creation_date` AS `creation_date`,`v`.`id_user_comm` AS `id_user_comm`,`v`.`bounty_amount` AS `bounty_amount`,`v`.`id_user` AS `id_user`,`v`.`id_post` AS `id_post`,`v`.`period` AS `period` from `vote` `v` where ((`v`.`id_post` is not null) and `v`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'biology.stackexchange.com'))));
+
+
+-- Copiando estrutura para view communities-test.chemistry_answer
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `chemistry_answer`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chemistry_answer` AS (select `p`.`id` AS `id`,`p`.`id_post_comm` AS `id_post_comm`,`p`.`id_community` AS `id_community`,`p`.`post_type` AS `post_type`,`p`.`parent_post_comm_id` AS `parent_post_comm_id`,`p`.`creation_date` AS `creation_date`,`p`.`accepted_answer_comm_id` AS `accepted_answer_comm_id`,`p`.`score` AS `score`,`p`.`view_count` AS `view_count`,`p`.`body` AS `body`,`p`.`id_user_community` AS `id_user_community`,`p`.`last_editor_user_community_id` AS `last_editor_user_community_id`,`p`.`last_editor_display_name` AS `last_editor_display_name`,`p`.`last_edit_date` AS `last_edit_date`,`p`.`last_activity_date` AS `last_activity_date`,`p`.`community_owned_date` AS `community_owned_date`,`p`.`closed_date` AS `closed_date`,`p`.`title` AS `title`,`p`.`tags` AS `tags`,`p`.`answer_count` AS `answer_count`,`p`.`comment_count` AS `comment_count`,`p`.`favorite_count` AS `favorite_count`,`p`.`id_user` AS `id_user`,`p`.`ari` AS `ari`,`p`.`period` AS `period`,`p`.`ari_text` AS `ari_text`,`p`.`smog_text` AS `smog_text`,`p`.`flesch_reading_text` AS `flesch_reading_text`,`p`.`flesch_kincaid_text` AS `flesch_kincaid_text`,`p`.`gunning_fog_text` AS `gunning_fog_text`,`p`.`coleman_liau_text` AS `coleman_liau_text`,`p`.`smog_index_text` AS `smog_index_text`,`p`.`characters_text` AS `characters_text`,`p`.`syllables_text` AS `syllables_text`,`p`.`words_text` AS `words_text`,`p`.`complexwords_text` AS `complexwords_text`,`p`.`sentences_text` AS `sentences_text`,`p`.`ari_title` AS `ari_title`,`p`.`smog_title` AS `smog_title`,`p`.`flesch_reading_title` AS `flesch_reading_title`,`p`.`flesch_kincaid_title` AS `flesch_kincaid_title`,`p`.`gunning_fog_title` AS `gunning_fog_title`,`p`.`coleman_liau_title` AS `coleman_liau_title`,`p`.`smog_index_title` AS `smog_index_title`,`p`.`characters_title` AS `characters_title`,`p`.`syllables_title` AS `syllables_title`,`p`.`words_title` AS `words_title`,`p`.`complexwords_title` AS `complexwords_title`,`p`.`sentences_title` AS `sentences_title` from `post` `p` where ((`p`.`post_type` = 2) and `p`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'chemistry.stackexchange.com'))));
+
+
+-- Copiando estrutura para view communities-test.chemistry_comment
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `chemistry_comment`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chemistry_comment` AS (select `co`.`id` AS `id`,`co`.`id_community` AS `id_community`,`co`.`id_comment_comm` AS `id_comment_comm`,`co`.`id_post_comm` AS `id_post_comm`,`co`.`score` AS `score`,`co`.`text` AS `text`,`co`.`creation_date` AS `creation_date`,`co`.`id_user_comm` AS `id_user_comm`,`co`.`id_user` AS `id_user`,`co`.`id_post` AS `id_post`,`co`.`period` AS `period`,`co`.`ari` AS `ari`,`co`.`smog` AS `smog`,`co`.`flesch_reading` AS `flesch_reading`,`co`.`flesch_kincaid` AS `flesch_kincaid`,`co`.`gunning_fog` AS `gunning_fog`,`co`.`coleman_liau` AS `coleman_liau`,`co`.`smog_index` AS `smog_index`,`co`.`characters` AS `characters`,`co`.`syllables` AS `syllables`,`co`.`words` AS `words`,`co`.`complexwords` AS `complexwords`,`co`.`sentences` AS `sentences` from `comment` `co` where `co`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'chemistry.stackexchange.com')));
+
+
+-- Copiando estrutura para view communities-test.chemistry_question
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `chemistry_question`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chemistry_question` AS (select `p`.`id` AS `id`,`p`.`id_post_comm` AS `id_post_comm`,`p`.`id_community` AS `id_community`,`p`.`post_type` AS `post_type`,`p`.`parent_post_comm_id` AS `parent_post_comm_id`,`p`.`creation_date` AS `creation_date`,`p`.`accepted_answer_comm_id` AS `accepted_answer_comm_id`,`p`.`score` AS `score`,`p`.`view_count` AS `view_count`,`p`.`body` AS `body`,`p`.`id_user_community` AS `id_user_community`,`p`.`last_editor_user_community_id` AS `last_editor_user_community_id`,`p`.`last_editor_display_name` AS `last_editor_display_name`,`p`.`last_edit_date` AS `last_edit_date`,`p`.`last_activity_date` AS `last_activity_date`,`p`.`community_owned_date` AS `community_owned_date`,`p`.`closed_date` AS `closed_date`,`p`.`title` AS `title`,`p`.`tags` AS `tags`,`p`.`answer_count` AS `answer_count`,`p`.`comment_count` AS `comment_count`,`p`.`favorite_count` AS `favorite_count`,`p`.`id_user` AS `id_user`,`p`.`ari` AS `ari`,`p`.`period` AS `period`,`p`.`ari_text` AS `ari_text`,`p`.`smog_text` AS `smog_text`,`p`.`flesch_reading_text` AS `flesch_reading_text`,`p`.`flesch_kincaid_text` AS `flesch_kincaid_text`,`p`.`gunning_fog_text` AS `gunning_fog_text`,`p`.`coleman_liau_text` AS `coleman_liau_text`,`p`.`smog_index_text` AS `smog_index_text`,`p`.`characters_text` AS `characters_text`,`p`.`syllables_text` AS `syllables_text`,`p`.`words_text` AS `words_text`,`p`.`complexwords_text` AS `complexwords_text`,`p`.`sentences_text` AS `sentences_text`,`p`.`ari_title` AS `ari_title`,`p`.`smog_title` AS `smog_title`,`p`.`flesch_reading_title` AS `flesch_reading_title`,`p`.`flesch_kincaid_title` AS `flesch_kincaid_title`,`p`.`gunning_fog_title` AS `gunning_fog_title`,`p`.`coleman_liau_title` AS `coleman_liau_title`,`p`.`smog_index_title` AS `smog_index_title`,`p`.`characters_title` AS `characters_title`,`p`.`syllables_title` AS `syllables_title`,`p`.`words_title` AS `words_title`,`p`.`complexwords_title` AS `complexwords_title`,`p`.`sentences_title` AS `sentences_title` from `post` `p` where ((`p`.`post_type` = 1) and `p`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'chemistry.stackexchange.com'))));
+
+
 -- Copiando estrutura para view communities-test.chemistry_user
 -- Removendo tabela temporária e criando a estrutura VIEW final
 DROP TABLE IF EXISTS `chemistry_user`;
@@ -607,6 +961,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Removendo tabela temporária e criando a estrutura VIEW final
 DROP TABLE IF EXISTS `chemistry_user_profile`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chemistry_user_profile` AS (select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period`,(case when (`u`.`reputation` <= `o`.`Q1`) then 1 when ((`u`.`reputation` > `o`.`Q1`) and (`u`.`reputation` <= `o`.`median`)) then 2 when ((`u`.`reputation` > `o`.`median`) and (`u`.`reputation` <= `o`.`Q3`)) then 3 when (`u`.`reputation` > `o`.`Q3`) then 4 end) AS `profile` from (`chemistry_user` `u` join `user_chemistry_rep_overview` `o`));
+
+
+-- Copiando estrutura para view communities-test.chemistry_vote
+-- Removendo tabela temporária e criando a estrutura VIEW final
+DROP TABLE IF EXISTS `chemistry_vote`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chemistry_vote` AS (select `v`.`id` AS `id`,`v`.`id_community` AS `id_community`,`v`.`id_vote_comm` AS `id_vote_comm`,`v`.`id_post_comm` AS `id_post_comm`,`v`.`vote_type` AS `vote_type`,`v`.`creation_date` AS `creation_date`,`v`.`id_user_comm` AS `id_user_comm`,`v`.`bounty_amount` AS `bounty_amount`,`v`.`id_user` AS `id_user`,`v`.`id_post` AS `id_post`,`v`.`period` AS `period` from `vote` `v` where ((`v`.`id_post` is not null) and `v`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'chemistry.stackexchange.com'))));
 
 
 -- Copiando estrutura para view communities-test.user_biology_rep_overview
