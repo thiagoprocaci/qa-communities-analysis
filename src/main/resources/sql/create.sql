@@ -192,7 +192,8 @@ CREATE TABLE `biology_user` (
 	`views` INT(11) NOT NULL,
 	`up_votes` INT(11) NULL,
 	`down_votes` INT(11) NULL,
-	`period` INT(11) NULL
+	`period` INT(11) NULL,
+	`profile` INT(11) NULL
 ) ENGINE=MyISAM;
 
 
@@ -214,7 +215,7 @@ CREATE TABLE `biology_user_profile` (
 	`up_votes` INT(11) NULL,
 	`down_votes` INT(11) NULL,
 	`period` INT(11) NULL,
-	`profile` INT(0) NULL
+	`profile` INT(11) NULL
 ) ENGINE=MyISAM;
 
 
@@ -391,7 +392,8 @@ CREATE TABLE `chemistry_user` (
 	`views` INT(11) NOT NULL,
 	`up_votes` INT(11) NULL,
 	`down_votes` INT(11) NULL,
-	`period` INT(11) NULL
+	`period` INT(11) NULL,
+	`profile` INT(11) NULL
 ) ENGINE=MyISAM;
 
 
@@ -413,7 +415,7 @@ CREATE TABLE `chemistry_user_profile` (
 	`up_votes` INT(11) NULL,
 	`down_votes` INT(11) NULL,
 	`period` INT(11) NULL,
-	`profile` INT(0) NULL
+	`profile` INT(11) NULL
 ) ENGINE=MyISAM;
 
 
@@ -673,6 +675,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `up_votes` int(11) DEFAULT NULL,
   `down_votes` int(11) DEFAULT NULL,
   `period` int(11) DEFAULT NULL,
+  `profile` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_user_comm_id_community` (`id_user_comm`,`id_community`),
   KEY `FK__community` (`id_community`),
@@ -918,13 +921,13 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Copiando estrutura para view communities-test.biology_user
 -- Removendo tabela temporária e criando a estrutura VIEW final
 DROP TABLE IF EXISTS `biology_user`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `biology_user` AS select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period` from `user` `u` where `u`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'biology.stackexchange.com'));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `biology_user` AS (select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period`,`u`.`profile` AS `profile` from `user` `u` where `u`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'biology.stackexchange.com')));
 
 
 -- Copiando estrutura para view communities-test.biology_user_profile
 -- Removendo tabela temporária e criando a estrutura VIEW final
 DROP TABLE IF EXISTS `biology_user_profile`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `biology_user_profile` AS (select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period`,(case when (`u`.`reputation` <= `o`.`Q1`) then 1 when ((`u`.`reputation` > `o`.`Q1`) and (`u`.`reputation` <= `o`.`median`)) then 2 when ((`u`.`reputation` > `o`.`median`) and (`u`.`reputation` <= `o`.`Q3`)) then 3 when (`u`.`reputation` > `o`.`Q3`) then 4 end) AS `profile` from (`biology_user` `u` join `user_biology_rep_overview` `o`));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `biology_user_profile` AS (select `biology_user`.`id` AS `id`,`biology_user`.`id_user_comm` AS `id_user_comm`,`biology_user`.`id_community` AS `id_community`,`biology_user`.`reputation` AS `reputation`,`biology_user`.`creation_date` AS `creation_date`,`biology_user`.`display_name` AS `display_name`,`biology_user`.`last_access_date` AS `last_access_date`,`biology_user`.`website_url` AS `website_url`,`biology_user`.`location` AS `location`,`biology_user`.`age` AS `age`,`biology_user`.`about_me` AS `about_me`,`biology_user`.`views` AS `views`,`biology_user`.`up_votes` AS `up_votes`,`biology_user`.`down_votes` AS `down_votes`,`biology_user`.`period` AS `period`,`biology_user`.`profile` AS `profile` from `biology_user`);
 
 
 -- Copiando estrutura para view communities-test.biology_vote
@@ -954,13 +957,13 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Copiando estrutura para view communities-test.chemistry_user
 -- Removendo tabela temporária e criando a estrutura VIEW final
 DROP TABLE IF EXISTS `chemistry_user`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chemistry_user` AS select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period` from `user` `u` where `u`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'chemistry.stackexchange.com'));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chemistry_user` AS (select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period`,`u`.`profile` AS `profile` from `user` `u` where `u`.`id_community` in (select `c`.`id` from `community` `c` where (`c`.`name` = 'chemistry.stackexchange.com')));
 
 
 -- Copiando estrutura para view communities-test.chemistry_user_profile
 -- Removendo tabela temporária e criando a estrutura VIEW final
 DROP TABLE IF EXISTS `chemistry_user_profile`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chemistry_user_profile` AS (select `u`.`id` AS `id`,`u`.`id_user_comm` AS `id_user_comm`,`u`.`id_community` AS `id_community`,`u`.`reputation` AS `reputation`,`u`.`creation_date` AS `creation_date`,`u`.`display_name` AS `display_name`,`u`.`last_access_date` AS `last_access_date`,`u`.`website_url` AS `website_url`,`u`.`location` AS `location`,`u`.`age` AS `age`,`u`.`about_me` AS `about_me`,`u`.`views` AS `views`,`u`.`up_votes` AS `up_votes`,`u`.`down_votes` AS `down_votes`,`u`.`period` AS `period`,(case when (`u`.`reputation` <= `o`.`Q1`) then 1 when ((`u`.`reputation` > `o`.`Q1`) and (`u`.`reputation` <= `o`.`median`)) then 2 when ((`u`.`reputation` > `o`.`median`) and (`u`.`reputation` <= `o`.`Q3`)) then 3 when (`u`.`reputation` > `o`.`Q3`) then 4 end) AS `profile` from (`chemistry_user` `u` join `user_chemistry_rep_overview` `o`));
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `chemistry_user_profile` AS (select `chemistry_user`.`id` AS `id`,`chemistry_user`.`id_user_comm` AS `id_user_comm`,`chemistry_user`.`id_community` AS `id_community`,`chemistry_user`.`reputation` AS `reputation`,`chemistry_user`.`creation_date` AS `creation_date`,`chemistry_user`.`display_name` AS `display_name`,`chemistry_user`.`last_access_date` AS `last_access_date`,`chemistry_user`.`website_url` AS `website_url`,`chemistry_user`.`location` AS `location`,`chemistry_user`.`age` AS `age`,`chemistry_user`.`about_me` AS `about_me`,`chemistry_user`.`views` AS `views`,`chemistry_user`.`up_votes` AS `up_votes`,`chemistry_user`.`down_votes` AS `down_votes`,`chemistry_user`.`period` AS `period`,`chemistry_user`.`profile` AS `profile` from `chemistry_user`);
 
 
 -- Copiando estrutura para view communities-test.chemistry_vote
