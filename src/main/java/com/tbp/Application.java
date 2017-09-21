@@ -5,6 +5,7 @@ import com.tbp.etl.extractor.*;
 import com.tbp.graph.facade.GraphAnalysisFacade;
 
 import com.tbp.period.service.DateService;
+import com.tbp.profile.ProfileService;
 import com.tbp.readability.ReadabilityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +38,8 @@ public class Application implements CommandLineRunner {
     GraphAnalysisFacade graphAnalysisFacade;
     @Autowired
     ReadabilityService redabilityService;
+    @Autowired
+    ProfileService profileService;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -44,7 +47,7 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        String[] communities = new String[]{"ai.stackexchange.com"};
+        String[] communities = new String[]{"biology.stackexchange.com", "chemistry.stackexchange.com"};
 
                 //= new String[]{"meta.3dprinting.stackexchange.com", "android.stackexchange.com", "ai.stackexchange.com", "biology.stackexchange.com", "chemistry.stackexchange.com"};
 
@@ -75,6 +78,8 @@ public class Application implements CommandLineRunner {
             redabilityService.execute(community);
 
         }
+        LOGGER.info("Updating profiles");
+        profileService.execute();
         long end = System.currentTimeMillis();
         LOGGER.info("Total time (seconds): " +  ((end - startTime) * 0.001));
 
