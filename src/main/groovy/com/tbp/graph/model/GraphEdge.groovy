@@ -7,6 +7,7 @@ import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
+import javax.persistence.SequenceGenerator
 import javax.persistence.Table
 import javax.persistence.UniqueConstraint
 
@@ -17,7 +18,8 @@ import javax.persistence.UniqueConstraint
 class GraphEdge {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "graph_edge_seq")
+    @SequenceGenerator(name="graph_edge_seq", sequenceName = "graph_edge_seq", allocationSize = 1)
     Long id
     @Column(name = "id_user_source")
     Long idUserSource

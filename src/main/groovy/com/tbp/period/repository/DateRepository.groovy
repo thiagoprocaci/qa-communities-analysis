@@ -24,7 +24,7 @@ class DateRepository {
             " union all " +
             " select min(t.period) as period FROM post_link t where t.id_community = %1\$s " +
             " union all " +
-            " select min(t.period) as period FROM user t where t.id_community = %1\$s " +
+            " select min(t.period) as period FROM comm_user t where t.id_community = %1\$s " +
             " union all " +
             " select min(t.period) as period FROM vote t where t.id_community = %1\$s " +
             ")A"
@@ -36,7 +36,7 @@ class DateRepository {
             " union all " +
             " select max(t.period) as period FROM post_link t where t.id_community = %1\$s " +
             " union all " +
-            " select max(t.period) as period FROM user t where t.id_community = %1\$s " +
+            " select max(t.period) as period FROM comm_user t where t.id_community = %1\$s " +
             " union all " +
             " select max(t.period) as period FROM vote t where t.id_community = %1\$s " +
             ")A"
@@ -50,7 +50,7 @@ class DateRepository {
             " union all " +
             " select min(t.creation_date) as min_date FROM post_link t where t.id_community = %1\$s " +
             " union all " +
-            " select min(t.creation_date) as min_date FROM user t where t.id_community = %1\$s " +
+            " select min(t.creation_date) as min_date FROM comm_user t where t.id_community = %1\$s " +
             " union all " +
             " select min(t.creation_date) as min_date FROM vote t where t.id_community = %1\$s " +
             ")A"
@@ -62,15 +62,15 @@ class DateRepository {
             " union all " +
             " select max(t.creation_date) as max_date FROM post_link t where t.id_community = %1\$s " +
             " union all " +
-            " select max(t.creation_date) as max_date FROM user t where t.id_community = %1\$s " +
+            " select max(t.creation_date) as max_date FROM comm_user t where t.id_community = %1\$s " +
             " union all " +
             " select max(t.creation_date) as max_date FROM vote t where t.id_community = %1\$s " +
             ")A"
 
-    private static String UPDATE_PERIOD = "update %s p  " +
-            " set p.period = %s " +
+    private static String UPDATE_PERIOD = "update %s   " +
+            " set period = %s " +
             " where (creation_date BETWEEN '%s' AND '%s') and " +
-            " p.id_community in (select c.id from community c where c.name = '%s')" ;
+            " id_community in (select c.id from community c where c.name = '%s')" ;
 
     Date getMinCreationDateByCommunity(Integer communityId) {
         if(communityId != null) {
@@ -113,7 +113,7 @@ class DateRepository {
         LOGGER.info("updating period of " + communityName)
         LOGGER.info("Interval size " + intervalList.size())
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String[] tables = ["comment", "post", "post_link", "user", "vote"]
+        String[] tables = ["comment", "post", "post_link", "comm_user", "vote"]
         List<String> sqlList = new ArrayList<>()
         for(int i = 0; i < intervalList.size(); i++) {
             Interval interval = intervalList.get(i)

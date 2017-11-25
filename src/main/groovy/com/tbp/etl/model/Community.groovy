@@ -10,7 +10,8 @@ import javax.persistence.*
 class Community {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "community_seq")
+    @SequenceGenerator(name="community_seq", sequenceName = "community_seq", allocationSize = 1)
     Integer id;
     @Column(name = "name", nullable = false, unique = true)
     String name;

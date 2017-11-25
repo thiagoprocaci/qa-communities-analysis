@@ -4,12 +4,14 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "comment",
-        uniqueConstraints = @UniqueConstraint(columnNames=["id_comment_comm", "id_community"])
+        uniqueConstraints = @UniqueConstraint(columnNames=["id_comment_comm", "id_community"],
+                name = "comment_id_comment_comm_id_community")
 )
 class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_seq")
+    @SequenceGenerator(name="comment_seq", sequenceName = "comment_seq", allocationSize = 1)
     Long id
     @Column(name = "id_comment_comm")
     Long idCommentCommunity

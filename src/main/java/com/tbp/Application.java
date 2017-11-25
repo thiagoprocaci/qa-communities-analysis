@@ -47,7 +47,9 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        String[] communities = new String[]{"biology.stackexchange.com", "chemistry.stackexchange.com"};
+        String[] communities = new String[] {"ai.stackexchange.com"};
+
+                //new String[]{"biology.stackexchange.com", "chemistry.stackexchange.com"};
 
                 //= new String[]{"meta.3dprinting.stackexchange.com", "android.stackexchange.com", "ai.stackexchange.com", "biology.stackexchange.com", "chemistry.stackexchange.com"};
 
@@ -78,8 +80,8 @@ public class Application implements CommandLineRunner {
             redabilityService.execute(community);
 
         }
-        LOGGER.info("Updating profiles");
-        profileService.execute();
+      //  LOGGER.info("Updating profiles");
+      //  profileService.execute();
         long end = System.currentTimeMillis();
         LOGGER.info("Total time (seconds): " +  ((end - startTime) * 0.001));
 

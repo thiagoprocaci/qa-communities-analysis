@@ -10,7 +10,8 @@ import javax.persistence.*
 class GraphAnalysisContext {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "graph_ctx_seq")
+    @SequenceGenerator(name="graph_ctx_seq", sequenceName = "graph_ctx_seq", allocationSize = 1)
     Long id
     @Column(name = "period")
     Integer period

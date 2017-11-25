@@ -5,12 +5,14 @@ import java.sql.Timestamp
 
 @Entity
 @Table(name = "post",
-        uniqueConstraints = @UniqueConstraint(columnNames=["id_post_comm", "id_community"])
+        uniqueConstraints = @UniqueConstraint(columnNames=["id_post_comm", "id_community"],
+        name = "post_id_post_comm_id_community")
 )
 class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_seq")
+    @SequenceGenerator(name="post_seq", sequenceName = "post_seq", allocationSize = 1)
     Long id
     @Column(name = "id_post_comm")
     Long idPostCommunity

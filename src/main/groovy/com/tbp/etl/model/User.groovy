@@ -7,13 +7,15 @@ import java.sql.Timestamp
 
 @ToString
 @Entity
-@Table(name = "user",
-        uniqueConstraints = @UniqueConstraint(columnNames=["id_user_comm", "id_community"])
+@Table(name = "comm_user",
+        uniqueConstraints = @UniqueConstraint(columnNames=["id_user_comm", "id_community"],
+                name = "user_id_user_comm_id_community")
 )
 class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+    @SequenceGenerator(name="user_seq", sequenceName = "user_seq", allocationSize = 1)
     Long id
     @Column(name = "id_user_comm", nullable = false)
     Long idUserCommunity

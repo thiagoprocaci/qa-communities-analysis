@@ -5,12 +5,14 @@ import java.sql.Timestamp
 
 @Entity
 @Table(name = "vote",
-        uniqueConstraints = @UniqueConstraint(columnNames=["id_vote_comm", "id_community"])
+        uniqueConstraints = @UniqueConstraint(columnNames=["id_vote_comm", "id_community"],
+        name = "vote_id_vote_comm_id_community")
 )
 class Vote {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vote_seq")
+    @SequenceGenerator(name="vote_seq", sequenceName = "vote_seq", allocationSize = 1)
     Long id
     @Column(name = "id_vote_comm")
     Long idVoteCommunity
