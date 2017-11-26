@@ -21,6 +21,39 @@ class XmlReader {
     }
 
 
+    PostHistory getPostHistoryFromXml(String community, String fileName, long lineNumber) {
+        File inputFile = getInputFile(community, fileName)
+        long count = 0;
+        PostHistory postHistory = null
+        inputFile.eachLine{ it, i ->
+            def line = lineSupport.prepareLine(it)
+            if(line != null) {
+                count++;
+                if (count == lineNumber) {
+                    def reader = new StringReader(line)
+                    def doc = DOMBuilder.parse(reader)
+                    def row = doc.documentElement
+
+                    use(DOMCategory) {
+                        postHistory = new PostHistory()
+                        postHistory.idPostHistoryCommunity = numberUtil.toLong(row['@Id'])
+                        postHistory.creationDate = dateUtil.toDate(row['@CreationDate'])
+                        postHistory.type = numberUtil.toInteger(row['@PostHistoryTypeId'])
+                        postHistory.idPostCommunity = numberUtil.toLong(row['@PostId'])
+                        postHistory.revisionGUID = stringSupport.prepare(row['@RevisionGUID'])
+                        postHistory.userDisplayName = stringSupport.prepare(row['@UserDisplayName'])
+                        postHistory.comment = stringSupport.prepare(row['@Comment'])
+                        postHistory.text = stringSupport.prepare(row['@Text'])
+                        postHistory.closeReason = numberUtil.toInteger(row['@CloseReasonId'])
+                        postHistory.idUserCommunity = numberUtil.toLong(row['@UserId'])
+                    }
+                }
+            }
+        }
+        return postHistory
+    }
+
+
     Vote getVoteFromXml(String community, String fileName, long lineNumber) {
         File inputFile = getInputFile(community, fileName)
         long count = 0;

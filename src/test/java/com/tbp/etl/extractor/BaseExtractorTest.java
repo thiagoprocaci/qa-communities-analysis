@@ -38,6 +38,10 @@ public class BaseExtractorTest {
     protected VoteRepository voteRepository;
     @Autowired
     protected VoteExtractor voteExtractor;
+    @Autowired
+    protected PostHistoryExtractor postHistoryExtractor;
+    @Autowired
+    protected PostHistoryRepository postHistoryRepository;
 
     protected Random random = new Random();
     protected XmlReader xmlReader = new XmlReader();
@@ -56,6 +60,8 @@ public class BaseExtractorTest {
         assertNotNull(postLinkExtractor);
         assertNotNull(voteRepository);
         assertNotNull(voteExtractor);
+        assertNotNull(postHistoryExtractor);
+        assertNotNull(postHistoryRepository);
     }
 
     Long getNumberOfRows(String fileName, String community) throws IOException {

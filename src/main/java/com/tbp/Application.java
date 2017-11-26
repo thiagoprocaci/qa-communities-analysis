@@ -33,6 +33,8 @@ public class Application implements CommandLineRunner {
     @Autowired
     PostLinkExtractor postLinkExtractor;
     @Autowired
+    PostHistoryExtractor postHistoryExtractor;
+    @Autowired
     DateService dateService;
     @Autowired
     GraphAnalysisFacade graphAnalysisFacade;
@@ -69,13 +71,12 @@ public class Application implements CommandLineRunner {
             commentExtractor.execute(community);
             LOGGER.info("postLinkExtractor" + " " + community);
             postLinkExtractor.execute(community);
-
             LOGGER.info("updateCommunityPeriods" + " " + community);
             dateService.updateCommunityPeriods(community);
-
+            LOGGER.info("postHistoryExtractor" + " " + community);
+            postHistoryExtractor.execute(community);
             LOGGER.info("graphAnalysisFacade" + " " + community);
             graphAnalysisFacade.makeAnalysis(community);
-
             LOGGER.info("Redability analysis" + " " + community);
             redabilityService.execute(community);
 
