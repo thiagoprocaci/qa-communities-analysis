@@ -14,7 +14,7 @@ import javax.persistence.UniqueConstraint
 @Entity
 @Table(name = "post_history",
         uniqueConstraints = @UniqueConstraint(columnNames=["id_post_hist_comm", "id_community"],
-                name = "post_id_post_hist_comm_id_community")
+                name = "post_hist_id_post_hist_comm_id_community")
 )
 class PostHistory {
 

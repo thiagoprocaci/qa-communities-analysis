@@ -41,6 +41,9 @@ public class Application implements CommandLineRunner {
     @Autowired
     ReadabilityService redabilityService;
     @Autowired
+    BadgeExtractor badgeExtractor;
+
+    @Autowired
     ProfileService profileService;
 
     public static void main(String[] args) {
@@ -75,10 +78,12 @@ public class Application implements CommandLineRunner {
             dateService.updateCommunityPeriods(community);
             LOGGER.info("postHistoryExtractor" + " " + community);
             postHistoryExtractor.execute(community);
-            LOGGER.info("graphAnalysisFacade" + " " + community);
-            graphAnalysisFacade.makeAnalysis(community);
+            LOGGER.info("badgeExtractor" + " " + community);
+            badgeExtractor.execute(community);
             LOGGER.info("Redability analysis" + " " + community);
             redabilityService.execute(community);
+            LOGGER.info("graphAnalysisFacade" + " " + community);
+            graphAnalysisFacade.makeAnalysis(community);
 
         }
       //  LOGGER.info("Updating profiles");

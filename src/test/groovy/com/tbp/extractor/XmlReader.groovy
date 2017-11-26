@@ -21,6 +21,36 @@ class XmlReader {
     }
 
 
+
+    Badge getBadgeFromXml(String community, String fileName, long lineNumber) {
+        File inputFile = getInputFile(community, fileName)
+        long count = 0;
+        Badge badge = null
+        inputFile.eachLine{ it, i ->
+            def line = lineSupport.prepareLine(it)
+            if(line != null) {
+                count++;
+                if (count == lineNumber) {
+                    def reader = new StringReader(line)
+                    def doc = DOMBuilder.parse(reader)
+                    def row = doc.documentElement
+
+                    use(DOMCategory) {
+                        badge = new Badge()
+                        badge.idBadgeCommunity = numberUtil.toLong(row['@Id'])
+                        badge.date = dateUtil.toDate(row['@Date'])
+                        badge.name = stringSupport.prepare(row['@Name'])
+                        badge.clazz = stringSupport.prepare(row['@Class'])
+                        badge.tagBased = stringSupport.prepare(row['@TagBased'])
+                        badge.idUserCommunity = numberUtil.toLong(row['@UserId'])
+                    }
+                }
+            }
+        }
+        return badge
+    }
+
+
     PostHistory getPostHistoryFromXml(String community, String fileName, long lineNumber) {
         File inputFile = getInputFile(community, fileName)
         long count = 0;
