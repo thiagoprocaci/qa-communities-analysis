@@ -52,7 +52,7 @@ public class Application implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        String[] communities = new String[] {"ai.stackexchange.com"};
+        String[] communities = new String[] {"chemistry.stackexchange.com"};
 
                 //new String[]{"biology.stackexchange.com", "chemistry.stackexchange.com"};
 
