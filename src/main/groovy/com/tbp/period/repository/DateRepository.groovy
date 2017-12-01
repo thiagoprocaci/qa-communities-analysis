@@ -27,6 +27,8 @@ class DateRepository {
             " select min(t.period) as period FROM comm_user t where t.id_community = %1\$s " +
             " union all " +
             " select min(t.period) as period FROM vote t where t.id_community = %1\$s " +
+            " union all " +
+            " select min(t.period) as period FROM post_history t where t.id_community = %1\$s " +
             ")A"
 
     private static String MAX_PERIOD_QUERY = "select max(A.period) as period from (" +
@@ -39,6 +41,8 @@ class DateRepository {
             " select max(t.period) as period FROM comm_user t where t.id_community = %1\$s " +
             " union all " +
             " select max(t.period) as period FROM vote t where t.id_community = %1\$s " +
+            " union all " +
+            " select max(t.period) as period FROM post_history t where t.id_community = %1\$s " +
             ")A"
 
 
@@ -53,6 +57,8 @@ class DateRepository {
             " select min(t.creation_date) as min_date FROM comm_user t where t.id_community = %1\$s " +
             " union all " +
             " select min(t.creation_date) as min_date FROM vote t where t.id_community = %1\$s " +
+            " union all " +
+            " select min(t.creation_date) as min_date FROM post_history t where t.id_community = %1\$s " +
             ")A"
 
     private static String MAX_CREATION_DATE_QUERY = "select max(A.max_date) as max_date from (" +
@@ -65,6 +71,8 @@ class DateRepository {
             " select max(t.creation_date) as max_date FROM comm_user t where t.id_community = %1\$s " +
             " union all " +
             " select max(t.creation_date) as max_date FROM vote t where t.id_community = %1\$s " +
+            " union all " +
+            " select max(t.creation_date) as max_date FROM post_history t where t.id_community = %1\$s " +
             ")A"
 
     private static String UPDATE_PERIOD = "update %s   " +
@@ -113,7 +121,7 @@ class DateRepository {
         LOGGER.info("updating period of " + communityName)
         LOGGER.info("Interval size " + intervalList.size())
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String[] tables = ["comment", "post", "post_link", "comm_user", "vote"]
+        String[] tables = ["comment", "post", "post_link", "comm_user", "vote", "post_history"]
         List<String> sqlList = new ArrayList<>()
         for(int i = 0; i < intervalList.size(); i++) {
             Interval interval = intervalList.get(i)
