@@ -25,7 +25,7 @@ from (
 
 	select
 		regexp_split_to_table(p."text", E'\\s+') as citation,
-		p.id_user  as idid_user,
+		p.id_user  as id_user,
 		p.id as id_post,
 		'comm' as type_
 	  from "comment" p
