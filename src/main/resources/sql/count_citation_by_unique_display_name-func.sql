@@ -1,7 +1,5 @@
 CREATE OR REPLACE FUNCTION public.count_citation_by_unique_display_name(community_name text)
- RETURNS TABLE(display_name text,
- 				count bigint,
- 				id_user bigint)
+ RETURNS TABLE(display_name text, count bigint, id_user bigint)
  LANGUAGE sql
 AS $function$
 
@@ -23,6 +21,8 @@ from (
 	c.citation like '@' || u.display_name || ','
 	or
 	c.citation like '@' || u.display_name || ':'
+	or
+	c.citation like '@' || u.display_name || '.'
 	or
 	c.citation like '@' || u.display_name || '''s'
 
