@@ -1,12 +1,5 @@
 CREATE OR REPLACE FUNCTION public.answers_after_best(community_name text)
- RETURNS TABLE(id_question bigint,
- 				id_user_answers_after_best bigint,
- 				best_answer_date timestamp,
- 				user_answer_date timestamp,
- 				diff_secs double precision,
- 				diff_min double precision,
- 				diff interval
- 				)
+ RETURNS TABLE(id_question bigint, id_user_answers_after_best bigint, best_answer_date timestamp without time zone, user_answer_date timestamp without time zone, diff_secs double precision, diff_min double precision, diff interval)
  LANGUAGE sql
 AS $function$
 
@@ -19,11 +12,11 @@ with QUESTION_SOLVED as (
 	and question.id_community in (select id from community where name = $1)
 ),
 BEST_ANSWER as (
-	select question.id as id_question,
-	question.id_post_comm as id_question_comm,
-	answer.id as id_answer,
-		answer.creation_date as answer_date ,
-		answer.id_community
+	select  question.id as id_question,
+			question.id_post_comm as id_question_comm,
+			answer.id as id_answer,
+			answer.creation_date as answer_date ,
+			answer.id_community
 	from post answer
 	inner join QUESTION_SOLVED question on question.accepted_answer_comm_id = answer.id_post_comm
 	where answer.post_type = 2
@@ -41,6 +34,7 @@ BEST_ANSWER as (
 	and p.post_type = 2
 	and p.id_community = ba.id_community
 	and p.creation_date > ba.answer_date
+	and p.id_user is not null
 order by ba.id_question
 
 $function$
