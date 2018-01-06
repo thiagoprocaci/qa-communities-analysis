@@ -1,17 +1,5 @@
 CREATE OR REPLACE FUNCTION public.tags_per_user_profile(community_name text)
- RETURNS TABLE(
-    tag text,
-	top_5 numeric,
-	top_5_10 numeric,
-	top_15_20 numeric,
-	top_20_25 numeric,
-	top_25_30 numeric,
-	top_30_35 numeric,
-	top_35_40 numeric,
-	top_40_45 numeric,
-	top_45_50 numeric,
-	top_50_100 numeric
- )
+ RETURNS TABLE(tag text, top_5 numeric, top_5_10 numeric, top_10_15 numeric, top_15_20 numeric, top_20_25 numeric, top_25_30 numeric, top_30_35 numeric, top_35_40 numeric, top_40_45 numeric, top_45_50 numeric, top_50_100 numeric)
  LANGUAGE sql
 AS $function$
 with TAGS as (
@@ -47,6 +35,7 @@ select
 	A.tag as tag,
 	sum(A.top_5) as top_5,
 	sum(A.top_5_10) as top_5_10,
+	sum(A.top_10_15) as top_10_15,
 	sum(A.top_15_20) as top_15_20,
 	sum(A.top_20_25) as top_20_25,
 	sum(A.top_25_30) as top_25_30,
@@ -62,6 +51,7 @@ select
 		q.tag1 as tag,
 		sum(q.top_5) as top_5,
 		sum(q.top_5_10) as top_5_10,
+		sum(q.top_10_15) as top_10_15,
 		sum(q.top_15_20) as top_15_20,
 		sum(q.top_20_25) as top_20_25,
 		sum(q.top_25_30) as top_25_30,
@@ -79,6 +69,7 @@ select
 		q.tag2 as tag,
 		sum(q.top_5) as top_5,
 		sum(q.top_5_10) as top_5_10,
+		sum(q.top_10_15) as top_10_15,
 		sum(q.top_15_20) as top_15_20,
 		sum(q.top_20_25) as top_20_25,
 		sum(q.top_25_30) as top_25_30,
@@ -96,6 +87,7 @@ select
 		q.tag3 as tag,
 		sum(q.top_5) as top_5,
 		sum(q.top_5_10) as top_5_10,
+		sum(q.top_10_15) as top_10_15,
 		sum(q.top_15_20) as top_15_20,
 		sum(q.top_20_25) as top_20_25,
 		sum(q.top_25_30) as top_25_30,
