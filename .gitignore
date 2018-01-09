@@ -16,7 +16,7 @@ target/
 .idea/
 
 
-*.7z
+#askubuntu.com.7z
 android.stackexchange.com/
 askubuntu.com/
 #biology.stackexchange.com/
