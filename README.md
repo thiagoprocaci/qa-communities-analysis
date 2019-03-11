@@ -15,7 +15,7 @@
 - Dump date: 13-Jun-2017
 - Dump readme: https://ia800500.us.archive.org/22/items/stackexchange/readme.txt
 
-### Additional Information
+### Dump Additional Information
  - Format: 7zipped
  - Files:
    - **badges**.xml
