@@ -1,5 +1,16 @@
 [![Build Status](https://travis-ci.org/thiagoprocaci/qa-communities-analysis.svg?branch=master)](https://travis-ci.org/thiagoprocaci/qa-communities-analysis)
 
+### What does this project do?
+- Loads stackexchange dump into a structured database.
+
+## Creating the database
+
+- Install PostgreSQL 9.5
+- Run schema/schema.sql to create the database structure (table, indexes etc)
+- Finally, execute the Java Application running the main method from Application.java. This step will load the data from the dump to the database.
+
+
+## Dump details:
 Stackexchange dump url: https://archive.org/download/stackexchange
 Dump date: 13-Jun-2017
 Dump readme: https://ia800500.us.archive.org/22/items/stackexchange/readme.txt
