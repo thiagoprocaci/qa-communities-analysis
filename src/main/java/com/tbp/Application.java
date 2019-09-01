@@ -7,6 +7,7 @@ import com.tbp.graph.facade.GraphAnalysisFacade;
 import com.tbp.period.service.DateService;
 import com.tbp.profile.ProfileService;
 import com.tbp.readability.ReadabilityService;
+import com.tbp.sentiment.SentimentAnalysisService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@ public class Application implements CommandLineRunner {
     ReadabilityService redabilityService;
     @Autowired
     BadgeExtractor badgeExtractor;
+    @Autowired
+    SentimentAnalysisService sentimentAnalysisService;
+
 
     @Autowired
     ProfileService profileService;
@@ -60,7 +64,7 @@ public class Application implements CommandLineRunner {
         for (String community: communities) {
             LOGGER.info("Execution: " + community);
 
-            LOGGER.info("communityExtractor" + " " + community);
+            /*LOGGER.info("communityExtractor" + " " + community);
             communityExtractor.execute(community);
             LOGGER.info("userExtractor" + " " + community);
             userExtractor.execute(community);
@@ -82,7 +86,9 @@ public class Application implements CommandLineRunner {
             redabilityService.execute(community);
             LOGGER.info("graphAnalysisFacade" + " " + community);
             graphAnalysisFacade.makeAnalysis(community);
-
+*/
+            LOGGER.info("Sentiment analysis. Community {}", community);
+            sentimentAnalysisService.makeAnalysis(community);
         }
         //LOGGER.info("Updating profiles");
        // profileService.execute();

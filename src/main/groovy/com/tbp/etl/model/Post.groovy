@@ -112,6 +112,8 @@ class Post {
     Double complexWordsTitle
     @Column(name = "sentences_title")
     Double sentencesTitle
+    @Column(name = "sent_process_ok")
+    String sentProcessOk
 
     static Timestamp getDateAsSql(Date d) {
         if(d != null) {
