@@ -19,7 +19,7 @@ interface PostRepository extends CrudRepository<Post, Long> {
 
     Page<Post> findByCommunity(Community community, Pageable pageable);
 
-    @Query(value = "select * from post p inner join community c on c.id = p.id_community where  c.\"name\" in (:communityName) and p.body is not null and (p.sent_process_ok is null or p.sent_process_ok in ('N')) limit 5", nativeQuery = true)
+    @Query(value = "select * from post p inner join community c on c.id = p.id_community where  c.\"name\" in (:communityName) and p.body is not null and (p.sent_process_ok is null or p.sent_process_ok in ('N'))  limit 1", nativeQuery = true)
     List<Post> findForSentimentAnalysis(@Param("communityName")  String communityName);
 
     @Query(value = "select count(1) from post p inner join community c on c.id = p.id_community where  c.\"name\" in (:communityName) and p.body is not null and (p.sent_process_ok is null or p.sent_process_ok in ('N'))", nativeQuery =  true)
